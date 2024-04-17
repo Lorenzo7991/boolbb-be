@@ -20,7 +20,7 @@ Route::get('/', function () {
 
 Route::get('/admin', function () {
     return view('admin.home');
-})->middleware(['auth', 'verified'])->name('admin.hom');
+})->middleware(['auth', 'verified'])->name('admin.home');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
