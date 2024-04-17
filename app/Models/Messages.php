@@ -17,7 +17,7 @@ class Messages extends Model
         'text',
         'name',
         'lastname',
-        'email',
+        'email'
     ];
 
     /**
