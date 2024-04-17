@@ -5,19 +5,19 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
-use App\Models\Messages;
+use App\Models\Appartment;
 
-class Appartment extends Model
+
+class Messages extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'title',
-        'address',
-        'latitude',
-        'longitude',
-        'title',
-        'description',
+        'subject',
+        'text',
+        'name',
+        'lastname',
+        'email',
     ];
 
     /**
@@ -31,12 +31,12 @@ class Appartment extends Model
     }
 
     /**
-     * Define the relationship with the Messages model.
+     * Define the relationship with the Appartment model.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function appartments()
     {
-        return $this->hasMany(Messages::class);
+        return $this->belongsTo(Appartment::class);
     }
 }
