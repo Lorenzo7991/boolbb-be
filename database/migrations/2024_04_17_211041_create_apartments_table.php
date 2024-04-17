@@ -26,6 +26,7 @@ return new class extends Migration
             $table->smallInteger('square_meters');
             $table->boolean('is_visible')->default(true);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
