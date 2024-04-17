@@ -1,22 +1,24 @@
 <?php
 
+use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration {
+return new class extends Migration
+{
     /**
      * Run the migrations.
      */
     public function up(): void
     {
-        Schema::create('appartaments', function (Blueprint $table) {
+        Schema::create('apartments', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->foreignIdFor(User::class)->constrained()->cascadeOnDelete();
             $table->string('address');
             $table->decimal('latitude', 10, 6);
             $table->decimal('longitude', 10, 6);
-            $table->string('title', 30);
+            $table->string('title', 30)->unique();
             $table->text('description')->nullable();
             $table->tinyInteger('rooms');
             $table->tinyInteger('beds');
@@ -32,11 +34,9 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::table('appartaments', function (Blueprint $table) {
-            $table->dropForeign(['user_id']);
+        Schema::table('apartments', function (Blueprint $table) {
+            $table->dropForeignIdFor(User::class);
         });
-
-        Schema::dropIfExists('appartaments');
+        Schema::dropIfExists('apartments');
     }
 };
-
