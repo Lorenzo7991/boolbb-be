@@ -66,4 +66,12 @@ class ApartmentController extends Controller
         $apartment->delete();
         return to_route('apartments.index');
     }
+
+
+    public function toggleVisibility(Apartment $apartment)
+    {
+        $apartment->is_visible = !$apartment->is_visible;
+        $apartment->save();
+        return back();
+    }
 }
