@@ -12,7 +12,8 @@ class ApartmentController extends Controller
      */
     public function index()
     {
-        //
+        $apartments = Apartment::all();
+        return view('admin.apartments.index', compact('apartments'));
     }
 
     /**
@@ -41,7 +42,9 @@ class ApartmentController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $apartment = Apartment::findOrFail($id);
+
+        return view('admin.apartments.show', compact('apartment'));
     }
 
     /**
@@ -63,8 +66,17 @@ class ApartmentController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Apartment $apartment)
     {
-        //
+        $apartment->delete();
+        return to_route('apartments.index');
+    }
+
+
+    public function toggleVisibility(Apartment $apartment)
+    {
+        $apartment->is_visible = !$apartment->is_visible;
+        $apartment->save();
+        return back();
     }
 }
