@@ -4,15 +4,11 @@
 @section('title', 'Appartamenti')
 
 @section('content')
-
-<header class="container">
     <div class="d-flex justify-content-between align-items-center">
-    <h1 class="text-center">Appartamenti</h1>
-    <!--Bottone per andare alla pagina di creazione appartamento-->
-    <a class="btn btn-success text-align-center" href="">Aggiungi appartamento</a>
-</div>
-</header>
-<main class="container">
+        <h1 class="text-center">Appartamenti</h1>
+        <!--Bottone per andare alla pagina di creazione appartamento-->
+        <a class="btn btn-success text-align-center" href="{{route('apartments.create')}}">Aggiungi appartamento</a>
+    </div>
 
     <table class="table ">
         <thead>
@@ -55,9 +51,9 @@
             <td>
             <div class="d-flex gap-2"> 
                 <!--Bottone dettaglio-->
-              <a href="" class="btn btn-primary"><i class="fa-solid fa-magnifying-glass"></i></a>
+              <a href="{{route('apartments.show', $apartment->id)}}" class="btn btn-primary"><i class="fa-solid fa-magnifying-glass"></i></a>
               <!--Bottone modifica-->
-              <a class="btn btn-warning" href=""><i class="fa-solid fa-pen-to-square text-white"></i></a>
+              <a class="btn btn-warning" href="{{route('apartments.edit', $apartment->id)}}"><i class="fa-solid fa-pen-to-square text-white"></i></a>
               <!--Bottone cancella-->
               <form id="delete-form" action="{{route('apartments.destroy', $apartment->id)}}" method="POST">
                   @csrf
@@ -70,8 +66,6 @@
         </tbody>
         @endforeach
       </table>
-</main>
-
 @endsection
 @section('scripts')
 @endsection
