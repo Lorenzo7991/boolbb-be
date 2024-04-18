@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Apartment;
 
 class ApartmentController extends Controller
 {
@@ -35,7 +36,9 @@ class ApartmentController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $apartment = Apartment::findOrFail($id);
+
+        return view('apartments.show', compact('apartment'));
     }
 
     /**
