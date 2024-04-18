@@ -19,9 +19,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::patch('apartments/{apartment}/toggle-visibility', [ApartmentController::class, 'toggleVisibility'])->name('apartment.toggle-visibility');
-
-Route::resource('apartments', ApartmentController::class);
+Route::middleware('auth')->group(function () {
+    Route::patch('apartments/{apartment}/toggle-visibility', [ApartmentController::class, 'toggleVisibility'])->name('apartment.toggle-visibility');
+    Route::resource('apartments', ApartmentController::class);
+});
 
 
 

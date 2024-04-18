@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use App\Models\Apartment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use App\Http\Requests\StoreApartmentRequest;
 use App\Http\Requests\UpdateApartmentRequest;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Http;
 
 class ApartmentController extends Controller
 {
@@ -29,23 +31,48 @@ class ApartmentController extends Controller
         return view('admin.apartments.create', compact('apartment'));
     }
 
-    /**
+    /** Store function documentation:
      * Store a newly created resource in storage.
+     * Retrieve all data from the request, including the user ID of the authenticated user.
+     * Send an HTTP GET request to the TomTom geocoding API endpoint with the provided address, ignoring SSL certificate verification.
+     * If the request is successful:
+     *   - Extract the coordinates (latitude and longitude) from the response JSON data.
+     *   - Create a new Apartment instance.
+     *   - Fill the Apartment instance with the received data.
+     *   - Set the latitude and longitude of the apartment to the extracted coordinates.
+     *   - Save the apartment to the database.
+     *   - Redirect the user to the show page of the newly created apartment with a success message.
+     * If the request fails:
+     *   - Redirect the user back to the create form with an error message.
      */
     public function store(StoreApartmentRequest $request)
     {
         $data = $request->validated();
+        $data['user_id'] = Auth::id();
+
+        $response = Http::withOptions([
+            'verify' => false,
+        ])->get('https://api.tomtom.com/search/2/geocode/' . urlencode($request->address) . '.json', [
+            'key' => 'AWAhF6IT1ChO0k28GMmsIysmnTgt0Gpp',
+        ]);
+
         $apartment = new Apartment();
         $apartment->fill($data);
+        if ($response->successful()) {
+            $coordinates = $response->json()['results'][0]['position'];
+            $apartment->latitude = $coordinates['lat'];
+            $apartment->longitude = $coordinates['lon'];
 
-        if (Arr::exists($data, 'image')) {
-            $extension = $data['image']->extension(); //restituisce l'estensione del file senza punto
-            $img_url = Storage::putFileAs('apartment_images', $data['image'], "$apartment->slug.$extension");
-            $apartment->image = $img_url;
+            if (Arr::exists($data, 'image')) {
+                $extension = $data['image']->extension(); //restituisce l'estensione del file senza punto
+                $img_url = Storage::putFileAs('apartment_images', $data['image'], "$apartment->slug.$extension");
+                $apartment->image = $img_url;
+            }
+            $apartment->save();
+            return redirect()->route('apartments.show', $apartment)->with('message', 'Appartamento creato con successo')->with('type', 'success');
+        } else {
+            return back()->with('message', 'Errore durante la creazione dell\'appartamento. Si prega di riprovare.')->with('type', 'error');
         }
-
-        $apartment->save();
-        return to_route('admin.apartments.show', $apartment)->with('message', 'Appartamento creato con successo')->with('type', 'success');
     }
 
     /**
