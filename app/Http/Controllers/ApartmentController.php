@@ -27,8 +27,19 @@ class ApartmentController extends Controller
         return view('admin.apartments.create', compact('apartment'));
     }
 
-    /**
+    /** Store function documentation:
      * Store a newly created resource in storage.
+     * Retrieve all data from the request, including the user ID of the authenticated user.
+     * Send an HTTP GET request to the TomTom geocoding API endpoint with the provided address, ignoring SSL certificate verification.
+     * If the request is successful:
+     *   - Extract the coordinates (latitude and longitude) from the response JSON data.
+     *   - Create a new Apartment instance.
+     *   - Fill the Apartment instance with the received data.
+     *   - Set the latitude and longitude of the apartment to the extracted coordinates.
+     *   - Save the apartment to the database.
+     *   - Redirect the user to the show page of the newly created apartment with a success message.
+     * If the request fails:
+     *   - Redirect the user back to the create form with an error message.
      */
     public function store(Request $request)
     {
