@@ -19,6 +19,7 @@ return new class extends Migration
             $table->decimal('latitude', 10, 6);
             $table->decimal('longitude', 10, 6);
             $table->string('title', 30)->unique();
+            $table->string('slug', 40)->unique();
             $table->text('description')->nullable();
             $table->tinyInteger('rooms');
             $table->tinyInteger('beds');
