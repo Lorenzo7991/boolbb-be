@@ -31,7 +31,7 @@
             <label for="description" class="form-label">Descrizione</label>
             <textarea name="description"
                 class="form-control @error('description') is-invalid @elseif(old('description', '')) is-valid @enderror"
-                id="description" cols="30" rows="10"> 
+                id="description" cols="30" rows="10">
             {{ old('description', $apartment->description) }}
         </textarea>
         </div>
@@ -99,9 +99,9 @@
     </div>
     <div class="col-12 d-flex justify-content-end">
         <div class="form-check form-switch">
-            <input class="form-check-input" type="checkbox" id="is_visibile" name="is_visibile"
-                @if (old('is_visibile', $apartment->is_visibile)) checked @endif>
-            <label class="form-check-label" for="is_visibile">
+            <input class="form-check-input" type="checkbox" id="is_visible" name="is_visible"
+                @if (old('is_visible', $apartment->is_visible)) checked @endif>
+            <label class="form-check-label" for="is_visible">
                 Visibile
             </label>
         </div>
