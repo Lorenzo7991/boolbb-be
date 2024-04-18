@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Apartment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 
 class ApartmentController extends Controller
 {
@@ -33,10 +34,25 @@ class ApartmentController extends Controller
     {
         $data = $request->all();
         $data['user_id'] = Auth::id();
-        $apartment = new Apartment();
-        $apartment->fill($data);
-        $apartment->save();
-        return redirect()->route('admin.apartments.show', $apartment)->with('message', 'Appartamento creato con successo')->with('type', 'success');
+
+        $response = Http::withOptions([
+            'verify' => false,
+        ])->get('https://api.tomtom.com/search/2/geocode/' . urlencode($request->address) . '.json', [
+                    'key' => 'AWAhF6IT1ChO0k28GMmsIysmnTgt0Gpp',
+                ]);
+
+        if ($response->successful()) {
+            $coordinates = $response->json()['results'][0]['position'];
+            $apartment = new Apartment();
+            $apartment->fill($data);
+            $apartment->latitude = $coordinates['lat'];
+            $apartment->longitude = $coordinates['lon'];
+            $apartment->save();
+
+            return redirect()->route('apartments.show', $apartment)->with('message', 'Appartamento creato con successo')->with('type', 'success');
+        } else {
+            return back()->with('message', 'Errore durante la creazione dell\'appartamento. Si prega di riprovare.')->with('type', 'error');
+        }
     }
 
     /**
