@@ -99,7 +99,7 @@
     </div>
     <div class="col-12 d-flex justify-content-end">
         <div class="form-check form-switch">
-            <input class="form-check-input" type="checkbox" id="is_visible" name="is_visible"
+            <input class="form-check-input" value="1" type="checkbox" id="is_visible" name="is_visible"
                 @if (old('is_visible', $apartment->is_visible)) checked @endif>
             <label class="form-check-label" for="is_visible">
                 Visibile
