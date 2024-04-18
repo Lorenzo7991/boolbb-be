@@ -1,9 +1,8 @@
 @if ($apartment->exists)
-    <form action="{{ route('admin.apartments.update', $apartment) }}" method="POST" enctype="multipart/form-data"
-        novalidate>
+    <form action="{{ route('apartments.update', $apartment) }}" method="POST" enctype="multipart/form-data" novalidate>
         @method('PUT')
     @else
-        <form action="{{ route('admin.apartments.store') }}" method="POST" enctype="multipart/form-data" novalidate>
+        <form action="{{ route('apartments.store') }}" method="POST" enctype="multipart/form-data" novalidate>
 @endif
 
 @csrf
@@ -112,7 +111,7 @@
 <hr>
 
 <div class="d-flex align-items-center justify-content-between">
-    <a href="{{ route('admin.apartments.index') }}" class="btn btn-primary">Torna alla lista</a>
+    <a href="{{ route('apartments.index') }}" class="btn btn-primary">Torna alla lista</a>
 
     <div class="d-flex align-items-center gap-2">
         <button type="reset" class="btn btn-secondary"><i class="fas fa-eraser me-2"></i>Svuota i campi</button>
