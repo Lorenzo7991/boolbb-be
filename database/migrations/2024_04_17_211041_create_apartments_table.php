@@ -24,6 +24,7 @@ return new class extends Migration
             $table->tinyInteger('beds');
             $table->tinyInteger('bathrooms');
             $table->smallInteger('square_meters');
+            $table->string('image');
             $table->boolean('is_visible')->default(true);
             $table->timestamps();
             $table->softDeletes();
