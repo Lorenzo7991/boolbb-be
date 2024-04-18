@@ -26,7 +26,6 @@ class UpdateApartmentRequest extends FormRequest
         return [
             'title' => ['required', 'string', Rule::unique('apartments')->ignore($id), 'max:30'],
             'address' => 'required|string',
-            'description' => 'nullable|text',
             'latitude' => 'required|between:-90,90',
             'longitude' => 'required|between:-90,90',
             'rooms' => 'required|max:255',
