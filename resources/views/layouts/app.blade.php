@@ -8,7 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'BoolBnB')}} | @yield('title') </title>
+    <title>{{ config('app.name', 'BoolBnB') }} | @yield('title') </title>
 
 
     <!-- Fonts -->
@@ -25,10 +25,10 @@
 
 <body>
     <div id="app">
-        
+
         @include('includes.layouts.navbar')
 
-        <main class="">
+        <main class="container py-5">
             @yield('content')
         </main>
     </div>
