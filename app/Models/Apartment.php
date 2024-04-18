@@ -12,6 +12,7 @@ class Apartment extends Model
     use SoftDeletes;
 
     protected $fillable = [
+        'user_id',
         'address',
         'latitude',
         'longitude',

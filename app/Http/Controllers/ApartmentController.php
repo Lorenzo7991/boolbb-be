@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use App\Models\Apartment;
 use Illuminate\Http\Request;
 
@@ -31,10 +32,11 @@ class ApartmentController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
+        $data['user_id'] = Auth::id();
         $apartment = new Apartment();
         $apartment->fill($data);
         $apartment->save();
-        return to_route('admin.apartments.show', $apartment)->with('message', 'Appartamento creato con successo')->with('type', 'success');
+        return redirect()->route('admin.apartments.show', $apartment)->with('message', 'Appartamento creato con successo')->with('type', 'success');
     }
 
     /**
