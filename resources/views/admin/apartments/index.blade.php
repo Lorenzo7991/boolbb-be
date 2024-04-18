@@ -22,6 +22,7 @@
                 <th scope="col">Letti</th>
                 <th scope="col">Bagni</th>
                 <th scope="col">Metri Quadri</th>
+                <th scope="col">Publica</th>
                 <th scope="col">Data creazione</th>
                 <th class="text-center" scope="col">Console</th>
             </tr>
@@ -46,6 +47,17 @@
             <td>{{$apartment->bathrooms}}</td>
             <!--Metri quadri appartemento-->
             <td>{{$apartment->square_meters}}</td>
+            <!--Visibilità appartamento-->
+            <td><div class="form-check form-switch">
+                <form onclick="this.submit()" method="POST" action="{{route('apartment.toggle-visibility' , $apartment->id)}}">
+                @method('PATCH')
+                @csrf
+                <input class="form-check-input" type="checkbox" role="switch" id="visibility-{{$apartment->is_visible}}" @if ($apartment->is_visible) checked @endif>
+                <label class="form-check-label" for="visibility-{{$apartment->is_visible}}">{{$apartment->is_visible ? 'Si' : 'No'}}</label>
+
+                </form>
+              </div>
+            </td>
             <!--Data creazione appartemento-->
             <td>{{$apartment->created_at}}</td>
             <td>
