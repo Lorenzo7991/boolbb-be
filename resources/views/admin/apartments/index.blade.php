@@ -59,7 +59,7 @@
               <!--Bottone modifica-->
               <a class="btn btn-warning" href=""><i class="fa-solid fa-pen-to-square text-white"></i></a>
               <!--Bottone cancella-->
-              <form id="delete-form" action="" method="POST">
+              <form id="delete-form" action="{{route('apartments.destroy', $apartment->id)}}" method="POST">
                   @csrf
                   @method('DELETE')
                   <button class="btn btn-danger" type="submit" ><i class="fa-solid fa-trash"></i></button>
