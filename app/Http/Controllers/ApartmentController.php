@@ -111,17 +111,36 @@ class ApartmentController extends Controller
         $data = $request->validated();
         $data['is_visible'] = Arr::exists($data, 'is_visible');
 
+        $response = Http::withOptions([
+            'verify' => false,
+        ])->get('https://api.tomtom.com/search/2/geocode/' . urlencode($request->address) . '.json', [
+                    'key' => 'AWAhF6IT1ChO0k28GMmsIysmnTgt0Gpp',
+                ]);
+
+        if ($response->successful()) {
+            $jsonResponse = $response->json();
+            if (isset($jsonResponse['results']) && count($jsonResponse['results']) > 0) {
+                $coordinates = $jsonResponse['results'][0]['position'];
+                $data['latitude'] = $coordinates['lat'];
+                $data['longitude'] = $coordinates['lon'];
+            } else {
+                return back()->with('message', 'Indirizzo non valido o non trovato. Si prega di inserire un indirizzo valido.');
+            }
+        } else {
+            return back()->with('message', 'Errore durante la creazione dell\'appartamento. Si prega di riprovare.');
+        }
 
         if (Arr::exists($data, 'image')) {
-            if ($apartment->image)
-                Storage::delete($apartment->image); //controlla se c'è già un'immagine e la elimina
-            $extension = $data['image']->extension(); //restituisce l'estensione del file senza punto
+            if ($apartment->image) {
+                Storage::delete($apartment->image); // controlla se c'è già un'immagine e la elimina
+            }
+            $extension = $data['image']->extension(); // restituisce l'estensione del file senza punto
             $img_url = Storage::putFileAs('apartment_images', $data['image'], Str::slug($data['title']) . ".$extension");
-            $apartment->image = $img_url;
+            $data['image'] = $img_url;
         }
 
         $apartment->update($data);
-        return to_route('apartments.show', $apartment->id);
+        return redirect()->route('apartments.show', $apartment)->with('message', 'Appartamento aggiornato con successo');
     }
 
     /**
