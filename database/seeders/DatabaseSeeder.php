@@ -20,5 +20,7 @@ class DatabaseSeeder extends Seeder
             'date_of_birth' => '2000-12-12',
             'email' => 'mario@gmail.com',
         ]);
+
+        $this->call([ServiceSeeder::class]);
     }
 }
