@@ -10,7 +10,7 @@
         <a class="btn btn-success text-align-center" href="{{ route('apartments.create') }}">Aggiungi appartamento</a>
     </div>
 
-    <table class="table ">
+    <table class="table mt-4">
         <thead>
             <!--Colonne tabella-->
             <tr class="text-center">
@@ -31,12 +31,18 @@
             <tbody>
                 <tr class="text-center">
                     <!--Titolo appartemento-->
-                    <th scope="row">{{ $apartment->title }}</th>
+                    <td scope="row">{{ $apartment->title }}</td>
+
                     <!--Indirizzo appartemento-->
                     <td>{{ $apartment->address }}</td>
+
                     <!--Immagine appartamento-->
-                    <td><img style="width: 50px" src="{{ asset('storage/' . $apartment->image) }}" class="img-fluid mb-3"
-                        alt="{{ $apartment->title }}"></td>
+                    <td>
+                        <figure class="index-figure">
+                            <img style="width: 50px" src="{{ asset('storage/' . $apartment->image) }}"
+                                class="img-fluid rounded" alt="{{ $apartment->title }}">
+                        </figure>
+                    </td>
                     <!--Camere appartemento-->
                     <td>{{ $apartment->rooms }}</td>
                     <!--Letti appartemento-->
@@ -62,7 +68,7 @@
                         </div>
                     </td>
                     <!--Data creazione appartemento-->
-                    <td>{{ $apartment->created_at }}</td>
+                    <td>{{ $apartment->getFormattedDate('created_at') }}</td>
                     <td>
                         <div class="d-flex gap-2">
                             <!--Bottone dettaglio-->

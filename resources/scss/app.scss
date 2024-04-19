@@ -1,1 +1,88 @@
-@import '~bootstrap/scss/bootstrap'
+@import '~bootstrap/scss/bootstrap';
+
+
+/*  Immagini nella index    */
+.index-figure {
+    margin-bottom: 0;
+    height: 50px;
+    width: 50px;
+
+    img {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+        object-position: center top;
+    }
+}
+
+/*   Immagini nella show   */
+.show-main-img {
+    border-radius: 10px;
+}
+
+.show-figure {
+    height: 125px;
+    width: 230px;
+    border-radius: 10px;
+
+    img {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+        object-position: center top;
+    }
+}
+
+/*   Immagine preview form   */
+.form-figure {
+    height: 306px;
+    width: 306px;
+
+    img {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+        object-position: center top;
+        border-radius: 10px;
+    }
+}
+
+
+/*   Navbar   */
+.navbar {
+    height: 60px;
+
+    * {
+        height: 100%;
+    }
+
+    a {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}
+
+.nav-link.active {
+    position: relative;
+
+    &::after {
+        content: '';
+        height: 4px;
+        background-color: grey;
+        border-radius: 4px;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+    }
+
+}
+
+.dropdown-toggle::after {
+    border: none;
+}
+
+#dropdown-profile {
+    height: fit-content;
+}
