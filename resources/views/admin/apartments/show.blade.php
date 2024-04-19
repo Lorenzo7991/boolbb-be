@@ -52,11 +52,7 @@
                                     <p><strong>longitudine:</strong> {{ $apartment->latitude  }}</p>
                                     <p><strong>latitudine:</strong> {{ $apartment->longitude  }}</p>
                                   {{-- stato pubblicazione --}}
-                                     <p><strong>Pubblicato:</strong> {!! $apartment->is_visible
-
-    ? '<i class="fa-solid fa-circle-check"></i>'
-
-    : '<i class="fa-solid fa-circle-xmark"></i>' !!}</p>
+                                     <p><strong>Pubblicato:</strong> {!! $apartment->is_visible ? '<i class="fa-solid fa-circle-check"></i>' : '<i class="fa-solid fa-circle-xmark"></i>' !!}</p>
                                 </div>
                             </div>
                         </div>
