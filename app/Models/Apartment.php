@@ -25,7 +25,6 @@ class Apartment extends Model
         'beds',
         'bathrooms',
         'square_meters',
-        'image',
         'is_visible'
     ];
 
