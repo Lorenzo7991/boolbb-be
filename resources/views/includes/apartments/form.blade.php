@@ -103,7 +103,17 @@
                 class="img-fluid" alt="immagine appartamento" id="preview">
         </div>
     </div>
-    <div class="col-12 d-flex justify-content-end">
+    <div class="col-10">
+        @foreach ($services as $service)
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" name="services[]" id="{{ "service-$service->id" }}"
+                    value="{{ $service->id }}" @if (in_array($service->id, old('services', $prev_services ?? []))) checked @endif>
+                <label class="form-check-label" for="{{ "service-$service->id" }}">
+                    {{ $service->label }}</label>
+            </div>
+        @endforeach
+    </div>
+    <div class="col-2 d-flex justify-content-end">
         <div class="form-check form-switch">
             <input class="form-check-input" value="1" type="checkbox" id="is_visible" name="is_visible"
                 @if (old('is_visible', $apartment->is_visible)) checked @endif>
