@@ -57,8 +57,8 @@ class ApartmentController extends Controller
         $response = Http::withOptions([
             'verify' => false,
         ])->get('https://api.tomtom.com/search/2/geocode/' . urlencode($request->address) . '.json', [
-                    'key' => 'AWAhF6IT1ChO0k28GMmsIysmnTgt0Gpp',
-                ]);
+            'key' => 'AWAhF6IT1ChO0k28GMmsIysmnTgt0Gpp',
+        ]);
 
         if ($response->successful()) {
             $jsonResponse = $response->json();
@@ -96,9 +96,8 @@ class ApartmentController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Apartment $apartment)
     {
-        $apartment = Apartment::findOrFail($id);
 
         return view('admin.apartments.show', compact('apartment'));
     }
@@ -124,8 +123,8 @@ class ApartmentController extends Controller
         $response = Http::withOptions([
             'verify' => false,
         ])->get('https://api.tomtom.com/search/2/geocode/' . urlencode($request->address) . '.json', [
-                    'key' => 'AWAhF6IT1ChO0k28GMmsIysmnTgt0Gpp',
-                ]);
+            'key' => 'AWAhF6IT1ChO0k28GMmsIysmnTgt0Gpp',
+        ]);
 
         if ($response->successful()) {
             $jsonResponse = $response->json();
