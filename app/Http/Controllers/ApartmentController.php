@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
 use App\Models\Apartment;
+use App\Models\Service;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use App\Http\Requests\StoreApartmentRequest;
@@ -28,7 +29,8 @@ class ApartmentController extends Controller
     public function create()
     {
         $apartment = new Apartment();
-        return view('admin.apartments.create', compact('apartment'));
+        $services = Service::select('label', 'id')->get();
+        return view('admin.apartments.create', compact('apartment', 'services'));
     }
 
     /** Store function documentation:
@@ -69,6 +71,12 @@ class ApartmentController extends Controller
                 $apartment->image = $img_url;
             }
             $apartment->save();
+
+            // Controllo se la chiave 'services' esiste nell'array $data.
+            if (Arr::exists($data, 'services')) {
+                $apartment->services()->attach($data['services']);
+            }
+
             return redirect()->route('apartments.show', $apartment)->with('message', 'Appartamento creato con successo')->with('type', 'success');
         } else {
             return back()->with('message', 'Errore durante la creazione dell\'appartamento. Si prega di riprovare.')->with('type', 'error');
@@ -90,7 +98,9 @@ class ApartmentController extends Controller
      */
     public function edit(Apartment $apartment)
     {
-        return view('admin.apartments.edit', compact('apartment'));
+        $services = Service::select('label', 'id')->get();
+        $prev_services = $apartment->services->pluck('id')->toArray();
+        return view('admin.apartments.edit', compact('apartment', 'services', 'prev_services'));
     }
 
     /**
@@ -110,6 +120,13 @@ class ApartmentController extends Controller
         }
 
         $apartment->update($data);
+
+        // Verifico se l'array $data contiene una chiave denominata 'services'. Poi sincronizzo la relazione tra l'appartamento e i servizi
+        if (Arr::exists($data, 'services')) $apartment->services()->sync($data['services']);
+
+        // Verifico se l'array $data non contiene una chiave denominata 'services'. Poi elimino tutte le relazioni tra l'appartamento e i servizi
+        elseif (!Arr::exists($data, 'services') && $apartment->has('services')) $apartment->services()->detach();
+
         return to_route('apartments.show', $apartment->id);
     }
 
