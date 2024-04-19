@@ -11,6 +11,12 @@
 
 
 @section('content')
+@if ($message = session('message'))
+    <div class="alert alert-success }}" role="alert">
+        {{ $message }}
+    </div>
+@endif
+
     <div class="container">
         <div class="row justify-content-center mt-4">
             <div class="col-md-10">
@@ -20,8 +26,7 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-6">
-                                <img src="{{ asset('storage/' . $apartment->image) }}" class="img-fluid mb-3"
-                                    alt="{{ $apartment->title }}">
+                                 <img src="{{ asset('storage/' . $apartment->image) }}" class="img-fluid mb-3" alt="{{ $apartment->title }}">
                             </div>
                             <div class="col-md-6">
                                 {{-- descrizione dell'appartamento --}}
@@ -43,8 +48,8 @@
                                 <p><strong>latitudine:</strong> {{ $apartment->longitude }}</p>
                                 {{-- stato pubblicazione --}}
                                 <p><strong>Pubblicato:</strong> {!! $apartment->is_visible
-                                    ? '<i class="fa-solid fa-circle-check"></i>'
-                                    : '<i class="fa-solid fa-circle-xmark"></i>' !!}</p>
+    ? '<i class="fa-solid fa-circle-check"></i>'
+    : '<i class="fa-solid fa-circle-xmark"></i>' !!}</p>
                             </div>
                         </div>
                     </div>

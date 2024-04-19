@@ -33,19 +33,19 @@ class ApartmentController extends Controller
         return view('admin.apartments.create', compact('apartment'));
     }
 
-    /** Store function documentation:
-     * Store a newly created resource in storage.
-     * Retrieve all data from the request, including the user ID of the authenticated user.
-     * Send an HTTP GET request to the TomTom geocoding API endpoint with the provided address, ignoring SSL certificate verification.
-     * If the request is successful:
-     *   - Extract the coordinates (latitude and longitude) from the response JSON data.
-     *   - Create a new Apartment instance.
-     *   - Fill the Apartment instance with the received data.
-     *   - Set the latitude and longitude of the apartment to the extracted coordinates.
-     *   - Save the apartment to the database.
-     *   - Redirect the user to the show page of the newly created apartment with a success message.
-     * If the request fails:
-     *   - Redirect the user back to the create form with an error message.
+    /** Documentazione della funzione di store:
+     * Memorizza una risorsa appena creata nello storage.
+     * Recupera tutti i dati dalla richiesta, inclusa l'ID dell'utente autenticato.
+     * Invia una richiesta HTTP GET all'endpoint dell'API di geocodifica di TomTom con l'indirizzo fornito, ignorando la verifica del certificato SSL.
+     * Se la richiesta ha successo:
+     * - Estrae le coordinate (latitudine e longitudine) dai dati JSON di risposta.
+     * - Crea una nuova istanza di Apartment.
+     * - Riempie l'istanza di Apartment con i dati ricevuti.
+     * - Imposta la latitudine e la longitudine dell'appartamento alle coordinate estratte.
+     * - Salva l'appartamento nel database.
+     * - Reindirizza l'utente alla pagina di visualizzazione del nuovo appartamento creato con un messaggio di successo.
+     * Se la richiesta fallisce:
+     * - Reindirizza l'utente al modulo di creazione con un messaggio di errore.
      */
     public function store(StoreApartmentRequest $request)
     {
@@ -55,27 +55,35 @@ class ApartmentController extends Controller
         $response = Http::withOptions([
             'verify' => false,
         ])->get('https://api.tomtom.com/search/2/geocode/' . urlencode($request->address) . '.json', [
-            'key' => 'AWAhF6IT1ChO0k28GMmsIysmnTgt0Gpp',
-        ]);
+                    'key' => 'AWAhF6IT1ChO0k28GMmsIysmnTgt0Gpp',
+                ]);
 
-        $apartment = new Apartment();
-        $apartment->fill($data);
         if ($response->successful()) {
-            $coordinates = $response->json()['results'][0]['position'];
-            $apartment->latitude = $coordinates['lat'];
-            $apartment->longitude = $coordinates['lon'];
+            $jsonResponse = $response->json();
+            if (isset($jsonResponse['results']) && count($jsonResponse['results']) > 0) {
+                $coordinates = $jsonResponse['results'][0]['position'];
+                $apartment = new Apartment();
+                $apartment->fill($data);
+                $apartment->latitude = $coordinates['lat'];
+                $apartment->longitude = $coordinates['lon'];
 
-            if (Arr::exists($data, 'image')) {
-                $extension = $data['image']->extension(); //restituisce l'estensione del file senza punto
-                $img_url = Storage::putFileAs('apartment_images', $data['image'], "$apartment->slug.$extension");
-                $apartment->image = $img_url;
+                if (Arr::exists($data, 'image')) {
+                    $extension = $data['image']->extension(); //restituisce l'estensione del file senza punto
+                    $img_url = Storage::putFileAs('apartment_images', $data['image'], "$apartment->slug.$extension");
+                    $apartment->image = $img_url;
+                }
+
+                $apartment->save();
+
+                return redirect()->route('apartments.show', $apartment)->with('message', 'Appartamento creato con successo');
+            } else {
+                return back()->with('message', 'Indirizzo non valido o non trovato. Si prega di inserire un indirizzo valido.');
             }
-            $apartment->save();
-            return redirect()->route('apartments.show', $apartment)->with('message', 'Appartamento creato con successo')->with('type', 'success');
         } else {
-            return back()->with('message', 'Errore durante la creazione dell\'appartamento. Si prega di riprovare.')->with('type', 'error');
+            return back()->with('message', 'Errore durante la creazione dell\'appartamento. Si prega di riprovare.');
         }
     }
+
 
     /**
      * Display the specified resource.
@@ -105,7 +113,8 @@ class ApartmentController extends Controller
 
 
         if (Arr::exists($data, 'image')) {
-            if ($apartment->image) Storage::delete($apartment->image); //controlla se c'è già un'immagine e la elimina
+            if ($apartment->image)
+                Storage::delete($apartment->image); //controlla se c'è già un'immagine e la elimina
             $extension = $data['image']->extension(); //restituisce l'estensione del file senza punto
             $img_url = Storage::putFileAs('apartment_images', $data['image'], Str::slug($data['title']) . ".$extension");
             $apartment->image = $img_url;

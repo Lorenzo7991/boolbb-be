@@ -1,3 +1,9 @@
+@if ($message = session('message'))
+    <div class="alert alert-danger }}" role="alert">
+        {{ $message }}
+    </div>
+@endif
+
 @if ($apartment->exists)
     <form action="{{ route('apartments.update', $apartment) }}" method="POST" enctype="multipart/form-data" novalidate>
         @method('PUT')
