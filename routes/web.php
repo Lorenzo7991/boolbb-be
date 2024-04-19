@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ApartmentController;
+use App\Http\Controllers\ImageController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -24,7 +25,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('apartments', ApartmentController::class);
 });
 
-
+Route::post('images/{apartment}', [ImageController::class, 'store'])->name('image.store');
 
 Route::get('/admin', function () {
     return view('admin.home');
