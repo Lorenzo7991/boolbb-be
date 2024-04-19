@@ -59,7 +59,27 @@
                             <p><strong>Pubblicato:</strong>
                                 {!! $apartment->is_visible ? '<i class="fa-solid fa-circle-check"></i>' : '<i class="fa-solid fa-circle-xmark"></i>' !!}
                             </p>
+                            <div class="d-flex">
+                            <form id="add-image" class="d-none" action="{{route('image.store', $apartment->id)}}" method="POST" enctype="multipart/form-data">
+                                @csrf
+                                <input type="file" name="image"
+                                class="form-control  @error('image') is-invalid @elseif(old('image', '')) is-valid @enderror"
+                                id="secondary-image">
+                                <button  type="submit" class="mt-2 btn btn-small btn-success">Conferma</button>
+                            </form>
+                            <button id="add-img-btn" type="button" class="btn btn-primary"><i class="fas fa-plus"></i></button>
+                            </div>
+                            
                         </div>
+                            <ul class="d-flex list-unstyled col-12 row row-cols-4" >
+                                @foreach ( $apartment->images as $image )                                   
+                                <li class="col">
+                                    <img src="{{ asset('storage/' . $image->path) }}" class="img-fluid mb-3"
+                                    alt="image-{{ $image->id }}">
+                                </li>
+                                @endforeach
+                            </ul>
+                       
                     </div>
                 </div>
 
@@ -94,3 +114,19 @@
     </div>
 </div>
 @endsection
+@section('script')
+<script>
+
+    const addImage = document.getElementById('add-image');
+    const imgButton = document.getElementById('add-img-btn');
+    imgButton.addEventListener('click', ()=>{     
+      addImage.classList.remove('d-none');
+      imgButton.classList.add('d-none');
+    })
+</script>  
+ @endsection
+  
+
+  
+
+
