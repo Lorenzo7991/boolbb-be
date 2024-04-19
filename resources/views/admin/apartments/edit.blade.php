@@ -11,3 +11,7 @@
     @include('includes.apartments.form')
 
 @endsection
+
+@section('script')
+    @vite('resources/js/image_preview.js')
+@endsection
