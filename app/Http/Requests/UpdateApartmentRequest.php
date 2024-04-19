@@ -31,7 +31,8 @@ class UpdateApartmentRequest extends FormRequest
             'bathrooms' => 'required|max:255',
             'square_meters' => 'required|max:10000',
             'image' => 'required|image|mimes:png,jpg,jpeg',
-            'is_visible' => 'boolean'
+            'is_visible' => 'boolean',
+            'services' => 'nullable|exists:services,id'
         ];
     }
     public function messages()
@@ -53,7 +54,8 @@ class UpdateApartmentRequest extends FormRequest
             'image.required' => 'E\' obbligatorio inserire una foto',
             'image.image' => 'Il file deve essere un immagine',
             'image.mimes' => 'Il file deve essere PNG, JPG o JPEG',
-            'is_visible.boolean' => 'la visibilità deve essere un booleano'
+            'is_visible.boolean' => 'la visibilità deve essere un booleano',
+            'services.exists' => 'Il servizio selezionato non è valido'
         ];
     }
 }
