@@ -11,6 +11,8 @@ use App\Http\Requests\StoreApartmentRequest;
 use App\Http\Requests\UpdateApartmentRequest;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Str;
+
 
 class ApartmentController extends Controller
 {
@@ -115,7 +117,7 @@ class ApartmentController extends Controller
         if (Arr::exists($data, 'image')) {
             if ($apartment->image) Storage::delete($apartment->image); //controlla se c'è già un'immagine e la elimina
             $extension = $data['image']->extension(); //restituisce l'estensione del file senza punto
-            $img_url = Storage::putFileAs('apartment_images', $data['image'], "$apartment->slug.$extension");
+            $img_url = Storage::putFileAs('apartment_images', $data['image'], Str::slug($data['title']) . ".$extension");
             $apartment->image = $img_url;
         }
 

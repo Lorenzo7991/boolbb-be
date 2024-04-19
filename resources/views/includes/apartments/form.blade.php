@@ -75,8 +75,14 @@
     <div class="col-11">
         <div class="mb-3">
             <label for="image" class="form-label">Inserisci un'immagine</label>
+            {{-- Fake input file --}}
+            <div @class(['input-group', 'd-none' => !$apartment->image]) id="fake-image-field">
+                <button class="btn btn-outline-secondary" type="button" id="change-image-btn">Scegli il
+                    file</button>
+                <input type="text" class="form-control" disabled value="{{ old('image', $apartment->image) }}">
+            </div>
             <input type="file" name="image"
-                class="form-control @error('image') is-invalid @elseif(old('image', '')) is-valid @enderror"
+                class="form-control @if ($apartment->image) d-none @endif @error('image') is-invalid @elseif(old('image', '')) is-valid @enderror"
                 id="image" placeholder="Immagine..." value="{{ old('image', $apartment->image) }}">
             @error('image')
                 <div class="invalid-feedback">
@@ -132,3 +138,40 @@
 
 
 </form>
+
+<script>
+    const placeholder = 'https://marcolanci.it/boolean/assets/placeholder.png';
+    const inputImage = document.getElementById('image');
+    const preview = document.getElementById('preview');
+    const changeImageButton = document.getElementById('change-image-btn');
+    const fakeImageField = document.getElementById('fake-image-field');
+
+    // Gestione image preview
+    let blobUrl;
+    inputImage.addEventListener('change', () => {
+
+        // Controllo se è stato selezionato un file
+        if (inputImage.files && inputImage.files[0]) {
+            // prendo il file
+            const file = inputImage.files[0];
+            // preparo un url temporaneo
+            blobUrl = URL.createObjectURL(file);
+            preview.src = blobUrl;
+        } else {
+            preview.src = placeholder;
+        }
+    })
+
+    window.addEventListener('beforeunload', () => {
+        if (blobUrl) URL.revokeObjectURL(blobUrl);
+    })
+
+    // Gestione campo file
+    // al click del bottono cambio l'input mostrato
+    changeImageButton.addEventListener('click', () => {
+        fakeImageField.classList.add('d-none');
+        inputImage.classList.remove('d-none');
+        preview.src = placeHolder;
+        inputImage.click();
+    })
+</script>
