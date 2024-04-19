@@ -13,10 +13,9 @@
     <table class="table ">
         <thead>
             <!--Colonne tabella-->
-            <tr>
+            <tr class="text-center">
                 <th scope="col">Titolo</th>
                 <th scope="col">Indirizzo</th>
-                <th scope="col">Descrizione</th>
                 <th scope="col">Immagine</th>
                 <th scope="col">Camere</th>
                 <th scope="col">Letti</th>
@@ -30,15 +29,14 @@
         <!--ciclo per girare sugli appartamenti e prendere i dettagli del singolo appartamento-->
         @foreach ($apartments as $apartment)
             <tbody>
-                <tr>
+                <tr class="text-center">
                     <!--Titolo appartemento-->
                     <th scope="row">{{ $apartment->title }}</th>
                     <!--Indirizzo appartemento-->
                     <td>{{ $apartment->address }}</td>
-                    <!--Descrizione appartemento-->
-                    <td>{{ $apartment->description }}</td>
-                    <!--Immagine appartemento-->
-                    <td>URL dell'immagine </td>
+                    <!--Immagine appartamento-->
+                    <td><img style="width: 50px" src="{{ asset('storage/' . $apartment->image) }}" class="img-fluid mb-3"
+                        alt="{{ $apartment->title }}"></td>
                     <!--Camere appartemento-->
                     <td>{{ $apartment->rooms }}</td>
                     <!--Letti appartemento-->
