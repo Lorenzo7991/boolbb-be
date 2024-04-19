@@ -29,6 +29,6 @@ window.addEventListener('beforeunload', () => {
 changeImageButton.addEventListener('click', () => {
     fakeImageField.classList.add('d-none');
     inputImage.classList.remove('d-none');
-    preview.src = placeHolder;
+    preview.src = placeholder;
     inputImage.click();
 })
