@@ -41,6 +41,16 @@
                                 <p><i class="fa-solid fa-ruler me-2"></i><strong>Metri quadrati:</strong>
                                     {{ $apartment->square_meters }}mq</p>
                             </div>
+                            <div>
+                                <h5>Servizi:</h3>
+                                <ul class="d-flex list-unstyled gap-4">
+                                    @foreach ($apartment->services as $service )
+                                    <li>
+                                        <img style="width: 25px" src="{{$service->icon}}" alt="{{$service->label}}">
+                                    </li>
+                                    @endforeach
+                                </ul>                            
+                            </div>
                             {{-- indirizzo (latitudine e longitudine?) --}}
                             <p><strong>Indirizzo:</strong> {{ $apartment->address }}</p>
                             <p><strong>longitudine:</strong> {{ $apartment->latitude }}</p>
