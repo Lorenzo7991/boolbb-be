@@ -79,8 +79,7 @@
                                         @csrf
                                         <input type="file" name="image"
                                             class="form-control  @error('image') is-invalid @elseif(old('image', '')) is-valid @enderror"
-                                            id="secondary-image">
-                                        <button type="submit" class="my-2 btn btn-small btn-success">Conferma</button>
+                                            id="add-secondary-image">
                                     </form>
                                     <button id="add-img-btn" type="button" class="btn btn-primary mb-3"><i
                                             class="fas fa-plus"></i></button>
@@ -104,7 +103,7 @@
                     </div>
 
                     <div class="card-footer d-flex align-items-center justify-content-between">
-                        {{-- Grupo pulsanti navigazione --}}
+                        {{-- Gruppo pulsanti navigazione --}}
                         <div id="btn-group">
                             {{-- Pulsante home --}}
                             <a href="{{ route('admin.home') }}" class="btn btn-primary me-2"><i
@@ -135,24 +134,5 @@
     </div>
 @endsection
 @section('script')
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const addImage = document.getElementById('add-image');
-            const imgButton = document.getElementById('add-img-btn');
-
-            imgButton.addEventListener('click', () => {
-                addImage.classList.remove('d-none');
-                imgButton.classList.add('d-none');
-            });
-
-            // Aggiungo la validazione del campo immagine vuoto al momento del submit
-            addImage.addEventListener('submit', function(event) {
-                const imageInput = document.getElementById('secondary-image');
-                if (imageInput.files.length === 0) {
-                    event.preventDefault(); 
-                    alert('Seleziona un\'immagine prima di confermare!');
-                }
-            });
-        });
-    </script>
+    @vite('resources/js/secondary_images.js')
 @endsection
