@@ -136,11 +136,23 @@
 @endsection
 @section('script')
     <script>
-        const addImage = document.getElementById('add-image');
-        const imgButton = document.getElementById('add-img-btn');
-        imgButton.addEventListener('click', () => {
-            addImage.classList.remove('d-none');
-            imgButton.classList.add('d-none');
-        })
+        document.addEventListener("DOMContentLoaded", function() {
+            const addImage = document.getElementById('add-image');
+            const imgButton = document.getElementById('add-img-btn');
+
+            imgButton.addEventListener('click', () => {
+                addImage.classList.remove('d-none');
+                imgButton.classList.add('d-none');
+            });
+
+            // Aggiungo la validazione del campo immagine vuoto al momento del submit
+            addImage.addEventListener('submit', function(event) {
+                const imageInput = document.getElementById('secondary-image');
+                if (imageInput.files.length === 0) {
+                    event.preventDefault(); 
+                    alert('Seleziona un\'immagine prima di confermare!');
+                }
+            });
+        });
     </script>
 @endsection

@@ -57,8 +57,8 @@ class ApartmentController extends Controller
         $response = Http::withOptions([
             'verify' => false,
         ])->get('https://api.tomtom.com/search/2/geocode/' . urlencode($request->address) . '.json', [
-            'key' => 'AWAhF6IT1ChO0k28GMmsIysmnTgt0Gpp',
-        ]);
+                    'key' => 'AWAhF6IT1ChO0k28GMmsIysmnTgt0Gpp',
+                ]);
 
         if ($response->successful()) {
             $jsonResponse = $response->json();
@@ -69,9 +69,9 @@ class ApartmentController extends Controller
                 $apartment->latitude = $coordinates['lat'];
                 $apartment->longitude = $coordinates['lon'];
 
-                if (Arr::exists($data, 'image')) {
-                    $extension = $data['image']->extension(); //restituisce l'estensione del file senza punto
-                    $img_url = Storage::putFileAs('apartment_images', $data['image'], "$apartment->slug.$extension");
+                if ($request->hasFile('image')) {
+                    $extension = $request->file('image')->extension();
+                    $img_url = Storage::putFileAs('apartment_images', $request->file('image'), "$apartment->slug.$extension");
                     $apartment->image = $img_url;
                 }
 
@@ -82,15 +82,15 @@ class ApartmentController extends Controller
                     $apartment->services()->attach($data['services']);
                 }
 
-
-                return redirect()->route('apartments.show', $apartment)->with('message', 'Appartamento creato con successo');
+                return redirect()->route('apartments.show', $apartment)->with('message', 'Appartamento creato con successo')->with('type', 'success');
             } else {
-                return back()->with('message', 'Indirizzo non valido o non trovato. Si prega di inserire un indirizzo valido.');
+                return back()->with('message', 'Indirizzo non valido o non trovato. Si prega di inserire un indirizzo valido.')->with('type', 'error');
             }
         } else {
-            return back()->with('message', 'Errore durante la creazione dell\'appartamento. Si prega di riprovare.');
+            return back()->with('message', 'Errore durante la creazione dell\'appartamento. Si prega di riprovare.')->with('type', 'error');
         }
     }
+
 
 
     /**
@@ -123,8 +123,8 @@ class ApartmentController extends Controller
         $response = Http::withOptions([
             'verify' => false,
         ])->get('https://api.tomtom.com/search/2/geocode/' . urlencode($request->address) . '.json', [
-            'key' => 'AWAhF6IT1ChO0k28GMmsIysmnTgt0Gpp',
-        ]);
+                    'key' => 'AWAhF6IT1ChO0k28GMmsIysmnTgt0Gpp',
+                ]);
 
         if ($response->successful()) {
             $jsonResponse = $response->json();
@@ -133,10 +133,10 @@ class ApartmentController extends Controller
                 $data['latitude'] = $coordinates['lat'];
                 $data['longitude'] = $coordinates['lon'];
             } else {
-                return back()->with('message', 'Indirizzo non valido o non trovato. Si prega di inserire un indirizzo valido.');
+                return back()->with('message', 'Indirizzo non valido o non trovato. Si prega di inserire un indirizzo valido.')->with('type', 'error');
             }
         } else {
-            return back()->with('message', 'Errore durante la creazione dell\'appartamento. Si prega di riprovare.');
+            return back()->with('message', 'Errore durante la creazione dell\'appartamento. Si prega di riprovare.')->with('type', 'error');
         }
 
         if (Arr::exists($data, 'image')) {
@@ -158,7 +158,7 @@ class ApartmentController extends Controller
         elseif (!Arr::exists($data, 'services') && $apartment->has('services'))
             $apartment->services()->detach();
 
-        return redirect()->route('apartments.show', $apartment)->with('message', 'Appartamento aggiornato con successo');
+        return redirect()->route('apartments.show', $apartment)->with('message', 'Appartamento aggiornato con successo')->with('type', 'success');
     }
 
     /**
