@@ -57,8 +57,8 @@ class ApartmentController extends Controller
         $response = Http::withOptions([
             'verify' => false,
         ])->get('https://api.tomtom.com/search/2/geocode/' . urlencode($request->address) . '.json', [
-                    'key' => 'AWAhF6IT1ChO0k28GMmsIysmnTgt0Gpp',
-                ]);
+            'key' => 'AWAhF6IT1ChO0k28GMmsIysmnTgt0Gpp',
+        ]);
 
         if ($response->successful()) {
             $jsonResponse = $response->json();
@@ -123,8 +123,8 @@ class ApartmentController extends Controller
         $response = Http::withOptions([
             'verify' => false,
         ])->get('https://api.tomtom.com/search/2/geocode/' . urlencode($request->address) . '.json', [
-                    'key' => 'AWAhF6IT1ChO0k28GMmsIysmnTgt0Gpp',
-                ]);
+            'key' => 'AWAhF6IT1ChO0k28GMmsIysmnTgt0Gpp',
+        ]);
 
         if ($response->successful()) {
             $jsonResponse = $response->json();
@@ -167,7 +167,7 @@ class ApartmentController extends Controller
     public function destroy(Apartment $apartment)
     {
         $apartment->delete();
-        return to_route('apartments.index');
+        return to_route('apartments.index')->with('message', "Appartamento eliminato con successo");
     }
 
 

@@ -10,6 +10,10 @@
         <a class="btn btn-success text-align-center" href="{{ route('apartments.create') }}">Aggiungi appartamento</a>
     </div>
 
+    @if (session('message'))
+        <div class="alert alert-success">{{ session('message') }}</div>
+    @endif
+
     <table class="table mt-4">
         <thead>
             <!--Colonne tabella-->
