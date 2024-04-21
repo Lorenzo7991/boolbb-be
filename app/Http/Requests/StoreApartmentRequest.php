@@ -25,10 +25,10 @@ class StoreApartmentRequest extends FormRequest
             'title' => 'required|string|unique:apartments|max:30',
             'address' => 'required|string',
             'description' => 'nullable|string',
-            'rooms' => 'required|max:255',
-            'beds' => 'required|max:255',
-            'bathrooms' => 'required|max:255',
-            'square_meters' => 'required|max:10000',
+            'rooms' => 'required|integer|max:50',
+            'beds' => 'required|integer|max:50',
+            'bathrooms' => 'required|integer|max:50',
+            'square_meters' => 'required|integer|max:10000',
             'image' => 'required|image|mimes:png,jpg,jpeg',
             'is_visible' => 'boolean',
             'services' => 'nullable|exists:services,id'
@@ -47,15 +47,15 @@ class StoreApartmentRequest extends FormRequest
             'rooms.max' => 'Le stanze non possono essere più di :max',
             'beds.required' => 'E\' obbligatorio inserire un numero di letti',
             'beds.max' => 'I letti non possono essere più di :max',
-            'beds.required' => 'E\' obbligatorio inserire un numero di bagni',
-            'beds.max' => 'I bagni non possono essere più di :max',
+            'bathrooms.required' => 'E\' obbligatorio inserire un numero di bagni',
+            'bathrooms.max' => 'I bagni non possono essere più di :max',
             'square_meters.required' => 'E\' obbligatorio inserire un numero di metri quadrati',
             'square_meters.max' => 'I metri quadrati non possono essere più di :max',
             'image.required' => 'E\' obbligatorio inserire una foto',
             'image.image' => 'Il file deve essere un immagine',
             'image.mimes' => 'Il file deve essere PNG, JPG o JPEG',
             'is_visible.boolean' => 'la visibilità deve essere un booleano',
-            'services.exists' => 'Il servizio selezionato non è valido'
+            'services.*.exists' => 'Il servizio selezionato non è valido'
         ];
     }
 }

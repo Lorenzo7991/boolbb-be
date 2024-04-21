@@ -22,9 +22,9 @@ return new class extends Migration
             $table->string('title', 30)->unique();
             $table->string('slug', 40)->unique();
             $table->text('description')->nullable();
-            $table->tinyInteger('rooms');
-            $table->tinyInteger('beds');
-            $table->tinyInteger('bathrooms');
+            $table->tinyInteger('rooms', false, true);
+            $table->tinyInteger('beds', false, true);
+            $table->tinyInteger('bathrooms', false, true);
             $table->smallInteger('square_meters');
             $table->string('image');
             $table->boolean('is_visible')->default(true);
