@@ -22,16 +22,23 @@
             <input type="text" name="title"
                 class="form-control @error('title') is-invalid @elseif(old('title', '')) is-valid @enderror"
                 id="title" placeholder="Inserisci il titolo" value="{{ old('title', $apartment->title) }}">
+            @error('title')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+            @else
+                <div class="form-text">Inserisci un titolo che non superi i 30 caratteri</div>
+            @enderror
         </div>
     </div>
 
     <div class="col-6">
-        <div class="mb-3">
+        <div class="mb-3" id="search-box-container">
             {{-- INDIRIZZO --}}
             <label for="address" class="form-label">Via</label>
-            <input type="text" name="address"
+            {{-- <input type="text" name="address"
                 class="form-control @error('address') is-invalid @elseif(old('address', '')) is-valid @enderror"
-                id="address" placeholder="Inserisci la via" value="{{ old('address', $apartment->address) }}">
+                id="address" placeholder="Inserisci la via" value="{{ old('address', $apartment->address) }}"> --}}
         </div>
     </div>
 
@@ -41,9 +48,7 @@
             <label for="description" class="form-label">Descrizione</label>
             <textarea name="description"
                 class="form-control @error('description') is-invalid @elseif(old('description', '')) is-valid @enderror"
-                id="description" cols="30" rows="10">
-                    {{ old('description', $apartment->description) }}
-                </textarea>
+                id="description" cols="30" rows="10">{{ old('description', $apartment->description) }}</textarea>
         </div>
     </div>
 
@@ -53,7 +58,15 @@
             <label for="rooms" class="form-label">Numero di stanze</label>
             <input type="number" name="rooms"
                 class="form-control @error('rooms') is-invalid @elseif(old('rooms', '')) is-valid @enderror"
-                id="rooms" placeholder="Inserisci numero stanze" value="{{ old('rooms', $apartment->rooms) }}">
+                id="rooms" placeholder="Inserisci numero stanze" value="{{ old('rooms', $apartment->rooms) }}"
+                min="1" max="50">
+            @error('rooms')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+            @else
+                <div class="form-text">Inserisci un numero tra 1 e 50</div>
+            @enderror
         </div>
     </div>
     <div class="col-3">
@@ -62,7 +75,15 @@
             <label for="beds" class="form-label">Numero di letti</label>
             <input type="number" name="beds"
                 class="form-control @error('beds') is-invalid @elseif(old('beds', '')) is-valid @enderror"
-                id="beds" placeholder="Inserisci numero letti" value="{{ old('beds', $apartment->beds) }}">
+                id="beds" placeholder="Inserisci numero letti" value="{{ old('beds', $apartment->beds) }}"
+                min="1" max="50">
+            @error('beds')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+            @else
+                <div class="form-text">Inserisci un numero tra 1 e 50</div>
+            @enderror
         </div>
     </div>
     <div class="col-3">
@@ -72,7 +93,14 @@
             <input type="number" name="bathrooms"
                 class="form-control @error('bathrooms') is-invalid @elseif(old('bathrooms', '')) is-valid @enderror"
                 id="bathrooms" placeholder="Inserisci numero bagni"
-                value="{{ old('bathrooms', $apartment->bathrooms) }}">
+                value="{{ old('bathrooms', $apartment->bathrooms) }}" min="1" max="50">
+            @error('bathrooms')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+            @else
+                <div class="form-text">Inserisci un numero tra 1 e 50</div>
+            @enderror
         </div>
     </div>
     <div class="col-3">
@@ -83,6 +111,13 @@
                 class="form-control @error('square_meters') is-invalid @elseif(old('square_meters', '')) is-valid @enderror"
                 id="square_meters" placeholder="Inserisci metri quadrati"
                 value="{{ old('square_meters', $apartment->square_meters) }}">
+            @error('square_meters')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+            @else
+                <div class="form-text">Inserisci un numero inferiore a 10000</div>
+            @enderror
         </div>
     </div>
 
@@ -134,14 +169,23 @@
         @endforeach
     </div>
     <div class="col-2 d-flex justify-content-end">
-        {{-- SWITCH VISIBILITA' --}}
-        <div class="form-check form-switch">
-            <input class="form-check-input" value="1" type="checkbox" id="is_visible" name="is_visible"
-                @if (old('is_visible', $apartment->is_visible)) checked @endif>
-            <label class="form-check-label" for="is_visible">
-                Visibile
-            </label>
-        </div>
+
+        @if ($apartment->exists)
+            {{-- SWITCH VISIBILITA' --}}
+            <div class="form-check form-switch">
+                @error('is_visible')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                @else
+                @enderror
+                <input class="form-check-input" value="1" type="checkbox" id="is_visible" name="is_visible"
+                    @if (old('is_visible', $apartment->is_visible)) checked @endif>
+                <label class="form-check-label" for="is_visible">
+                    Visibile
+                </label>
+            </div>
+        @endif
     </div>
 </div>
 
@@ -158,3 +202,37 @@
 
 
 </form>
+
+<script>
+    const searchBoxContainer = document.getElementById('search-box-container')
+    var options = {
+        searchOptions: {
+            key: "JCA7jDznFGPlGy91V9K6LVAp8heuxKMU",
+            language: "it-IT",
+            limit: 5,
+        },
+        autocompleteOptions: {
+            key: "JCA7jDznFGPlGy91V9K6LVAp8heuxKMU",
+            language: "it-IT",
+        },
+    }
+    var ttSearchBox = new tt.plugins.SearchBox(tt.services, options)
+    var searchBoxHTML = ttSearchBox.getSearchBoxHTML()
+    searchBoxContainer.appendChild(searchBoxHTML)
+
+    // Input type text per l'indirizzo
+    const inputAddressBox = document.querySelector('.tt-search-box-input')
+    inputAddressBox.name = "address"
+    inputAddressBox.classList.add('form-control')
+    inputAddressBox.id = "address"
+    inputAddressBox.placeholder = "Via... "
+    inputAddressBox.value = "{{ old('address', $apartment->address) }}"
+
+    const inputAddressContainer = document.querySelector('.tt-search-box')
+    inputAddressContainer.classList.add('mt-0')
+
+
+    const inputAddressContainerBox = document.querySelector('.tt-search-box-input-container')
+    inputAddressContainerBox.style.padding = "0"
+    inputAddressContainerBox.style.border = "none"
+</script>
