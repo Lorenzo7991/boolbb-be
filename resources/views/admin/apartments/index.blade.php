@@ -4,6 +4,7 @@
 @section('title', 'Appartamenti')
 
 @section('content')
+
     <div class="d-flex justify-content-between align-items-center">
         <h1 class="text-center">Appartamenti</h1>
         <!--Bottone per andare alla pagina di creazione appartamento-->
@@ -82,8 +83,9 @@
                             <a class="btn btn-warning" href="{{ route('apartments.edit', $apartment->id) }}"><i
                                     class="fa-solid fa-pen-to-square text-white"></i></a>
                             <!--Bottone cancella-->
-                            <form id="delete-form" action="{{ route('apartments.destroy', $apartment->id) }}"
-                                method="POST">
+                            <form id="delete-form-{{ $apartment->id }}"
+                                action="{{ route('apartments.destroy', $apartment->id) }}" method="POST"
+                                class="delete-form" data-bs-toggle="modal" data-bs-target="#delete-modal">
                                 @csrf
                                 @method('DELETE')
                                 <button class="btn btn-danger" type="submit"><i class="fa-solid fa-trash"></i></button>
@@ -94,6 +96,9 @@
             </tbody>
         @endforeach
     </table>
+    <!-- Modale Eliminazione -->
+    @include('includes.delete_modal')
 @endsection
-@section('scripts')
+@section('script')
+    @vite('resources/js/delete_confirmation.js')
 @endsection
