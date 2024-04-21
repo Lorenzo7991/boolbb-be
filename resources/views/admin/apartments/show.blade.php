@@ -88,13 +88,18 @@
                             </div>
 
                             {{-- GALLERIA IMMAGINI --}}
-                            <ul class="d-flex list-unstyled col-12 row row-cols-4">
+                            <ul class="d-flex list-unstyled col-12 row row-cols-2 row-cols-lg-3 row-cols-xxl-4 mt-4">
                                 @foreach ($apartment->images as $image)
-                                    <li class="col">
+                                    <li class="gallery-item col">
                                         <figure class="show-figure">
                                             <img src="{{ asset('storage/' . $image->path) }}" class="rounded img-fluid"
                                                 alt="image-{{ $image->id }}">
                                         </figure>
+                                        <form class="delete-img" action="{{ route('image.destroy', $image->id)}}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button class=" btn-sm btn delete-img-btn" type="submit"><i class="text-white fa-solid fa-xmark"></i></button>
+                                        </form>
                                     </li>
                                 @endforeach
                             </ul>
