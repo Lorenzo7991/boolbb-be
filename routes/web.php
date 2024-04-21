@@ -25,7 +25,8 @@ Route::middleware('auth')->group(function () {
     Route::resource('apartments', ApartmentController::class);
 });
 
-Route::post('images/{apartment}', [ImageController::class, 'store'])->name('image.store');
+Route::post('apartments/{apartment}/images}', [ImageController::class, 'store'])->name('image.store');
+Route::delete('apartments/images/{image}', [ImageController::class, 'destroy'])->name('image.destroy');
 
 Route::get('/admin', function () {
     return view('admin.home');
