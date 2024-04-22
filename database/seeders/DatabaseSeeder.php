@@ -14,13 +14,13 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
 
-        \App\Models\User::factory()->create([
+        /*\App\Models\User::factory()->create([
             'name' => 'Mario',
             'last_name' => 'Rossi',
             'date_of_birth' => '2000-12-12',
             'email' => 'mario@gmail.com',
-        ]);
+        ]);*/
 
-        $this->call([ServiceSeeder::class]);
+        $this->call([ServiceSeeder::class, UserSeeder::class, ApartmentSeeder::class]);
     }
 }

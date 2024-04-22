@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(User::class)->constrained()->cascadeOnDelete();
             $table->string('address');
+            $table->smallInteger('price_per_night');
             $table->decimal('latitude', 10, 6);
             $table->decimal('longitude', 10, 6);
             $table->string('title', 30)->unique();
