@@ -1,8 +1,8 @@
-@if ($message = session('message'))
+{{-- @if ($message = session('message'))
     <div class="alert alert-danger }}" role="alert">
         {{ $message }}
     </div>
-@endif
+@endif --}}
 
 @if ($apartment->exists)
     <form action="{{ route('apartments.update', $apartment) }}" method="POST" enctype="multipart/form-data" novalidate>
@@ -39,6 +39,11 @@
             {{-- <input type="text" name="address"
                 class="form-control @error('address') is-invalid @elseif(old('address', '')) is-valid @enderror"
                 id="address" placeholder="Inserisci la via" value="{{ old('address', $apartment->address) }}"> --}}
+            @error('address')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+            @enderror
         </div>
     </div>
 
@@ -49,6 +54,13 @@
             <textarea name="description"
                 class="form-control @error('description') is-invalid @elseif(old('description', '')) is-valid @enderror"
                 id="description" cols="30" rows="10">{{ old('description', $apartment->description) }}</textarea>
+            @error('description')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+            @else
+                <div class="form-text">Inserisci una descrizione valida</div>
+            @enderror
         </div>
     </div>
 
