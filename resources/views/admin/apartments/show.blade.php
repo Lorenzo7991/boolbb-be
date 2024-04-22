@@ -10,11 +10,6 @@
 @endsection
 
 @section('content')
-    @if ($message = session('message'))
-        <div class="alert alert-success }}" role="alert">
-            {{ $message }}
-        </div>
-    @endif
 
     <div class="container">
         <div class="row justify-content-center mt-4">

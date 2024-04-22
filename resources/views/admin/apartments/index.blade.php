@@ -6,14 +6,11 @@
 @section('content')
 
     <div class="d-flex justify-content-between align-items-center">
-        <h1 class="text-center">Appartamenti</h1>
+        <h1 class="text-center">I tuoi Appartamenti</h1>
         <!--Bottone per andare alla pagina di creazione appartamento-->
         <a class="btn btn-success text-align-center" href="{{ route('apartments.create') }}">Aggiungi appartamento</a>
     </div>
 
-    {{-- @if (session('message'))
-        <div class="alert alert-success">{{ session('message') }}</div>
-    @endif --}}
 
     <table class="table mt-4">
         <thead>
