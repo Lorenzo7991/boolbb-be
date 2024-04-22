@@ -18,44 +18,40 @@
     <table class="table mt-4">
         <thead>
             <!--Colonne tabella-->
-            <tr class="text-center">
+            <tr class="">
+                <th scope="col" class="text-center"><i class=" ps-1 fa-solid fa-camera-retro fs-4"></i></th>
                 <th scope="col">Titolo</th>
-                <th scope="col">Indirizzo</th>
-                <th scope="col">Immagine</th>
-                <th scope="col">Camere</th>
-                <th scope="col">Letti</th>
-                <th scope="col">Bagni</th>
-                <th scope="col">Metri Quadri</th>
+                <th scope="col">Indirizzo <i class="fa-solid fa-location-dot text-danger "></i></th>
+                <th scope="col">Metri <i class="fa-solid fa-expand"></i></th>
+                <th scope="col"><i class="fa-solid fa-coins text-warning "></i>/notte</th>
                 <th scope="col">Publica</th>
-                <th scope="col">Data creazione</th>
-                <th class="text-center" scope="col">Console</th>
+                <th class="text-center" scope="col"><i class="fa-solid fa-gamepad fs-3 "></i></th>
             </tr>
         </thead>
         <!--ciclo per girare sugli appartamenti e prendere i dettagli del singolo appartamento-->
         @foreach ($apartments as $apartment)
             <tbody>
-                <tr class="text-center">
+                <tr class="">
+                    <!--Immagine appartamento-->
+                    <td class="d-flex justify-content-center ">
+                        <figure class="index-figure">
+                            <img style="width: 50px" src="{{ asset('storage/' . $apartment->image) }}"
+                                class="img-fluid rounded" alt="{{ $apartment->title }}">
+                        </figure>
+                    </td>
+
                     <!--Titolo appartemento-->
                     <td scope="row">{{ $apartment->title }}</td>
 
                     <!--Indirizzo appartemento-->
                     <td>{{ $apartment->address }}</td>
 
-                    <!--Immagine appartamento-->
-                    <td>
-                        <figure class="index-figure">
-                            <img style="width: 50px" src="{{ asset('storage/' . $apartment->image) }}"
-                                class="img-fluid rounded" alt="{{ $apartment->title }}">
-                        </figure>
-                    </td>
-                    <!--Camere appartemento-->
-                    <td>{{ $apartment->rooms }}</td>
-                    <!--Letti appartemento-->
-                    <td>{{ $apartment->beds }}</td>
-                    <!--Bagni appartemento-->
-                    <td>{{ $apartment->bathrooms }}</td>
                     <!--Metri quadri appartemento-->
                     <td>{{ $apartment->square_meters }}</td>
+
+                    <!--Prezzp per notte -->
+                    <td>{{ $apartment->price_per_night }}</td>
+
                     <!--Visibilità appartamento-->
                     <td>
                         <div class="form-check form-switch">
@@ -66,16 +62,16 @@
                                 <input class="form-check-input" type="checkbox" role="switch"
                                     id="visibility-{{ $apartment->is_visible }}"
                                     @if ($apartment->is_visible) checked @endif>
-                                <label class="form-check-label"
-                                    for="visibility-{{ $apartment->is_visible }}">{{ $apartment->is_visible ? 'Si' : 'No' }}</label>
+                                <label class="form-check-label" for="visibility-{{ $apartment->is_visible }}"><i
+                                        class="fa-solid  text-secondary {{ $apartment->is_visible ? 'fa-eye' : 'fa-eye-slash' }} "></i></label>
 
                             </form>
                         </div>
                     </td>
-                    <!--Data creazione appartemento-->
-                    <td>{{ $apartment->getFormattedDate('created_at') }}</td>
+
+                    {{-- Bottoni --}}
                     <td>
-                        <div class="d-flex gap-2">
+                        <div class="d-flex justify-content-center  gap-2">
                             <!--Bottone dettaglio-->
                             <a href="{{ route('apartments.show', $apartment->id) }}" class="btn btn-primary"><i
                                     class="fa-solid fa-magnifying-glass"></i></a>
