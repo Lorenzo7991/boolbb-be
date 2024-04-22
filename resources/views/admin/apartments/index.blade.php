@@ -11,9 +11,9 @@
         <a class="btn btn-success text-align-center" href="{{ route('apartments.create') }}">Aggiungi appartamento</a>
     </div>
 
-    @if (session('message'))
+    {{-- @if (session('message'))
         <div class="alert alert-success">{{ session('message') }}</div>
-    @endif
+    @endif --}}
 
     <table class="table mt-4">
         <thead>
@@ -96,6 +96,12 @@
             </tbody>
         @endforeach
     </table>
+
+    {{-- Paginazione --}}
+    @if ($apartments->hasPages())
+        {{ $apartments->links() }}
+    @endif
+
     <!-- Modale Eliminazione -->
     @include('includes.delete_modal')
 @endsection
