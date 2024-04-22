@@ -62,6 +62,7 @@
                                 </div>
                                 {{-- INDIRIZZO - LAT - LON --}}
                                 <p><strong>Indirizzo:</strong> {{ $apartment->address }}</p>
+                                <p><strong>Prezzo/n:</strong> {{ $apartment->price_per_night }}€</p>
                                 <p><strong>longitudine:</strong> {{ $apartment->latitude }}</p>
                                 <p><strong>latitudine:</strong> {{ $apartment->longitude }}</p>
 
@@ -95,10 +96,12 @@
                                             <img src="{{ asset('storage/' . $image->path) }}" class="rounded img-fluid"
                                                 alt="image-{{ $image->id }}">
                                         </figure>
-                                        <form class="delete-img" action="{{ route('image.destroy', $image->id)}}" method="POST">
+                                        <form class="delete-img" action="{{ route('image.destroy', $image->id) }}"
+                                            method="POST">
                                             @csrf
                                             @method('DELETE')
-                                            <button class=" btn-sm btn delete-img-btn" type="submit"><i class="text-white fa-solid fa-xmark"></i></button>
+                                            <button class=" btn-sm btn delete-img-btn" type="submit"><i
+                                                    class="text-white fa-solid fa-xmark"></i></button>
                                         </form>
                                     </li>
                                 @endforeach

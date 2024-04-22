@@ -31,6 +31,7 @@ class StoreApartmentRequest extends FormRequest
             'square_meters' => 'required|integer|max:10000',
             'image' => 'required|image|mimes:png,jpg,jpeg',
             'is_visible' => 'boolean',
+            'price_per_night' => 'required|integer|max:10000',
             'services' => 'nullable|exists:services,id'
 
         ];
@@ -55,6 +56,7 @@ class StoreApartmentRequest extends FormRequest
             'image.image' => 'Il file deve essere un immagine',
             'image.mimes' => 'Il file deve essere PNG, JPG o JPEG',
             'is_visible.boolean' => 'la visibilità deve essere un booleano',
+            'price_per_night.required' => 'E\' obbligatorio inserire un prezzo per notte',
             'services.*.exists' => 'Il servizio selezionato non è valido'
         ];
     }
