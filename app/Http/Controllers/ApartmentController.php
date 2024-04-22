@@ -21,7 +21,7 @@ class ApartmentController extends Controller
      */
     public function index()
     {
-        $apartments = Apartment::whereUserId(Auth::id())->get();
+        $apartments = Apartment::orderBy('updated_at', 'desc')->orderBy('created_at', 'desc')->paginate(5)->whereUserId(Auth::id())->get();
         return view('admin.apartments.index', compact('apartments'));
     }
 
@@ -167,7 +167,7 @@ class ApartmentController extends Controller
     public function destroy(Apartment $apartment)
     {
         $apartment->delete();
-        return to_route('apartments.index')->with('message', "Appartamento eliminato con successo");
+        return to_route('apartments.index')->with('message', "Appartamento eliminato con successo")->with('type', 'danger');
     }
 
 
