@@ -64,7 +64,7 @@
         </div>
     </div>
 
-    <div class="col-3">
+    <div class="col-2">
         <div class="mb-3">
             {{-- NUMERO STANZE --}}
             <label for="rooms" class="form-label">Numero di stanze</label>
@@ -81,7 +81,7 @@
             @enderror
         </div>
     </div>
-    <div class="col-3">
+    <div class="col-2">
         <div class="mb-3">
             {{-- NUMERO LETTI --}}
             <label for="beds" class="form-label">Numero di letti</label>
@@ -98,7 +98,7 @@
             @enderror
         </div>
     </div>
-    <div class="col-3">
+    <div class="col-2">
         <div class="mb-3">
             {{-- NUMERO BAGNI --}}
             <label for="bathrooms" class="form-label">Numero di bagni</label>
@@ -124,6 +124,23 @@
                 id="square_meters" placeholder="Inserisci metri quadrati"
                 value="{{ old('square_meters', $apartment->square_meters) }}">
             @error('square_meters')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+            @else
+                <div class="form-text">Inserisci un numero inferiore a 10000</div>
+            @enderror
+        </div>
+    </div>
+    <div class="col-3">
+        <div class="mb-3">
+            {{-- PEZZO PER NOTTE --}}
+            <label for="price_per_night" class="form-label">Prezzo per notte</label>
+            <input type="number" name="price_per_night"
+                class="form-control @error('price_per_night') is-invalid @elseif(old('price_per_night', '')) is-valid @enderror"
+                id="price_per_night" placeholder="Inserisci prezzo per notte"
+                value="{{ old('price_per_night', $apartment->price_per_night) }}">
+            @error('price_per_night')
                 <div class="invalid-feedback">
                     {{ $message }}
                 </div>

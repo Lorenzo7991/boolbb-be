@@ -27,6 +27,7 @@ class Apartment extends Model
         'beds',
         'bathrooms',
         'square_meters',
+        'price_per_night',
         'is_visible'
     ];
 
