@@ -8,20 +8,25 @@
     <div class="d-flex justify-content-between align-items-center">
         <h1 id="index-title" class="text-center">I tuoi appartamenti:</h1>
         <!--Bottone per andare alla pagina di creazione appartamento-->
-        <a class="btn btn-primary text-align-center" href="{{ route('apartments.create') }}"><i class="fa-solid fa-plus me-2"></i>Aggiungi appartamento</a>
+        <a class="btn btn-primary text-align-center" href="{{ route('apartments.create') }}"><i
+                class="fa-solid fa-plus me-2"></i>Aggiungi appartamento</a>
     </div>
 
     <table class="table mt-4 shadow-lg p-3 mb-5 rounded">
         <thead>
             <!--Colonne tabella-->
             <tr>
-                <th scope="col" class="text-center text-white brd-left"><i class=" ps-1 fa-solid fa-camera-retro "></i></th>
-                <th scope="col" class="text-white"><i class="fa-solid fa-tag me-2"></i>Titolo</th>
-                <th scope="col" class="text-white"><i class="fa-solid fa-location-dot  me-2 "></i>Indirizzo </th>
-                <th scope="col" class="text-white"> <i class="fa-solid fa-expand me-2"></i>mq<sup>2</sup></th>
-                <th scope="col" class="text-white"><i class="fa-solid fa-coins  "></i>/notte</th>
+                <th scope="col" class="text-center text-white brd-left"><i
+                        class=" ps-1 fa-solid fa-camera-retro icon-border"></i></th>
+                <th scope="col" class="text-white"><i class="fa-solid fa-tag me-2  icon-border"></i>Titolo</th>
+                <th scope="col" class="text-white"><i class="fa-solid fa-location-dot  me-2  icon-border"></i>Indirizzo
+                </th>
+                <th scope="col" class="text-white"> <i class="fa-solid fa-expand me-2 icon-border"></i>mq<sup>2</sup>
+                </th>
+                <th scope="col" class="text-white"><i class="fa-solid fa-coins  icon-border"></i>/notte</th>
                 <th scope="col" class="text-white">Publicati</th>
-                <th class="text-center text-white brd-right" scope="col"><i class="fa-solid fa-gamepad "></i></th>
+                <th class="text-center text-white brd-right" scope="col"><i class="fa-solid fa-gamepad icon-border"></i>
+                </th>
             </tr>
         </thead>
         <!--ciclo per girare sugli appartamenti e prendere i dettagli del singolo appartamento-->

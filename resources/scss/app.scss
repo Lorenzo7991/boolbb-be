@@ -135,4 +135,9 @@ body {
     thead th:last-child {
         border-top-right-radius: 15px;
     }
+
+    .icon-border {
+        -webkit-text-stroke-color: #000000;
+        -webkit-text-stroke-width: 1px;
+    }
 }
