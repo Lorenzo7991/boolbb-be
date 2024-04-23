@@ -6,26 +6,22 @@
 @section('content')
 
     <div class="d-flex justify-content-between align-items-center">
-        <h1 class="text-center">Appartamenti</h1>
+        <h1 id="index-title" class="text-center">I tuoi appartamenti:</h1>
         <!--Bottone per andare alla pagina di creazione appartamento-->
-        <a class="btn btn-success text-align-center" href="{{ route('apartments.create') }}">Aggiungi appartamento</a>
+        <a class="btn btn-primary text-align-center" href="{{ route('apartments.create') }}"><i class="fa-solid fa-plus me-2"></i>Aggiungi appartamento</a>
     </div>
 
-    {{-- @if (session('message'))
-        <div class="alert alert-success">{{ session('message') }}</div>
-    @endif --}}
-
-    <table class="table mt-4">
+    <table class="table mt-4 shadow-lg p-3 mb-5 rounded">
         <thead>
             <!--Colonne tabella-->
-            <tr class="">
-                <th scope="col" class="text-center"><i class=" ps-1 fa-solid fa-camera-retro fs-4"></i></th>
-                <th scope="col">Titolo</th>
-                <th scope="col">Indirizzo <i class="fa-solid fa-location-dot text-danger "></i></th>
-                <th scope="col">Metri <i class="fa-solid fa-expand"></i></th>
-                <th scope="col"><i class="fa-solid fa-coins text-warning "></i>/notte</th>
-                <th scope="col">Publica</th>
-                <th class="text-center" scope="col"><i class="fa-solid fa-gamepad fs-3 "></i></th>
+            <tr>
+                <th scope="col" class="text-center text-white brd-left"><i class=" ps-1 fa-solid fa-camera-retro "></i></th>
+                <th scope="col" class="text-white"><i class="fa-solid fa-tag me-2"></i>Titolo</th>
+                <th scope="col" class="text-white"><i class="fa-solid fa-location-dot  me-2 "></i>Indirizzo </th>
+                <th scope="col" class="text-white"> <i class="fa-solid fa-expand me-2"></i>mq<sup>2</sup></th>
+                <th scope="col" class="text-white"><i class="fa-solid fa-coins  "></i>/notte</th>
+                <th scope="col" class="text-white">Publicati</th>
+                <th class="text-center text-white brd-right" scope="col"><i class="fa-solid fa-gamepad "></i></th>
             </tr>
         </thead>
         <!--ciclo per girare sugli appartamenti e prendere i dettagli del singolo appartamento-->
@@ -63,7 +59,7 @@
                                     id="visibility-{{ $apartment->is_visible }}"
                                     @if ($apartment->is_visible) checked @endif>
                                 <label class="form-check-label" for="visibility-{{ $apartment->is_visible }}"><i
-                                        class="fa-solid  text-secondary {{ $apartment->is_visible ? 'fa-eye' : 'fa-eye-slash' }} "></i></label>
+                                        class="fa-solid {{ $apartment->is_visible ? 'fa-eye text-primary' : 'fa-eye-slash text-secondary' }} "></i></label>
 
                             </form>
                         </div>
