@@ -33,7 +33,7 @@ class ApartmentSeeder extends Seeder
                 'latitude' => 41.8986, // Latitudine approssimativa per Roma
                 'longitude' => 12.4768, // Longitudine approssimativa per Roma
                 'price_per_night' => 100, // Prezzo per notte
-                'image' => 'apartment_images/test.png', // Aggiungi qui l'URL dell'immagine
+                'image' => 'apartment_images/appartamento-pantheon.jpg', // Aggiungi qui l'URL dell'immagine
             ],
             [
                 'title' => 'Appartamento Colosseo',
@@ -47,7 +47,7 @@ class ApartmentSeeder extends Seeder
                 'latitude' => 41.8902, // Latitudine approssimativa per Roma
                 'longitude' => 12.4922, // Longitudine approssimativa per Roma
                 'price_per_night' => 80, // Prezzo per notte
-                'image' => 'apartment_images/test.png', // Aggiungi qui l'URL dell'immagine
+                'image' => 'apartment_images/appartamento-colosseo.jpg', // Aggiungi qui l'URL dell'immagine
             ],
             [
                 'title' => 'Appartamento Trastevere',
@@ -61,7 +61,7 @@ class ApartmentSeeder extends Seeder
                 'latitude' => 41.8876, // Latitudine approssimativa per Roma
                 'longitude' => 12.4674, // Longitudine approssimativa per Roma
                 'price_per_night' => 120, // Prezzo per notte
-                'image' => 'apartment_images/test.png', // Aggiungi qui l'URL dell'immagine
+                'image' => 'apartment_images/appartamento-trastevere.jpg', // Aggiungi qui l'URL dell'immagine
             ],
             [
                 'title' => 'Appartamento Villa Borghese',
@@ -75,7 +75,7 @@ class ApartmentSeeder extends Seeder
                 'latitude' => 41.9125, // Latitudine approssimativa per Roma
                 'longitude' => 12.4871, // Longitudine approssimativa per Roma
                 'price_per_night' => 150, // Prezzo per notte
-                'image' => 'apartment_images/test.png', // Aggiungi qui l'URL dell'immagine
+                'image' => 'apartment_images/appartamento-villa-borghese.jpg', // Aggiungi qui l'URL dell'immagine
             ],
             [
                 'title' => 'Appartamento Piazza Navona',
@@ -89,7 +89,7 @@ class ApartmentSeeder extends Seeder
                 'latitude' => 41.8992, // Latitudine approssimativa per Roma
                 'longitude' => 12.4735, // Longitudine approssimativa per Roma
                 'price_per_night' => 110, // Prezzo per notte
-                'image' => 'apartment_images/test.png', // Aggiungi qui l'URL dell'immagine
+                'image' => 'apartment_images/appartamento-piazza-navona-roma.jpg', // Aggiungi qui l'URL dell'immagine
             ],
 
             // Appartamenti a Firenze
@@ -105,7 +105,7 @@ class ApartmentSeeder extends Seeder
                 'latitude' => 43.7677, // Latitudine approssimativa per Firenze
                 'longitude' => 11.2552, // Longitudine approssimativa per Firenze
                 'price_per_night' => 130, // Prezzo per notte
-                'image' => 'apartment_images/test.png', // Aggiungi qui l'URL dell'immagine
+                'image' => 'apartment_images/appartamento-ponte-vecchio.jpg', // Aggiungi qui l'URL dell'immagine
             ],
             [
                 'title' => 'Appartamento Duomo',
@@ -119,7 +119,7 @@ class ApartmentSeeder extends Seeder
                 'latitude' => 43.7730, // Latitudine approssimativa per Firenze
                 'longitude' => 11.2562, // Longitudine approssimativa per Firenze
                 'price_per_night' => 100, // Prezzo per notte
-                'image' => 'apartment_images/test.png', // Aggiungi qui l'URL dell'immagine
+                'image' => 'apartment_images/appartamento-duomo-milano.jpg', // Aggiungi qui l'URL dell'immagine
             ],
             [
                 'title' => 'Appartamento Pitti',
@@ -133,7 +133,7 @@ class ApartmentSeeder extends Seeder
                 'latitude' => 43.7662, // Latitudine approssimativa per Firenze
                 'longitude' => 11.2484, // Longitudine approssimativa per Firenze
                 'price_per_night' => 90, // Prezzo per notte
-                'image' => 'apartment_images/test.png', // Aggiungi qui l'URL dell'immagine
+                'image' => 'apartment_images/appartamento-pitti-firenze.jpg', // Aggiungi qui l'URL dell'immagine
             ],
             [
                 'title' => 'Appartamento San Lorenzo',
@@ -147,7 +147,7 @@ class ApartmentSeeder extends Seeder
                 'latitude' => 43.7742, // Latitudine approssimativa per Firenze
                 'longitude' => 11.2499, // Longitudine approssimativa per Firenze
                 'price_per_night' => 110, // Prezzo per notte
-                'image' => 'apartment_images/test.png', // Aggiungi qui l'URL dell'immagine
+                'image' => 'apartment_images/appartamento-san-lorenzo-firenze.jpg', // Aggiungi qui l'URL dell'immagine
             ],
             [
                 'title' => 'Appartamento Michelangelo',
@@ -161,7 +161,7 @@ class ApartmentSeeder extends Seeder
                 'latitude' => 43.7629, // Latitudine approssimativa per Firenze
                 'longitude' => 11.2650, // Longitudine approssimativa per Firenze
                 'price_per_night' => 120, // Prezzo per notte
-                'image' => 'apartment_images/test.png', // Aggiungi qui l'URL dell'immagine
+                'image' => 'apartment_images/appartamento-michelangelo-firenze.jpg', // Aggiungi qui l'URL dell'immagine
             ],
 
             // Appartamenti a Milano
@@ -177,7 +177,7 @@ class ApartmentSeeder extends Seeder
                 'latitude' => 45.4641, // Latitudine approssimativa per Milano
                 'longitude' => 9.1915, // Longitudine approssimativa per Milano
                 'price_per_night' => 180, // Prezzo per notte
-                'image' => 'apartment_images/test.png', // Aggiungi qui l'URL dell'immagine
+                'image' => 'apartment_images/appartamento-duomo-milano.jpg', // Aggiungi qui l'URL dell'immagine
             ],
             [
                 'title' => 'Appartamento Navigli',
@@ -191,7 +191,7 @@ class ApartmentSeeder extends Seeder
                 'latitude' => 45.4603, // Latitudine approssimativa per Milano
                 'longitude' => 9.1808, // Longitudine approssimativa per Milano
                 'price_per_night' => 150, // Prezzo per notte
-                'image' => 'apartment_images/test.png', // Aggiungi qui l'URL dell'immagine
+                'image' => 'apartment_images/appartamento-navigli-milano.jpg', // Aggiungi qui l'URL dell'immagine
             ],
             [
                 'title' => 'Appartamento Brera',
@@ -205,7 +205,7 @@ class ApartmentSeeder extends Seeder
                 'latitude' => 45.4716, // Latitudine approssimativa per Milano
                 'longitude' => 9.1872, // Longitudine approssimativa per Milano
                 'price_per_night' => 160, // Prezzo per notte
-                'image' => 'apartment_images/test.png', // Aggiungi qui l'URL dell'immagine
+                'image' => 'apartment_images/appartamento-brera-milano.jpg', // Aggiungi qui l'URL dell'immagine
             ],
             [
                 'title' => 'Appartamento Porta Nuova',
@@ -219,7 +219,7 @@ class ApartmentSeeder extends Seeder
                 'latitude' => 45.4787, // Latitudine approssimativa per Milano
                 'longitude' => 9.1891, // Longitudine approssimativa per Milano
                 'price_per_night' => 140, // Prezzo per notte
-                'image' => 'apartment_images/test.png', // Aggiungi qui l'URL dell'immagine
+                'image' => 'apartment_images/appartamento-porta-nuova-milano.jpg', // Aggiungi qui l'URL dell'immagine
             ],
             [
                 'title' => 'Appartamento San Siro',
@@ -233,7 +233,7 @@ class ApartmentSeeder extends Seeder
                 'latitude' => 45.4783, // Latitudine approssimativa per Milano
                 'longitude' => 9.1233, // Longitudine approssimativa per Milano
                 'price_per_night' => 130, // Prezzo per notte
-                'image' => 'apartment_images/test.png', // Aggiungi qui l'URL dell'immagine
+                'image' => 'apartment_images/appartamento-san-siro.jpg', // Aggiungi qui l'URL dell'immagine
             ],
         ];
         foreach ($apartments as $apartment) {
