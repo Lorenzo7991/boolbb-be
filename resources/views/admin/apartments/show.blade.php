@@ -127,7 +127,8 @@
                                 <a href="{{ route('apartments.edit', $apartment->id) }}" class="btn btn-warning"><i
                                         class="fa-solid fa-pencil me-2"></i>{{ __('Modifica') }}</a>
                                 {{-- Form(pulsante) eliminazione --}}
-                                <form action="{{ route('apartments.destroy', $apartment->id) }}" method="POST">
+                                <form action="{{ route('apartments.destroy', $apartment->id) }}" method="POST"
+                                    class="delete-form" data-bs-toggle="modal" data-bs-target="#delete-modal">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-danger"><i
@@ -140,7 +141,10 @@
             </div>
         </div>
     </div>
+    <!-- Modale Eliminazione -->
+    @include('includes.delete_modal')
 @endsection
 @section('script')
+    @vite('resources/js/delete_confirmation.js')
     @vite('resources/js/secondary_images.js')
 @endsection
