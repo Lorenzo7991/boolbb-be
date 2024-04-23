@@ -107,6 +107,7 @@ class ApartmentController extends Controller
      */
     public function edit(Apartment $apartment)
     {
+        if (!(Auth::id() == $apartment->user_id)) return view('admin.home')->with('type', 'warning')->with('message', 'Non sei autorizzato ad eseguire questa azione');
         $services = Service::select('label', 'id')->get();
         $prev_services = $apartment->services->pluck('id')->toArray();
         return view('admin.apartments.edit', compact('apartment', 'services', 'prev_services'));
