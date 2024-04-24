@@ -36,12 +36,18 @@
 <body>
     <div id="app">
 
+        {{-- Navbar --}}
         @include('includes.layouts.navbar')
 
-        <main class="container py-5">
-            @include('includes.alert')
-            @yield('content')
-        </main>
+        <div class= "main-content">
+            {{-- SideBar --}}
+            @include('includes.layouts.sidebar')
+
+            <main class="container-fluid p-5">
+                @include('includes.alert')
+                @yield('content')
+            </main>
+        </div>
     </div>
 
     @yield('script')

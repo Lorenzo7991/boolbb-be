@@ -1,5 +1,5 @@
-<nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm py-0 ">
-    <div class="container">
+<nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm py-0 sticky-top">
+    <div class="container-fluid">
         <a class="navbar-brand d-flex align-items-center" href="{{ url('/') }}">
             <div class="logo_laravel">
 
@@ -16,7 +16,11 @@
             <!-- Left Side Of Navbar -->
             <ul class="navbar-nav me-auto">
                 <li class="nav-item">
-                    {{-- QUI ANDRA' IL LOGO --}}
+                    <a class="nav-link" href="{{ url('/') }}"><img class="img-fluid"
+                            src="{{ asset('assets/logo.png') }}" alt="logo">
+                        <span class="fs-1 me-5">
+                            BoolBnB
+                        </span></a>
                 </li>
                 <li class="nav-item">
                     <a @class(['nav-link', 'active' => Request::is('apartments*')]) href="{{ url('/apartments') }}">{{ __('Appartamenti') }}</a>
