@@ -22,17 +22,17 @@ class StoreApartmentRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => 'required|string|unique:apartments|max:30',
+            'title' => 'required|string|unique:apartments|max:70',
             'address' => 'required|string',
             'description' => 'nullable|string',
-            'rooms' => 'required|integer|max:50',
-            'beds' => 'required|integer|max:50',
-            'bathrooms' => 'required|integer|max:50',
-            'square_meters' => 'required|integer|max:10000',
+            'rooms' => 'required|integer|min:1|max:50',
+            'beds' => 'required|integer|min:1|max:50',
+            'bathrooms' => 'required|integer|min:1|max:50',
+            'square_meters' => 'required|integer|min:10|max:10000',
             'image' => 'required|image|mimes:png,jpg,jpeg',
             'is_visible' => 'boolean',
-            'price_per_night' => 'required|integer|max:10000',
-            'services' => 'nullable|exists:services,id'
+            'price_per_night' => 'required|integer|min:1',
+            'services' => 'required|exists:services,id'
 
         ];
     }
@@ -40,23 +40,29 @@ class StoreApartmentRequest extends FormRequest
     {
         return [
 
-            'title.required' => 'E\' obbligatorio inserire il titolo',
+            'title.required' => 'Inserire il titolo',
             'title.unique' => 'Questo titolo è gia in uso',
             'title.max' => 'Il titolo non puo superare :max caratteri',
-            'address.required' => 'E\' obbligatorio inserire un indirizzo',
-            'rooms.required' => 'E\' obbligatorio inserire un numero di stanze',
+            'address.required' => 'Inserire un indirizzo',
+            'rooms.required' => 'Inserire il numero di stanze',
+            'rooms.min' => 'Le stanze non possono essere meno di :min',
             'rooms.max' => 'Le stanze non possono essere più di :max',
-            'beds.required' => 'E\' obbligatorio inserire un numero di letti',
+            'beds.required' => 'Inserire il numero di letti',
+            'beds.min' => 'I letti non possono essere meno di :min',
             'beds.max' => 'I letti non possono essere più di :max',
-            'bathrooms.required' => 'E\' obbligatorio inserire un numero di bagni',
+            'bathrooms.required' => 'Inserire il numero di bagni',
+            'bathrooms.min' => 'I bagni non possono essere meno di :min',
             'bathrooms.max' => 'I bagni non possono essere più di :max',
-            'square_meters.required' => 'E\' obbligatorio inserire un numero di metri quadrati',
+            'square_meters.required' => 'Inserire il numero di metri quadrati',
+            'square_meters.min' => 'I metri quadrati non possono essere meno di :min',
             'square_meters.max' => 'I metri quadrati non possono essere più di :max',
-            'image.required' => 'E\' obbligatorio inserire una foto',
+            'image.required' => 'Inserire una foto',
             'image.image' => 'Il file deve essere un immagine',
             'image.mimes' => 'Il file deve essere PNG, JPG o JPEG',
             'is_visible.boolean' => 'la visibilità deve essere un booleano',
-            'price_per_night.required' => 'E\' obbligatorio inserire un prezzo per notte',
+            'price_per_night.required' => 'Inserire il prezzo per notte',
+            'price_per_night.min' => 'Il prezzo per notte non può essere inferiore a :min €',
+            'services.required' => 'Devi selezionare almeno 1 servizio',
             'services.*.exists' => 'Il servizio selezionato non è valido'
         ];
     }

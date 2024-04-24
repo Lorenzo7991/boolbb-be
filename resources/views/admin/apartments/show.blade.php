@@ -10,11 +10,6 @@
 @endsection
 
 @section('content')
-    @if ($message = session('message'))
-        <div class="alert alert-success }}" role="alert">
-            {{ $message }}
-        </div>
-    @endif
 
     <div class="container">
         <div class="row justify-content-center">
@@ -128,7 +123,8 @@
                                         class="fa-solid fa-pencil me-2"></i>{{ __('Modifica') }}</a>
                                 {{-- Form(pulsante) eliminazione --}}
                                 <form action="{{ route('apartments.destroy', $apartment->id) }}" method="POST"
-                                    class="delete-form" data-bs-toggle="modal" data-bs-target="#delete-modal">
+                                    class="delete-form" data-bs-toggle="modal" data-bs-target="#delete-modal"
+                                    data-title="{{ $apartment->title }}">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-danger"><i

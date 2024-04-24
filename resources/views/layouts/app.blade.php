@@ -44,7 +44,7 @@
             @include('includes.layouts.sidebar')
 
             <main class="container-fluid p-5">
-                {{-- @include('includes.alert') --}}
+                @include('includes.alert')
                 @yield('content')
             </main>
         </div>

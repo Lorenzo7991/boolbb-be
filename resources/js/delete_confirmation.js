@@ -1,5 +1,6 @@
 const deleteForms = document.querySelectorAll('.delete-form');
 const modal = document.getElementById('delete-modal');
+const modalMessage = document.querySelector('.modal-body');
 const confirmationButton = document.getElementById('modal-confirmation-button');
 
 let activeForm = null;
@@ -9,6 +10,7 @@ deleteForms.forEach(form => {
         e.preventDefault();
 
         activeForm = form;
+        modalMessage.innerText = `Sei sicuro di voler eliminare ${form.dataset.title}?`;
     })
 })
 

@@ -155,7 +155,6 @@ body {
     }
 }
 
-
 // Sidebar
 
 #sidebar {
@@ -190,4 +189,9 @@ main {
     height: calc(100vh - 80px);
     display: flex;
     overflow: auto;
+}
+// Servizi nel form
+
+#services-wrapper.form-control {
+    width: fit-content;
 }
