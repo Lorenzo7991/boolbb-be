@@ -28,7 +28,8 @@ class Apartment extends Model
         'bathrooms',
         'square_meters',
         'price_per_night',
-        'is_visible'
+        'is_visible',
+        'image'
     ];
 
     public function user()

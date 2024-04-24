@@ -98,7 +98,7 @@ class ApartmentController extends Controller
      */
     public function show(Apartment $apartment)
     {
-
+        if (!(Auth::id() == $apartment->user_id)) return to_route('admin.home')->with('type', 'danger')->with('message', 'Non sei autorizzato ad eseguire questa azione');
         return view('admin.apartments.show', compact('apartment'));
     }
 
@@ -107,6 +107,7 @@ class ApartmentController extends Controller
      */
     public function edit(Apartment $apartment)
     {
+        if (!(Auth::id() == $apartment->user_id)) return to_route('admin.home')->with('type', 'danger')->with('message', 'Non sei autorizzato ad eseguire questa azione');
         $services = Service::select('label', 'id')->get();
         $prev_services = $apartment->services->pluck('id')->toArray();
         return view('admin.apartments.edit', compact('apartment', 'services', 'prev_services'));
@@ -167,7 +168,7 @@ class ApartmentController extends Controller
     public function destroy(Apartment $apartment)
     {
         $apartment->delete();
-        return to_route('apartments.index')->with('message', "Appartamento eliminato con successo")->with('type', 'danger');
+        return to_route('apartments.index')->with('message', "Appartamento eliminato con successo")->with('type', 'success');
     }
 
 

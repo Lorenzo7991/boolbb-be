@@ -82,7 +82,8 @@
                             <!--Bottone cancella-->
                             <form id="delete-form-{{ $apartment->id }}"
                                 action="{{ route('apartments.destroy', $apartment->id) }}" method="POST"
-                                class="delete-form" data-bs-toggle="modal" data-bs-target="#delete-modal">
+                                class="delete-form" data-bs-toggle="modal" data-bs-target="#delete-modal"
+                                data-title="{{ $apartment->title }}">
                                 @csrf
                                 @method('DELETE')
                                 <button class="btn btn-danger" type="submit"><i class="fa-solid fa-trash"></i></button>
