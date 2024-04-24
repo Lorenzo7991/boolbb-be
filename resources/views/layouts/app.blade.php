@@ -39,7 +39,7 @@
         @include('includes.layouts.navbar')
 
         <main class="container py-5">
-            {{-- @include('includes.alert') --}}
+            @include('includes.alert')
             @yield('content')
         </main>
     </div>
