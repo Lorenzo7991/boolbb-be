@@ -76,13 +76,11 @@ class Apartment extends Model
 
         return Carbon::create($this->$column)->format($format);
     }
-
-
     // Accessor per ottenere il path assoluto delle immagini solo in chiamate api
     public function image(): Attribute
     {
         return Attribute::make(fn ($value) => $value
             && app('request')->is('api/*')
-            ? url('storage/' . $value) : null);
+            ? url('storage/' . $value) : $value);
     }
 }
