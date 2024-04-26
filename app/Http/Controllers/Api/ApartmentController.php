@@ -16,7 +16,7 @@ class ApartmentController extends Controller
      */
     public function index()
     {
-        $apartments = Apartment::whereIsVisible(true)->latest()->get();
+        $apartments = Apartment::whereIsVisible(true)->latest()->with('user')->with('services')->get();
         return response()->json($apartments);
     }
 
