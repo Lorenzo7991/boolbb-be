@@ -8,7 +8,7 @@
                     <div class="card-header">{{ __('Register') }}</div>
 
                     <div class="card-body pb-0">
-                        <form method="POST" action="{{ route('register') }}" novalidate>
+                        <form method="POST" action="{{ route('register') }}" novalidate id="register-form">
                             @csrf
 
                             <div class="mb-4 row">
@@ -74,7 +74,7 @@
 
                             <div class="mb-4 row">
                                 {{-- Password --}}
-                                <div class="col-6">
+                                <div class="col-6" id="password-col">
                                     <label class="mb-2" for="password">{{ __('Password') }} <span
                                             class="text-danger">*</span></label>
                                     <input id="password" type="password"
@@ -87,7 +87,7 @@
                                         </span>
                                     @enderror
                                 </div>
-
+                                {{-- Conferma password --}}
                                 <div class="col-6">
                                     <label class="mb-2" for="password-confirm">{{ __('Confirm Password') }} <span
                                             class="text-danger">*</span></label>
@@ -102,8 +102,10 @@
                                         obbligatori</small>
                                 </div>
                                 <div class="col-6 d-flex justify-content-end">
-                                    <button type="submit" class="btn btn-primary mt-3">
-                                        {{ __('Register') }}
+
+                                    {{-- Bottono di registrazione --}}
+                                    <button type="submit" class="btn btn-primary mt-3" id="register-btn">
+                                        {{ __('Registrati') }}
                                     </button>
                                 </div>
                             </div>
@@ -113,4 +115,33 @@
             </div>
         </div>
     </div>
+@endsection
+
+
+@section('script')
+    <script>
+        const registerForm = document.getElementById('register-form')
+        const inputPassword = document.getElementById('password')
+        const inputConfirmPassword = document.getElementById('password-confirm')
+        const passowordCol = document.getElementById('password-col')
+
+        registerForm.addEventListener('submit', e => {
+            const prevErrorMsg = document.getElementById('error-msg')
+            if (prevErrorMsg) {
+                prevErrorMsg.remove();
+                inputPassword.classList.remove('is-invalid')
+            }
+            if (inputPassword.value !== inputConfirmPassword.value) {
+                e.preventDefault();
+
+                inputPassword.classList.add('is-invalid');
+                const errorMsg = document.createElement('span');
+                errorMsg.id = 'error-msg'
+                errorMsg.classList.add('invalid-feedback');
+                errorMsg.role = 'alert';
+                errorMsg.innerHTML = '<strong>Il campo conferma password non corrisponde</strong>'
+                passowordCol.appendChild(errorMsg);
+            }
+        })
+    </script>
 @endsection
