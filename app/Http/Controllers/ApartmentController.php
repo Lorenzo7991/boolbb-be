@@ -42,8 +42,8 @@ class ApartmentController extends Controller
     {
         $data = $request->validated();
         $data['user_id'] = Auth::id();
-
         $apartment = new Apartment();
+        $apartment->fill($data);
 
         if ($request->hasFile('image')) {
             $extension = $request->file('image')->extension();
