@@ -130,17 +130,35 @@ body {
 
     &::after {
         content: '';
-        width: 4px;
         background-color: #4BC9E4;
         border-radius: 5px;
         position: absolute;
-        bottom: 0;
-        top: 0;
-        right: 0;
     }
 
 
 
+}
+
+// Trattino sulla sidebar
+#sidebar {
+    .nav-link.active::after {
+        width: 4px;
+        top: 0;
+        bottom: 0;
+        right: 0;
+
+    }
+}
+
+// Trattino sulla navbar
+.navbar {
+    .nav-link.active::after {
+        height: 4px;
+        left: 0;
+        bottom: 0;
+        right: 0;
+
+    }
 }
 
 .dropdown-toggle::after {
