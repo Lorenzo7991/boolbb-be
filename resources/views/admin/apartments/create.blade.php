@@ -15,4 +15,6 @@
 
 @section('script')
     @vite('resources/js/image_preview.js')
+    @vite('resources/js/apartments_form_validation.js')
+
 @endsection
