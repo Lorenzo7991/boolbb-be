@@ -42,7 +42,7 @@
 
                             <div class="mb-4 row">
                                 {{-- Data di nascita --}}
-                                <div class="col-6">
+                                <div id="date-col" class="col-6">
                                     <label class="mb-2" for="date_of_birth">{{ __('Data di nascita') }}</label>
 
                                     <input id="date_of_birth" type="date"
@@ -57,7 +57,7 @@
                                     @enderror
                                 </div>
                                 {{-- Email --}}
-                                <div class="col-6">
+                                <div id="email-col" class="col-6">
                                     <label class="mb-2" for="email">{{ __('Indirizzo E-Mail') }} <span
                                             class="text-danger">*</span></label>
                                     <input id="email" type="email"
@@ -119,29 +119,5 @@
 
 
 @section('script')
-    <script>
-        const registerForm = document.getElementById('register-form')
-        const inputPassword = document.getElementById('password')
-        const inputConfirmPassword = document.getElementById('password-confirm')
-        const passowordCol = document.getElementById('password-col')
-
-        registerForm.addEventListener('submit', e => {
-            const prevErrorMsg = document.getElementById('error-msg')
-            if (prevErrorMsg) {
-                prevErrorMsg.remove();
-                inputPassword.classList.remove('is-invalid')
-            }
-            if (inputPassword.value !== inputConfirmPassword.value) {
-                e.preventDefault();
-
-                inputPassword.classList.add('is-invalid');
-                const errorMsg = document.createElement('span');
-                errorMsg.id = 'error-msg'
-                errorMsg.classList.add('invalid-feedback');
-                errorMsg.role = 'alert';
-                errorMsg.innerHTML = '<strong>Il campo conferma password non corrisponde</strong>'
-                passowordCol.appendChild(errorMsg);
-            }
-        })
-    </script>
+ @vite('resources/js/register_form_validation.js')
 @endsection

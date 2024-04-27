@@ -132,12 +132,6 @@ forms.forEach(form => {
         }
 
 
-
-
-
-
-
-
         if (!isValid) {
             e.preventDefault();
             const errorsAlert = document.createElement('div')
