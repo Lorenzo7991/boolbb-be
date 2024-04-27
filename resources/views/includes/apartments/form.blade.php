@@ -1,12 +1,15 @@
 @if ($apartment->exists)
-    <form action="{{ route('apartments.update', $apartment) }}" method="POST" enctype="multipart/form-data" novalidate>
+    <form action="{{ route('apartments.update', $apartment) }}" method="POST" enctype="multipart/form-data" novalidate
+        class="apartment-form">
         @method('PUT')
     @else
-        <form action="{{ route('apartments.store') }}" method="POST" enctype="multipart/form-data" novalidate>
+        <form action="{{ route('apartments.store') }}" method="POST" enctype="multipart/form-data" novalidate
+            class="apartment-form">
 @endif
 
 @csrf
 
+<div id="form-alert"></div>
 <div class="row">
     <div class="col-12 col-lg-6">
         <div class="row">
@@ -196,8 +199,9 @@
         {{-- SERVIZI --}}
         @foreach ($services as $service)
             <div class="form-check form-check-inline ">
-                <input class="form-check-input" type="checkbox" name="services[]" id="{{ "service-$service->id" }}"
-                    value="{{ $service->id }}" @if (in_array($service->id, old('services', $prev_services ?? []))) checked @endif>
+                <input class="form-check-input services-group" type="checkbox" name="services[]"
+                    id="{{ "service-$service->id" }}" value="{{ $service->id }}"
+                    @if (in_array($service->id, old('services', $prev_services ?? []))) checked @endif>
                 <label class="form-check-label" for="{{ "service-$service->id" }}">
                     {{ $service->label }}</label>
             </div>
