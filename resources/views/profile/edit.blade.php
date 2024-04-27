@@ -27,3 +27,6 @@
 </div>
 
 @endsection
+@section('script')
+@vite('resources/js/profile_edit_form_validation')
+@endsection

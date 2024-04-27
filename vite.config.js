@@ -15,7 +15,8 @@ export default defineConfig({
                 'resources/js/secondary_images.js',
                 'resources/js/delete_confirmation.js',
                 'resources/js/apartments_form_validation.js',
-                'resources/js/register_form_validation.js'
+                'resources/js/register_form_validation.js',
+                'resources/js/profile_edit_form_validation.js'
 
             ],
             refresh: true,

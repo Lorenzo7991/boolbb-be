@@ -13,7 +13,7 @@
         @csrf
     </form>
 
-    <form method="post" action="{{ route('profile.update') }}" class="mt-6 space-y-6">
+    <form novalidate id="update-profile-info-form" method="post" action="{{ route('profile.update') }}" class="mt-6 space-y-6">
         @csrf
         @method('patch')
 
@@ -46,17 +46,17 @@
         <div class="mb-2 row ">
 
             {{-- Email --}}
-            <div class="col-8">
+            <div id="email-col" class="col-8">
                 <label for="email">
                     {{ __('Email') }}
                 </label>
 
-                <input id="email" name="email" type="email" class="form-control"
+                <input id="email" name="email" type="email" class="form-control @error('email') is-invalid @enderror"
                     value="{{ old('email', $user->email) }}" required autocomplete="username" />
 
                 @error('email')
-                    <span class="alert alert-danger mt-2" role="alert">
-                        <strong>{{ $errors->get('email') }}</strong>
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
                     </span>
                 @enderror
 
@@ -80,7 +80,7 @@
             </div>
 
             {{-- Data di nascita --}}
-            <div class="col-4">
+            <div id="date-col" class="col-4">
                 <label for="date_of_birth">{{ __('Data di nascita') }}</label>
                 <input class="form-control" type="date" name="date_of_birth" id="date_of_birth"
                     value="{{ old('date_of_birth', $user->date_of_birth) }}" required>
