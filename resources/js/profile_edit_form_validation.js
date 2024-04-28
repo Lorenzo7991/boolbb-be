@@ -17,6 +17,8 @@ const dateCol = document.getElementById('date-col')
 
 updateForm.addEventListener('submit', e => {
     let isValid = true;
+
+
     //Constrollo se c'è un messaggio di errore nella email e lo cancello
     const prevErrorEmail = document.getElementById('email-error')
     if (prevErrorEmail) {
