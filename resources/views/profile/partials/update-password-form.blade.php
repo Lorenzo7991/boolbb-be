@@ -8,40 +8,43 @@
             {{ __('Assicurati di usare una password sicura.') }}
         </p>
     </header>
-
-    <form method="post" action="{{ route('password.update') }}" class="mt-6 space-y-6">
+    {{-- Form modifica password --}}
+    <form id="update-password-form" method="post" action="{{ route('password.update') }}" class="mt-6 space-y-6">
         @csrf
         @method('put')
 
-        <div class="mb-2">
+        <div class="mb-2" id="current-pswrd-parent">
+            {{-- Password attuale --}}
             <label for="current_password">{{ __('Password Attuale') }}</label>
-            <input class="mt-1 form-control" type="password" name="current_password" id="current_password"
-                autocomplete="current-password">
+            <input class="mt-1 form-control @error('current_password') is-invalid @enderror" type="password"
+                name="current_password" id="current_password" autocomplete="current-password">
             @error('current_password')
                 <span class="invalid-feedback mt-2" role="alert">
-                    <strong>{{ $errors->updatePassword->get('current_password') }}</strong>
+                    <strong>{{ $message }}</strong>
                 </span>
             @enderror
         </div>
 
-        <div class="mb-2">
+        <div class="mb-2" id="new-pswrd-parent">
+            {{-- Nuova password --}}
             <label for="password">{{ __('Nuova Password') }}</label>
-            <input class="mt-1 form-control" type="password" name="password" id="password" autocomplete="new-password">
+            <input class="mt-1 form-control @error('password') is-invalid @enderror" type="password" name="password"
+                id="password" autocomplete="new-password">
             @error('password')
                 <span class="invalid-feedback mt-2" role="alert">
-                    <strong>{{ $errors->updatePassword->get('password') }}</strong>
+                    <strong>{{ $message }}</strong>
                 </span>
             @enderror
         </div>
 
-        <div class="mb-2">
-
+        <div class="mb-2" id="confirm-pswrd-parent">
+            {{-- Conferma nuova password --}}
             <label for="password_confirmation">{{ __('Conferma Password') }}</label>
-            <input class="mt-2 form-control" type="password" name="password_confirmation" id="password_confirmation"
-                autocomplete="new-password">
+            <input class="mt-2 form-control @error('password_confirmation') is-invalid @enderror" type="password"
+                name="password_confirmation" id="password_confirmation" autocomplete="new-password">
             @error('password_confirmation')
                 <span class="invalid-feedback mt-2" role="alert">
-                    <strong>{{ $errors->updatePassword->get('password_confirmation') }}</strong>
+                    <strong>{{ $message }}</strong>
                 </span>
             @enderror
         </div>
