@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Route;
 // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //     return $request->user();
 // });
-Route::apiResource('apartments', ApartmentController::class)->only('index', 'show');
+Route::apiResource('apartments', ApartmentController::class)->only('index');
+Route::get('/apartments/{slug}', [ApartmentController::class, 'show']);
 
 Route::get('apartments/search/', [ApartmentController::class, 'search'])->name('apartments.search');

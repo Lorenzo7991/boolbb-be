@@ -16,7 +16,7 @@ class ApartmentController extends Controller
      */
     public function index()
     {
-        $apartments = Apartment::whereIsVisible(true)->latest()->with('user')->with('services')->get();
+        $apartments = Apartment::whereIsVisible(true)->latest()->with('user')->with('images')->with('services')->get();
         return response()->json($apartments);
     }
 
@@ -31,9 +31,11 @@ class ApartmentController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Apartment $apartment)
+    public function show(String $slug)
     {
-        //
+        $apartment = Apartment::whereSlug($slug)->with('images')->with('user')->with('services')->first();
+        if (!$apartment) return response(null, 404);
+        return response()->json($apartment);
     }
 
     /**
