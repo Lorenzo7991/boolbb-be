@@ -28,46 +28,38 @@
                     @enderror
                 </div>
 
-                <div class="mb-3" id="search-box-container">
-                    {{-- INDIRIZZO --}}
-                    <label for="address" class="form-label">Via <span class="text-danger">*</span></label>
-                    @error('address')
-                        <div class="invalid-feedback">
-                            {{ $message }}
-                        </div>
-                    @enderror
-                </div>
+    <div class="col-6">
+    <div class="mb-3" id="search-box-container">
+        {{-- INDIRIZZO --}}
+        <label for="address" class="form-label">Via <span class="text-danger">*</span></label>
+        @error('address')
+            <div class="invalid-feedback">
+                {{ $message }}
             </div>
+        @enderror
+    </div>
+</div>
 
-            <div class="row">
-                <div class="col-md-6">
-                     {{-- LATITUDINE --}}
-                                <div class="mb-3">
-                                 <label for="latitude" class="form-label">Latitudine</label>
-                                    <input type="text" name="latitude" class="form-control" id="latitude" placeholder="Latitudine"
-                                       value="{{ old('latitude', $apartment->latitude) }}" disabled>
-                                        @error('latitude')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                            @enderror
-                             </div>
-                         </div>
-                         <div class="col-md-6">
-                               {{-- LONGITUDINE --}}
-                              <div class="mb-3">
-                                  <label for="longitude" class="form-label">Longitudine</label>
-                                  <input type="text" name="longitude" class="form-control" id="longitude" placeholder="Longitudine"
-                                      value="{{ old('longitude', $apartment->longitude) }}" disabled>
-                                       @error('longitude')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                            @enderror
-                                </div>
-                         </div>
-                        </div>
-            
+<!-- Nuovi campi per le coordinate -->
+<div class="col-6">
+    <div class="mb-3">
+        {{-- COORDINATE LATITUDINE --}}
+        <label for="latitude" class="form-label">Latitudine</label>
+        <input type="text" name="latitude"
+            class="form-control" id="latitude" placeholder="Latitudine"
+            value="{{ old('latitude', $apartment->latitude) }}" disabled>
+    </div>
+</div>
+<div class="col-6">
+    <div class="mb-3">
+        {{-- COORDINATE LONGITUDINE --}}
+        <label for="longitude" class="form-label">Longitudine</label>
+        <input type="text" name="longitude"
+            class="form-control" id="longitude" placeholder="Longitudine"
+            value="{{ old('longitude', $apartment->longitude) }}" disabled>
+    </div>
+</div>
+
             <div class="col-12">
                 <div class="row">
                     <div class="col-12 col-md-6">
@@ -270,7 +262,6 @@
 
 </form>
 
-
 <script>
     const searchBoxContainer = document.getElementById('search-box-container');
     var options = {
@@ -305,11 +296,9 @@
     const closeButton = document.querySelector('.tt-search-box-close-icon');
     closeButton.remove();
 
-// Aggiungo un event listener per intercettare i clic sugli elementi suggeriti nella dropdown della search box
-const searchResultListContainer = document.querySelector('.tt-search-box-result-list-container');
-searchResultListContainer.addEventListener('click', function(event) {
-    // Verifica se l'evento è avvenuto su un elemento della lista dei suggerimenti
-    if (event.target.classList.contains('tt-search-box-result')) {
+    // Aggiungo un event listener per intercettare i clic sugli elementi suggeriti nella dropdown della search box
+    const searchResultListContainer = document.querySelector('.tt-search-box-result-list-container');
+    searchResultListContainer.addEventListener('click', function(event) {
         const selectedResult = event.target.innerText;
         const addressInput = document.getElementById('address');
         
@@ -326,8 +315,7 @@ searchResultListContainer.addEventListener('click', function(event) {
             .catch(error => {
                 console.error('Errore durante la richiesta delle coordinate:', error);
             });
-    }
-});
+    });
 
     @error('address')
         inputAddressBox.classList.add('is-invalid');
