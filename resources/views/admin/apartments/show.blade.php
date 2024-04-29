@@ -67,9 +67,9 @@
                                         ? '<i class="fa-solid fa-circle-check text-success "></i>'
                                         : '<i class="fa-solid fa-circle-xmark text-danger "></i>' !!}
                                 </p>
-                                <div class="d-flex">
-
-                                    {{-- INSERIMENTO IMMAGINI AGGIUNTIVE --}}
+                                {{-- INSERIMENTO IMMAGINI AGGIUNTIVE --}}
+                                <div>
+                                    <h5 for="image" class="form-label">Aggiungi nuove immagini:</h5>
                                     <form id="add-image" class="d-none" action="{{ route('image.store', $apartment->id) }}"
                                         method="POST" enctype="multipart/form-data">
                                         @csrf
