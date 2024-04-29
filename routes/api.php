@@ -19,5 +19,6 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 Route::apiResource('apartments', ApartmentController::class)->only('index');
+Route::get('/apartments/{slug}', [ApartmentController::class, 'show']);
 
 Route::get('apartments/search/', [ApartmentController::class, 'search'])->name('apartments.search');
