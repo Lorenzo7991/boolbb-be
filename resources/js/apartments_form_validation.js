@@ -10,8 +10,9 @@ const inputPricePerNight = document.getElementById('price_per_night');
 const inputServices = document.querySelectorAll('.services-group');
 const serviceWrapper = document.getElementById('services-wrapper')
 const forms = document.querySelectorAll('.apartment-form')
-const inputLongitude = document.getElementById('longitude');
-const inputLatitude = document.getElementById('latitude');
+const inputLongitude = document.querySelectorAll('.longitude')
+const inputLatitude = document.querySelectorAll('.latitude')
+
 
 const allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i;
 forms.forEach(form => {
@@ -148,5 +149,24 @@ forms.forEach(form => {
             const alertParent = document.getElementById('form-alert')
             alertParent.appendChild(errorsAlert);
         }
+
+        // Validazione campi longitudine e latitudine
+
+        if (!inputLongitude.value || !inputLatitude.value) {
+            // Se uno dei due campi è vuoto, aggiunge la classe is-invalid a entrambi i campi
+            inputLongitude.classList.add('is-invalid');
+            inputLatitude.classList.add('is-invalid');
+
+            isValid = false;
+            errorMessages += '<li>Selezionare un indirizzo valido, tra quelli suggeriti</li>';
+        } else {
+            // Altrimenti, entrambi i campi sono validi, quindi rimuovi la classe is-invalid e aggiungi la classe is-valid
+            inputLongitude.classList.remove('is-invalid');
+            inputLongitude.classList.add('is-valid');
+
+            inputLatitude.classList.remove('is-invalid');
+            inputLatitude.classList.add('is-valid');
+        }
+
     })
 });

@@ -24,8 +24,6 @@ class StoreApartmentRequest extends FormRequest
         return [
             'title' => 'required|string|unique:apartments|max:70',
             'address' => 'required|string',
-            'longitude' => 'required|numeric|between:-180,180',
-            'latitude' => 'required|numeric|between:-90,90',
             'description' => 'nullable|string',
             'rooms' => 'required|integer|min:1|max:50',
             'beds' => 'required|integer|min:1|max:50',
@@ -46,8 +44,6 @@ class StoreApartmentRequest extends FormRequest
             'title.unique' => 'Questo titolo è gia in uso',
             'title.max' => 'Il titolo non puo superare :max caratteri',
             'address.required' => 'Inserire un indirizzo',
-            'longitude.required' => 'Inserisci un indirizzo valido, tra quelli suggeriti',
-            'latitude.required' => 'Inserisci un indirizzo valido, tra quelli suggeriti',
             'rooms.required' => 'Inserire il numero di stanze',
             'rooms.min' => 'Le stanze non possono essere meno di :min',
             'rooms.max' => 'Le stanze non possono essere più di :max',
