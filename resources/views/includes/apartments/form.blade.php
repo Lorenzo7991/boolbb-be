@@ -38,18 +38,23 @@
                     @enderror
                 </div>
             </div>
-                    <div class="mb-3 col-6">
-                        {{-- LATITUDINE --}}
-                        <label for="latitude" class="form-label">Latitudine</label>
-                     <input type="text" name="latitude" class="form-control" id="latitude" placeholder="Latitudine" disabled>
-                    </div>
 
-                    <div class="mb-3 col-6">
-                     {{-- LONGITUDINE --}}
-                        <label for="longitude" class="form-label">Longitudine</label>
-                        <input type="text" name="longitude" class="form-control" id="longitude" placeholder="Longitudine" disabled>
-                    </div>
-                    
+                  <!-- Nuovi campi per le coordinate -->
+    <div class="mb-3 col-6">
+        {{-- COORDINATE LATITUDINE --}}
+        <label for="latitude" class="form-label">Latitudine</label>
+        <input type="text" name="latitude"
+            class="form-control" id="latitude" placeholder="Latitudine"
+            value="{{ old('latitude', $apartment->latitude) }}" disabled>
+    </div>
+    <div class="mb-3 col-6">
+        {{-- COORDINATE LONGITUDINE --}}
+        <label for="longitude" class="form-label">Longitudine</label>
+        <input type="text" name="longitude"
+            class="form-control" id="longitude" placeholder="Longitudine"
+            value="{{ old('longitude', $apartment->longitude) }}" disabled>
+    </div>
+
             <div class="col-12">
                 <div class="row">
                     <div class="col-12 col-md-6">

@@ -8,10 +8,10 @@ const inputBeds = document.getElementById('beds');
 const inputSquareMeters = document.getElementById('square_meters');
 const inputPricePerNight = document.getElementById('price_per_night');
 const inputServices = document.querySelectorAll('.services-group');
-const serviceWrapper = document.getElementById('services-wrapper')
-const forms = document.querySelectorAll('.apartment-form')
-const inputLongitude = document.querySelectorAll('.longitude')
-const inputLatitude = document.querySelectorAll('.latitude')
+const serviceWrapper = document.getElementById('services-wrapper');
+const forms = document.querySelectorAll('.apartment-form');
+const longitudeInput = document.getElementById('.longitude');
+const latitudeInput = document.getElementById('.latitude');
 
 
 const allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i;
@@ -152,21 +152,58 @@ forms.forEach(form => {
 
         // Validazione campi longitudine e latitudine
 
-        if (!inputLongitude.value || !inputLatitude.value) {
-            // Se uno dei due campi è vuoto, aggiunge la classe is-invalid a entrambi i campi
-            inputLongitude.classList.add('is-invalid');
-            inputLatitude.classList.add('is-invalid');
+        if (!longitudeInput.value.trim() || !latitudeInput.value.trim()) {
+            inputAddressBox.classList.add('is-invalid')
 
             isValid = false;
-            errorMessages += '<li>Selezionare un indirizzo valido, tra quelli suggeriti</li>';
+            errorMessages += '<li>Indirizzo: Selezionare un indirizzo valido, tra quelli suggeriti nella tabella di ricerca</li>';
         } else {
-            // Altrimenti, entrambi i campi sono validi, quindi rimuovi la classe is-invalid e aggiungi la classe is-valid
-            inputLongitude.classList.remove('is-invalid');
-            inputLongitude.classList.add('is-valid');
-
-            inputLatitude.classList.remove('is-invalid');
-            inputLatitude.classList.add('is-valid');
+            inputAddressBox.classList.remove('is-invalid')
+            inputAddressBox.classList.add('is-valid')
         }
+
+        if (!isValid) {
+            e.preventDefault();
+            const errorsAlert = document.createElement('div')
+            errorsAlert.id = 'errors-alert'
+            errorsAlert.classList.add('alert', 'alert-danger', 'alert-dismissible', 'fade',
+                'show',)
+            errorsAlert.role = 'alert';
+            errorsAlert.innerHTML = `<h4>Ci sono dei campi non validi!</h4>
+                 ${errorMessages}
+                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                 </ul>`
+            const alertParent = document.getElementById('form-alert')
+            alertParent.appendChild(errorsAlert);
+        }
+
+        // Validazione campi longitudine e latitudine
+
+        if (!longitudeInput.value.trim() || !latitudeInput.value.trim()) {
+            inputAddressBox.classList.add('is-invalid')
+
+            isValid = false;
+            errorMessages += '<li>Indirizzo: Selezionare un indirizzo valido, tra quelli suggeriti nella tabella di ricerca</li>';
+        } else {
+            inputAddressBox.classList.remove('is-invalid')
+            inputAddressBox.classList.add('is-valid')
+        }
+
+        if (!isValid) {
+            e.preventDefault();
+            const errorsAlert = document.createElement('div')
+            errorsAlert.id = 'errors-alert'
+            errorsAlert.classList.add('alert', 'alert-danger', 'alert-dismissible', 'fade',
+                'show',)
+            errorsAlert.role = 'alert';
+            errorsAlert.innerHTML = `<h4>Ci sono dei campi non validi!</h4>
+                 ${errorMessages}
+                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                 </ul>`
+            const alertParent = document.getElementById('form-alert')
+            alertParent.appendChild(errorsAlert);
+        }
+
 
     })
 });
