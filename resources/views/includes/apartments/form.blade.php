@@ -296,7 +296,7 @@
     const closeButton = document.querySelector('.tt-search-box-close-icon');
     closeButton.remove();
 
-    // Aggiungi un event listener per intercettare i clic sugli elementi suggeriti nella dropdown della search box
+    // Aggiungo un event listener per intercettare i clic sugli elementi suggeriti nella dropdown della search box
     const searchResultListContainer = document.querySelector('.tt-search-box-result-list-container');
     searchResultListContainer.addEventListener('click', function(event) {
         const selectedResult = event.target.innerText;
