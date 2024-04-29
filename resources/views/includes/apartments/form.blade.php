@@ -28,29 +28,19 @@
                     @enderror
                 </div>
 
-                <div class="mb-3" id="search-box-container">
-                    {{-- INDIRIZZO --}}
-                    <label for="address" class="form-label">Via <span class="text-danger">*</span></label>
-                    @error('address')
-                        <div class="invalid-feedback">
-                            {{ $message }}
-                        </div>
-                    @enderror
-                </div>
+    <div class="col-6">
+    <div class="mb-3" id="search-box-container">
+        {{-- INDIRIZZO --}}
+        <label for="address" class="form-label">Via <span class="text-danger">*</span></label>
+        @error('address')
+            <div class="invalid-feedback">
+                {{ $message }}
             </div>
-            <div class="mb-3 col-md-6">
-    {{-- LATITUDINE --}}
-    <label for="latitude" class="form-label">Latitudine</label>
-    <input type="text" name="latitude" class="form-control" id="latitude" placeholder="Latitudine"
-        value="{{ old('latitude', $apartment->latitude) }}" disabled>
+        @enderror
+    </div>
 </div>
 
-<div class="mb-3 col-md-6">
-    {{-- LONGITUDINE --}}
-    <label for="longitude" class="form-label">Longitudine</label>
-    <input type="text" name="longitude" class="form-control" id="longitude" placeholder="Longitudine"
-        value="{{ old('longitude', $apartment->longitude) }}" disabled>
-</div>
+
 
             <div class="col-12">
                 <div class="row">
@@ -255,7 +245,7 @@
 </form>
 
 <script>
-    const searchBoxContainer = document.getElementById('search-box-container')
+    const searchBoxContainer = document.getElementById('search-box-container');
     var options = {
         searchOptions: {
             key: "JCA7jDznFGPlGy91V9K6LVAp8heuxKMU",
@@ -266,44 +256,73 @@
             key: "JCA7jDznFGPlGy91V9K6LVAp8heuxKMU",
             language: "it-IT",
         },
-    }
-    var ttSearchBox = new tt.plugins.SearchBox(tt.services, options)
-    var searchBoxHTML = ttSearchBox.getSearchBoxHTML()
-    searchBoxContainer.appendChild(searchBoxHTML)
+    };
+
+    var ttSearchBox = new tt.plugins.SearchBox(tt.services, options);
+    var searchBoxHTML = ttSearchBox.getSearchBoxHTML();
+    searchBoxContainer.appendChild(searchBoxHTML);
 
     // Input type text per l'indirizzo
-    const inputAddressBox = document.querySelector('.tt-search-box-input')
-    inputAddressBox.name = "address"
-    inputAddressBox.classList.add('form-control')
-    inputAddressBox.id = "address"
-    inputAddressBox.placeholder = "Via... "
-    inputAddressBox.classList.add('form-control')
-    inputAddressBox.value = "{{ old('address', $apartment->address) }}"
+    const inputAddressBox = document.querySelector('.tt-search-box-input');
+    inputAddressBox.name = "address";
+    inputAddressBox.classList.add('form-control');
+    inputAddressBox.id = "address";
+    inputAddressBox.placeholder = "Via...";
+    inputAddressBox.classList.add('form-control');
+    inputAddressBox.value = "{{ old('address', $apartment->address) }}";
 
     // Rimozione lente ingrandimento
-    const inputAddressDirectParent = document.querySelector('.tt-search-box-input-container')
+    const inputAddressDirectParent = document.querySelector('.tt-search-box-input-container');
     inputAddressDirectParent.removeChild(inputAddressDirectParent.firstElementChild);
-    inputAddressDirectParent.classList.add('d-flex', 'flex-column')
-    const closeButton = document.querySelector('.tt-search-box-close-icon')
+    inputAddressDirectParent.classList.add('d-flex', 'flex-column');
+    const closeButton = document.querySelector('.tt-search-box-close-icon');
     closeButton.remove();
+
+    // Aggiungo un event listener per intercettare i clic sugli elementi suggeriti nella dropdown della search box
+    const searchResultListContainer = document.querySelector('.tt-search-box-result-list-container');
+    searchResultListContainer.addEventListener('click', function(event) {
+        const selectedResult = event.target.innerText;
+        const addressInput = document.getElementById('address');
+        
+        // Chiamata API per ottenere le coordinate dall'indirizzo selezionato
+        fetch(`https://api.tomtom.com/search/2/geocode/${selectedResult}.json?key=JCA7jDznFGPlGy91V9K6LVAp8heuxKMU&limit=1`)
+            .then(response => response.json())
+            .then(data => {
+                const coordinates = data.results[0].position;
+                const latitudeInput = document.getElementById('latitude');
+                const longitudeInput = document.getElementById('longitude');
+                latitudeInput.value = coordinates.lat;
+                longitudeInput.value = coordinates.lon;
+            })
+            .catch(error => {
+                console.error('Errore durante la richiesta delle coordinate:', error);
+            });
+    });
+
     @error('address')
-        inputAddressBox.classList.add('is-invalid')
-        const errorMessage = document.createElement('div')
-        errorMessage.classList.add('invalid-feedback')
+        inputAddressBox.classList.add('is-invalid');
+        const errorMessage = document.createElement('div');
+        errorMessage.classList.add('invalid-feedback');
         errorMessage.innerText = '{{ $message }}';
-        inputAddressDirectParent.appendChild(errorMessage)
+        inputAddressDirectParent.appendChild(errorMessage);
     @elseif (old('address', ''))
-        inputAddressBox.classList.add('is-valid')
+        inputAddressBox.classList.add('is-valid');
     @enderror
 
-    const inputAddressContainer = document.querySelector('.tt-search-box')
-    inputAddressContainer.classList.add('form-control', 'mt-0')
-    inputAddressContainer.classList.add('mt-0')
-    inputAddressContainer.style.padding = "0"
-    inputAddressContainer.style.border = "none"
+    const inputAddressContainer = document.querySelector('.tt-search-box');
+    inputAddressContainer.classList.add('form-control', 'mt-0');
+    inputAddressContainer.classList.add('mt-0');
+    inputAddressContainer.style.padding = "0";
+    inputAddressContainer.style.border = "none";
 
-
-    const inputAddressContainerBox = document.querySelector('.tt-search-box-input-container')
-    inputAddressContainerBox.style.padding = "0"
-    inputAddressContainerBox.style.border = "none"
+    const inputAddressContainerBox = document.querySelector('.tt-search-box-input-container');
+    inputAddressContainerBox.style.padding = "0";
+    inputAddressContainerBox.style.border = "none";
 </script>
+
+
+
+
+
+
+
