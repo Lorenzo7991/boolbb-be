@@ -10,6 +10,8 @@ const inputPricePerNight = document.getElementById('price_per_night');
 const inputServices = document.querySelectorAll('.services-group');
 const serviceWrapper = document.getElementById('services-wrapper')
 const forms = document.querySelectorAll('.apartment-form')
+const inputLongitude = document.getElementById('longitude');
+const inputLatitude = document.getElementById('latitude');
 
 const allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i;
 forms.forEach(form => {

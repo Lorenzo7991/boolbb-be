@@ -31,9 +31,6 @@
                 <div class="mb-3" id="search-box-container">
                     {{-- INDIRIZZO --}}
                     <label for="address" class="form-label">Via <span class="text-danger">*</span></label>
-                    {{-- <input type="text" name="address"
-                class="form-control @error('address') is-invalid @elseif(old('address', '')) is-valid @enderror"
-                id="address" placeholder="Inserisci la via" value="{{ old('address', $apartment->address) }}"> --}}
                     @error('address')
                         <div class="invalid-feedback">
                             {{ $message }}
@@ -41,6 +38,19 @@
                     @enderror
                 </div>
             </div>
+            <div class="mb-3 col-md-6">
+    {{-- LATITUDINE --}}
+    <label for="latitude" class="form-label">Latitudine</label>
+    <input type="text" name="latitude" class="form-control" id="latitude" placeholder="Latitudine"
+        value="{{ old('latitude', $apartment->latitude) }}" disabled>
+</div>
+
+<div class="mb-3 col-md-6">
+    {{-- LONGITUDINE --}}
+    <label for="longitude" class="form-label">Longitudine</label>
+    <input type="text" name="longitude" class="form-control" id="longitude" placeholder="Longitudine"
+        value="{{ old('longitude', $apartment->longitude) }}" disabled>
+</div>
 
             <div class="col-12">
                 <div class="row">
