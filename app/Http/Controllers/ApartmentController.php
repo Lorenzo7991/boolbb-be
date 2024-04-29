@@ -35,60 +35,38 @@ class ApartmentController extends Controller
         return view('admin.apartments.create', compact('apartment', 'services'));
     }
 
-    /** Documentazione della funzione di store:
-     * Memorizza una risorsa appena creata nello storage.
-     * Recupera tutti i dati dalla richiesta, inclusa l'ID dell'utente autenticato.
-     * Invia una richiesta HTTP GET all'endpoint dell'API di geocodifica di TomTom con l'indirizzo fornito, ignorando la verifica del certificato SSL.
-     * Se la richiesta ha successo:
-     * - Estrae le coordinate (latitudine e longitudine) dai dati JSON di risposta.
-     * - Crea una nuova istanza di Apartment.
-     * - Riempie l'istanza di Apartment con i dati ricevuti.
-     * - Imposta la latitudine e la longitudine dell'appartamento alle coordinate estratte.
-     * - Salva l'appartamento nel database.
-     * - Reindirizza l'utente alla pagina di visualizzazione del nuovo appartamento creato con un messaggio di successo.
-     * Se la richiesta fallisce:
-     * - Reindirizza l'utente al modulo di creazione con un messaggio di errore.
+    /**
+     * Store for creating a new resource.
      */
     public function store(StoreApartmentRequest $request)
     {
         $data = $request->validated();
         $data['user_id'] = Auth::id();
 
-        $response = Http::withOptions([
-            'verify' => false,
-        ])->get('https://api.tomtom.com/search/2/geocode/' . urlencode($request->address) . '.json', [
-            'key' => 'AWAhF6IT1ChO0k28GMmsIysmnTgt0Gpp',
-        ]);
+        // Ottieni le coordinate fornite dal form
+        $latitude = $request->input('latitude');
+        $longitude = $request->input('longitude');
 
-        if ($response->successful()) {
-            $jsonResponse = $response->json();
-            if (isset($jsonResponse['results']) && count($jsonResponse['results']) > 0) {
-                $coordinates = $jsonResponse['results'][0]['position'];
-                $apartment = new Apartment();
-                $apartment->fill($data);
-                $apartment->latitude = $coordinates['lat'];
-                $apartment->longitude = $coordinates['lon'];
+        // Creazione dell'appartamento
+        $apartment = new Apartment();
+        $apartment->fill($data);
+        $apartment->latitude = $latitude;
+        $apartment->longitude = $longitude;
 
-                if ($request->hasFile('image')) {
-                    $extension = $request->file('image')->extension();
-                    $img_url = Storage::putFileAs('apartment_images', $request->file('image'), "$apartment->slug.$extension");
-                    $apartment->image = $img_url;
-                }
-
-                $apartment->save();
-
-                // Controllo se la chiave 'services' esiste nell'array $data.
-                if (Arr::exists($data, 'services')) {
-                    $apartment->services()->attach($data['services']);
-                }
-
-                return redirect()->route('apartments.show', $apartment)->with('message', 'Appartamento creato con successo')->with('type', 'success');
-            } else {
-                return back()->with('message', 'Indirizzo non valido o non trovato. Si prega di inserire un indirizzo valido.')->with('type', 'error');
-            }
-        } else {
-            return back()->with('message', 'Errore durante la creazione dell\'appartamento. Si prega di riprovare.')->with('type', 'error');
+        if ($request->hasFile('image')) {
+            $extension = $request->file('image')->extension();
+            $img_url = Storage::putFileAs('apartment_images', $request->file('image'), "$apartment->slug.$extension");
+            $apartment->image = $img_url;
         }
+
+        $apartment->save();
+
+        // Controllo se la chiave 'services' esiste nell'array $data.
+        if (Arr::exists($data, 'services')) {
+            $apartment->services()->attach($data['services']);
+        }
+
+        return redirect()->route('apartments.show', $apartment)->with('message', 'Appartamento creato con successo')->with('type', 'success');
     }
 
 
@@ -98,7 +76,8 @@ class ApartmentController extends Controller
      */
     public function show(Apartment $apartment)
     {
-        if (!(Auth::id() == $apartment->user_id)) return to_route('admin.home')->with('type', 'danger')->with('message', 'Non sei autorizzato ad eseguire questa azione');
+        if (!(Auth::id() == $apartment->user_id))
+            return to_route('admin.home')->with('type', 'danger')->with('message', 'Non sei autorizzato ad eseguire questa azione');
         return view('admin.apartments.show', compact('apartment'));
     }
 
@@ -107,7 +86,8 @@ class ApartmentController extends Controller
      */
     public function edit(Apartment $apartment)
     {
-        if (!(Auth::id() == $apartment->user_id)) return to_route('admin.home')->with('type', 'danger')->with('message', 'Non sei autorizzato ad eseguire questa azione');
+        if (!(Auth::id() == $apartment->user_id))
+            return to_route('admin.home')->with('type', 'danger')->with('message', 'Non sei autorizzato ad eseguire questa azione');
         $services = Service::select('label', 'id')->get();
         $prev_services = $apartment->services->pluck('id')->toArray();
         return view('admin.apartments.edit', compact('apartment', 'services', 'prev_services'));
@@ -121,46 +101,31 @@ class ApartmentController extends Controller
         $data = $request->validated();
         $data['is_visible'] = Arr::exists($data, 'is_visible');
 
-        $response = Http::withOptions([
-            'verify' => false,
-        ])->get('https://api.tomtom.com/search/2/geocode/' . urlencode($request->address) . '.json', [
-            'key' => 'AWAhF6IT1ChO0k28GMmsIysmnTgt0Gpp',
-        ]);
-
-        if ($response->successful()) {
-            $jsonResponse = $response->json();
-            if (isset($jsonResponse['results']) && count($jsonResponse['results']) > 0) {
-                $coordinates = $jsonResponse['results'][0]['position'];
-                $data['latitude'] = $coordinates['lat'];
-                $data['longitude'] = $coordinates['lon'];
-            } else {
-                return back()->with('message', 'Indirizzo non valido o non trovato. Si prega di inserire un indirizzo valido.')->with('type', 'error');
-            }
-        } else {
-            return back()->with('message', 'Errore durante la creazione dell\'appartamento. Si prega di riprovare.')->with('type', 'error');
-        }
-
         if (Arr::exists($data, 'image')) {
             if ($apartment->image) {
-                Storage::delete($apartment->image); // controlla se c'è già un'immagine e la elimina
+                Storage::delete($apartment->image); // Verifica se c'è già un'immagine e la elimina
             }
-            $extension = $data['image']->extension(); // restituisce l'estensione del file senza punto
+            $extension = $data['image']->extension(); // Restituisce l'estensione del file senza punto
             $img_url = Storage::putFileAs('apartment_images', $data['image'], Str::slug($data['title']) . ".$extension");
             $data['image'] = $img_url;
         }
 
+        // Aggiorno i dati dell'appartamento con i nuovi dati
         $apartment->update($data);
 
-        // Verifico se l'array $data contiene una chiave denominata 'services'. Poi sincronizzo la relazione tra l'appartamento e i servizi
-        if (Arr::exists($data, 'services'))
+        // Se l'array $data contiene una chiave denominata 'services', sincronizzo la relazione tra l'appartamento e i servizi
+        if (Arr::exists($data, 'services')) {
             $apartment->services()->sync($data['services']);
-
-        // Verifico se l'array $data non contiene una chiave denominata 'services'. Poi elimino tutte le relazioni tra l'appartamento e i servizi
-        elseif (!Arr::exists($data, 'services') && $apartment->has('services'))
+        }
+        // Se l'array $data non contiene una chiave denominata 'services' e l'appartamento ha dei servizi associati, elimino tutte le relazioni
+        elseif (!Arr::exists($data, 'services') && $apartment->services()->exists()) {
             $apartment->services()->detach();
+        }
 
         return redirect()->route('apartments.show', $apartment)->with('message', 'Appartamento aggiornato con successo')->with('type', 'success');
     }
+
+
 
     /**
      * Remove the specified resource from storage.
