@@ -76,6 +76,26 @@ body {
     height: 80px;
     font-weight: bold;
 
+    figure.logo-wrapper {
+        margin-bottom: 0;
+        height: 80px;
+        aspect-ratio: 1/1;
+        display: flex;
+        align-items: center;
+
+        img {
+            height: 100px;
+            object-fit: cover;
+            object-position: center center;
+        }
+    }
+
+    // dropdown menu del profilo
+    #dropdown-profile.dropdown-menu-start {
+        right: 0;
+        left: auto;
+    }
+
     * {
         height: 100%;
     }
@@ -86,10 +106,10 @@ body {
         align-items: center;
     }
 
-    img {
-        width: 155px;
-        height: 135px;
-    }
+    // img {
+    //     width: 155px;
+    //     height: 135px;
+    // }
 
     span {
         background: linear-gradient(to right, #0E485B, #4BC9E4);
@@ -102,17 +122,43 @@ body {
 .nav-link.active {
     position: relative;
 
-    &::after {
-        content: '';
-        height: 4px;
-        background-color: #52bdf2;
-        border-radius: 4px;
-        position: absolute;
-        bottom: 2px;
-        left: 0;
-        right: 0;
+    span {
+        color: transparent;
+        background: linear-gradient(to right, #0E485B, #4BC9E4);
+        background-clip: text;
     }
 
+    &::after {
+        content: '';
+        background-color: #4BC9E4;
+        border-radius: 5px;
+        position: absolute;
+    }
+
+
+
+}
+
+// Trattino sulla sidebar
+#sidebar {
+    .nav-link.active::after {
+        width: 4px;
+        top: 0;
+        bottom: 0;
+        right: 0;
+
+    }
+}
+
+// Trattino sulla navbar
+.navbar {
+    .nav-link.active::after {
+        height: 4px;
+        left: 0;
+        bottom: 0;
+        right: 0;
+
+    }
 }
 
 .dropdown-toggle::after {
@@ -172,9 +218,14 @@ body {
 
     ul {
         list-style-type: none;
+        width: 100%;
 
         li {
             margin-bottom: 4rem;
+
+            a {
+                padding: 0 30px;
+            }
         }
     }
 }
@@ -190,6 +241,7 @@ main {
     display: flex;
     overflow: auto;
 }
+
 // Servizi nel form
 
 #services-wrapper.form-control {

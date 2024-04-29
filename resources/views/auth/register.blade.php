@@ -8,7 +8,7 @@
                     <div class="card-header">{{ __('Register') }}</div>
 
                     <div class="card-body pb-0">
-                        <form method="POST" action="{{ route('register') }}" novalidate>
+                        <form method="POST" action="{{ route('register') }}" novalidate id="register-form">
                             @csrf
 
                             <div class="mb-4 row">
@@ -42,7 +42,7 @@
 
                             <div class="mb-4 row">
                                 {{-- Data di nascita --}}
-                                <div class="col-6">
+                                <div id="date-col" class="col-6">
                                     <label class="mb-2" for="date_of_birth">{{ __('Data di nascita') }}</label>
 
                                     <input id="date_of_birth" type="date"
@@ -57,7 +57,7 @@
                                     @enderror
                                 </div>
                                 {{-- Email --}}
-                                <div class="col-6">
+                                <div id="email-col" class="col-6">
                                     <label class="mb-2" for="email">{{ __('Indirizzo E-Mail') }} <span
                                             class="text-danger">*</span></label>
                                     <input id="email" type="email"
@@ -74,7 +74,7 @@
 
                             <div class="mb-4 row">
                                 {{-- Password --}}
-                                <div class="col-6">
+                                <div class="col-6" id="password-col">
                                     <label class="mb-2" for="password">{{ __('Password') }} <span
                                             class="text-danger">*</span></label>
                                     <input id="password" type="password"
@@ -87,7 +87,7 @@
                                         </span>
                                     @enderror
                                 </div>
-
+                                {{-- Conferma password --}}
                                 <div class="col-6">
                                     <label class="mb-2" for="password-confirm">{{ __('Confirm Password') }} <span
                                             class="text-danger">*</span></label>
@@ -102,8 +102,10 @@
                                         obbligatori</small>
                                 </div>
                                 <div class="col-6 d-flex justify-content-end">
-                                    <button type="submit" class="btn btn-primary mt-3">
-                                        {{ __('Register') }}
+
+                                    {{-- Bottono di registrazione --}}
+                                    <button type="submit" class="btn btn-primary mt-3" id="register-btn">
+                                        {{ __('Registrati') }}
                                     </button>
                                 </div>
                             </div>
@@ -113,4 +115,9 @@
             </div>
         </div>
     </div>
+@endsection
+
+
+@section('script')
+ @vite('resources/js/register_form_validation.js')
 @endsection

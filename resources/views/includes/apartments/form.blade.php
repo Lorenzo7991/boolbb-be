@@ -1,28 +1,32 @@
 @if ($apartment->exists)
-    <form action="{{ route('apartments.update', $apartment) }}" method="POST" enctype="multipart/form-data" novalidate>
+    <form action="{{ route('apartments.update', $apartment) }}" method="POST" enctype="multipart/form-data" novalidate
+        class="apartment-form">
         @method('PUT')
     @else
-        <form action="{{ route('apartments.store') }}" method="POST" enctype="multipart/form-data" novalidate>
+        <form action="{{ route('apartments.store') }}" method="POST" enctype="multipart/form-data" novalidate
+            class="apartment-form">
 @endif
 
 @csrf
 
+<div id="form-alert"></div>
 <div class="row">
-    <div class="col-6">
-        <div class="mb-3">
+    <div class="col-12 col-lg-6">
+        <div class="row">
+            <div class="col-12">
+                <div class="mb-3">
 
-            {{-- TITOLO --}}
-            <label for="title" class="form-label">Titolo <span class="text-danger">*</span></label>
-            <input type="text" name="title"
-                class="form-control @error('title') is-invalid @elseif(old('title', '')) is-valid @enderror"
-                id="title" placeholder="Inserisci il titolo" value="{{ old('title', $apartment->title) }}">
-            @error('title')
-                <div class="invalid-feedback">
-                    {{ $message }}
+                    {{-- TITOLO --}}
+                    <label for="title" class="form-label">Titolo <span class="text-danger">*</span></label>
+                    <input type="text" name="title"
+                        class="form-control @error('title') is-invalid @elseif(old('title', '')) is-valid @enderror"
+                        id="title" placeholder="Inserisci il titolo" value="{{ old('title', $apartment->title) }}">
+                    @error('title')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
                 </div>
-            @enderror
-        </div>
-    </div>
 
     <div class="col-6">
     <div class="mb-3" id="search-box-container">
@@ -56,6 +60,142 @@
     </div>
 </div>
 
+            <div class="col-12">
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <div class="mb-3">
+                            {{-- NUMERO STANZE --}}
+                            <label for="rooms" class="form-label">Numero di stanze <span
+                                    class="text-danger">*</span></label>
+                            <input type="number" name="rooms"
+                                class="form-control @error('rooms') is-invalid @elseif(old('rooms', '')) is-valid @enderror"
+                                id="rooms" placeholder="1-50" value="{{ old('rooms', $apartment->rooms) }}"
+                                min="1" max="50">
+                            @error('rooms')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+
+
+                        <div class="mb-3">
+                            {{-- NUMERO LETTI --}}
+                            <label for="beds" class="form-label">Numero di letti <span
+                                    class="text-danger">*</span></label>
+                            <input type="number" name="beds"
+                                class="form-control @error('beds') is-invalid @elseif(old('beds', '')) is-valid @enderror"
+                                id="beds" placeholder="1-50" value="{{ old('beds', $apartment->beds) }}"
+                                min="1" max="50">
+                            @error('beds')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-6">
+                        <div class="mb-3">
+                            {{-- NUMERO BAGNI --}}
+                            <label for="bathrooms" class="form-label">Numero di bagni <span
+                                    class="text-danger">*</span></label>
+                            <input type="number" name="bathrooms"
+                                class="form-control @error('bathrooms') is-invalid @elseif(old('bathrooms', '')) is-valid @enderror"
+                                id="bathrooms" placeholder="1-50" value="{{ old('bathrooms', $apartment->bathrooms) }}"
+                                min="1" max="50">
+                            @error('bathrooms')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+
+
+                        <div class="mb-3">
+                            {{-- METRI QUADRATI --}}
+                            <label for="square_meters" class="form-label">Metri quadrati <span
+                                    class="text-danger">*</span></label>
+                            <input type="number" name="square_meters"
+                                class="form-control @error('square_meters') is-invalid @elseif(old('square_meters', '')) is-valid @enderror"
+                                id="square_meters" placeholder="10-10000"
+                                value="{{ old('square_meters', $apartment->square_meters) }}" min="10"
+                                step="5">
+                            @error('square_meters')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-6">
+                        <div class="mb-3">
+                            {{-- PREZZO PER NOTTE --}}
+                            <label for="price_per_night" class="form-label">Prezzo per notte <span
+                                    class="text-danger">*</span></label>
+                            <input type="number" name="price_per_night"
+                                class="form-control @error('price_per_night') is-invalid @elseif(old('price_per_night', '')) is-valid @enderror"
+                                id="price_per_night" placeholder="...€"
+                                value="{{ old('price_per_night', $apartment->price_per_night) }}" min="1">
+                            @error('price_per_night')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12 col-lg-6">
+        <div class="row">
+            <div class="col-12">
+                <div class="row">
+                    <div class="col-12 align-self-start">
+                        {{-- IMMAGINE --}}
+                        <label for="image" class="form-label">Inserisci un'immagine <span
+                                class="text-danger">*</span></label>
+                        {{-- Fake input file --}}
+                        <div class="input-group @if (!$apartment->image) d-none @endif "
+                            id="fake-image-field">
+                            <button class="btn btn-outline-secondary" type="button" id="change-image-btn">Scegli
+                                il
+                                file</button>
+                            <input type="text"
+                                class="form-control @error('image') is-invalid @elseif(old('image', '')) is-valid @enderror"
+                                disabled value="{{ old('image', $apartment->image) }}">
+                        </div>
+                        {{-- INPUT IMMAGINE --}}
+                        <input type="file" name="image"
+                            class="form-control @if ($apartment->image) d-none @endif @error('image') is-invalid @elseif(old('image', '')) is-valid @enderror"
+                            id="image" placeholder="Immagine..." value="{{ old('image', $apartment->image) }}">
+                        @error('image')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                        @enderror
+                    </div>
+
+                    <div class="col-12 align-self-center text-center d-flex justify-content-center">
+                        <div class="mb-3">
+                            {{-- PREVIEW IMMAGINE --}}
+                            <figure class="form-figure">
+                                <img src="{{ old('image', $apartment->image)
+                                    ? asset('storage/' . old('image', $apartment->image))
+                                    : 'https://marcolanci.it/boolean/assets/placeholder.png' }}"
+                                    class="img-fluid m-4" alt="immagine appartamento" id="preview">
+                            </figure>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
     <div class="col-12">
         <div class="mb-3">
             {{-- DESCRIZIONE --}}
@@ -71,124 +211,15 @@
         </div>
     </div>
 
-    <div class="col-2">
-        <div class="mb-3">
-            {{-- NUMERO STANZE --}}
-            <label for="rooms" class="form-label">Numero di stanze <span class="text-danger">*</span></label>
-            <input type="number" name="rooms"
-                class="form-control @error('rooms') is-invalid @elseif(old('rooms', '')) is-valid @enderror"
-                id="rooms" placeholder="1-50" value="{{ old('rooms', $apartment->rooms) }}" min="1"
-                max="50">
-            @error('rooms')
-                <div class="invalid-feedback">
-                    {{ $message }}
-                </div>
-            @enderror
-        </div>
-    </div>
-    <div class="col-2">
-        <div class="mb-3">
-            {{-- NUMERO LETTI --}}
-            <label for="beds" class="form-label">Numero di letti <span class="text-danger">*</span></label>
-            <input type="number" name="beds"
-                class="form-control @error('beds') is-invalid @elseif(old('beds', '')) is-valid @enderror"
-                id="beds" placeholder="1-50" value="{{ old('beds', $apartment->beds) }}" min="1"
-                max="50">
-            @error('beds')
-                <div class="invalid-feedback">
-                    {{ $message }}
-                </div>
-            @enderror
-        </div>
-    </div>
-    <div class="col-2">
-        <div class="mb-3">
-            {{-- NUMERO BAGNI --}}
-            <label for="bathrooms" class="form-label">Numero di bagni <span class="text-danger">*</span></label>
-            <input type="number" name="bathrooms"
-                class="form-control @error('bathrooms') is-invalid @elseif(old('bathrooms', '')) is-valid @enderror"
-                id="bathrooms" placeholder="1-50" value="{{ old('bathrooms', $apartment->bathrooms) }}" min="1"
-                max="50">
-            @error('bathrooms')
-                <div class="invalid-feedback">
-                    {{ $message }}
-                </div>
-            @enderror
-        </div>
-    </div>
-    <div class="col-3">
-        <div class="mb-3">
-            {{-- METRI QUADRATI --}}
-            <label for="square_meters" class="form-label">Metri quadrati <span class="text-danger">*</span></label>
-            <input type="number" name="square_meters"
-                class="form-control @error('square_meters') is-invalid @elseif(old('square_meters', '')) is-valid @enderror"
-                id="square_meters" placeholder="10-10000" value="{{ old('square_meters', $apartment->square_meters) }}"
-                min="10" step="5">
-            @error('square_meters')
-                <div class="invalid-feedback">
-                    {{ $message }}
-                </div>
-            @enderror
-        </div>
-    </div>
-    <div class="col-3">
-        <div class="mb-3">
-            {{-- PREZZO PER NOTTE --}}
-            <label for="price_per_night" class="form-label">Prezzo per notte <span class="text-danger">*</span></label>
-            <input type="number" name="price_per_night"
-                class="form-control @error('price_per_night') is-invalid @elseif(old('price_per_night', '')) is-valid @enderror"
-                id="price_per_night" placeholder="...€"
-                value="{{ old('price_per_night', $apartment->price_per_night) }}" min="1">
-            @error('price_per_night')
-                <div class="invalid-feedback">
-                    {{ $message }}
-                </div>
-            @enderror
-        </div>
-    </div>
-
-    <div class="col-9 d-flex flex-column justify-content-center">
-        <div>
-            {{-- IMMAGINE --}}
-            <label for="image" class="form-label">Inserisci un'immagine <span class="text-danger">*</span></label>
-            {{-- Fake input file --}}
-            <div class="input-group @if (!$apartment->image) d-none @endif " id="fake-image-field">
-                <button class="btn btn-outline-secondary" type="button" id="change-image-btn">Scegli il
-                    file</button>
-                <input type="text"
-                    class="form-control @error('image') is-invalid @elseif(old('image', '')) is-valid @enderror"
-                    disabled value="{{ old('image', $apartment->image) }}">
-            </div>
-            {{-- INPUT IMMAGINE --}}
-            <input type="file" name="image"
-                class="form-control @if ($apartment->image) d-none @endif @error('image') is-invalid @elseif(old('image', '')) is-valid @enderror"
-                id="image" placeholder="Immagine..." value="{{ old('image', $apartment->image) }}">
-            @error('image')
-                <div class="invalid-feedback">
-                    {{ $message }}
-                </div>
-            @enderror
-        </div>
-    </div>
-    <div class="col-3">
-        <div class="mb-3">
-            {{-- PREVIEW IMMAGINE --}}
-            <figure class="form-figure">
-                <img src="{{ old('image', $apartment->image)
-                    ? asset('storage/' . old('image', $apartment->image))
-                    : 'https://marcolanci.it/boolean/assets/placeholder.png' }}"
-                    class="img-fluid" alt="immagine appartamento" id="preview">
-            </figure>
-        </div>
-    </div>
     <label>Servizi <span class="text-danger">*</span></label>
     <div id="services-wrapper"
         class="col-12 form-control @error('services') is-invalid @elseif(old('services', '')) is-valid @enderror">
         {{-- SERVIZI --}}
         @foreach ($services as $service)
             <div class="form-check form-check-inline ">
-                <input class="form-check-input" type="checkbox" name="services[]" id="{{ "service-$service->id" }}"
-                    value="{{ $service->id }}" @if (in_array($service->id, old('services', $prev_services ?? []))) checked @endif>
+                <input class="form-check-input services-group" type="checkbox" name="services[]"
+                    id="{{ "service-$service->id" }}" value="{{ $service->id }}"
+                    @if (in_array($service->id, old('services', $prev_services ?? []))) checked @endif>
                 <label class="form-check-label" for="{{ "service-$service->id" }}">
                     {{ $service->label }}</label>
             </div>
