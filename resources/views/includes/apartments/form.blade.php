@@ -40,24 +40,24 @@
             </div>
 
             <!-- Nuovi campi per le coordinate -->
-<div class="col-6">
-    <div class="mb-3">
-        {{-- COORDINATE LATITUDINE --}}
-        <label for="latitude" class="form-label">Latitudine</label>
-        <input type="text" name="latitude"
-            class="form-control" id="latitude" placeholder="Latitudine"
-            value="{{ old('latitude', $apartment->latitude) }}" disabled>
-    </div>
-</div>
-<div class="col-6">
-    <div class="mb-3">
-        {{-- COORDINATE LONGITUDINE --}}
-        <label for="longitude" class="form-label">Longitudine</label>
-        <input type="text" name="longitude"
-            class="form-control" id="longitude" placeholder="Longitudine"
-            value="{{ old('longitude', $apartment->longitude) }}" disabled>
-    </div>
-</div>
+                    <div class="col-6">
+                            <div class="mb-3">
+                                {{-- COORDINATE LATITUDINE --}}
+                                <label for="latitude" class="form-label">Latitudine</label>
+                                <input type="text" name="latitude"
+                                 class="form-control" id="latitude" placeholder="Latitudine"
+                                    value="{{ old('latitude', $apartment->latitude) }}" disabled>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="mb-3">
+                                {{-- COORDINATE LONGITUDINE --}}
+                                <label for="longitude" class="form-label">Longitudine</label>
+                                <input type="text" name="longitude"
+                                 class="form-control" id="longitude" placeholder="Longitudine"
+                                    value="{{ old('longitude', $apartment->longitude) }}" disabled>
+                            </div>
+                        </div>
 
         
 
