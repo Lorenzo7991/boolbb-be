@@ -122,59 +122,39 @@ forms.forEach(form => {
 
         // Validazione indirizzo
         if (!inputAddressBox.value) {
-            inputAddressBox.classList.add('is-invalid')
-
+            inputAddressBox.classList.add('is-invalid');
             isValid = false;
             errorMessages += '<li>Indirizzo: selezionare un indirizzo</li>';
-
         } else {
-            inputAddressBox.classList.remove('is-invalid')
-            inputAddressBox.classList.add('is-valid')
-
-        }
-
-
-        if (!isValid) {
-            e.preventDefault();
-            const errorsAlert = document.createElement('div')
-            errorsAlert.id = 'errors-alert'
-            errorsAlert.classList.add('alert', 'alert-danger', 'alert-dismissible', 'fade',
-                'show',)
-            errorsAlert.role = 'alert';
-            errorsAlert.innerHTML = `<h4>Ci sono dei campi non validi!</h4>
-                 ${errorMessages}
-                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                 </ul>`
-            const alertParent = document.getElementById('form-alert')
-            alertParent.appendChild(errorsAlert);
+            inputAddressBox.classList.remove('is-invalid');
+            inputAddressBox.classList.add('is-valid');
         }
 
         // Validazione campi longitudine e latitudine
-
-        if (!longitudeInput.value.trim() || !latitudeInput.value.trim()) {
-            inputAddressBox.classList.add('is-invalid')
-
+        if ((!longitudeInput.value.trim() || !latitudeInput.value.trim()) && inputAddressBox.value) {
+            inputAddressBox.classList.add('is-invalid');
             isValid = false;
             errorMessages += '<li>Indirizzo: Selezionare un indirizzo valido, tra quelli suggeriti nella tabella di ricerca</li>';
         } else {
-            inputAddressBox.classList.remove('is-invalid')
-            inputAddressBox.classList.add('is-valid')
+            inputAddressBox.classList.remove('is-invalid');
+            inputAddressBox.classList.add('is-valid');
         }
 
         if (!isValid) {
             e.preventDefault();
-            const errorsAlert = document.createElement('div')
-            errorsAlert.id = 'errors-alert'
-            errorsAlert.classList.add('alert', 'alert-danger', 'alert-dismissible', 'fade',
-                'show',)
+            const errorsAlert = document.createElement('div');
+            errorsAlert.id = 'errors-alert';
+            errorsAlert.classList.add('alert', 'alert-danger', 'alert-dismissible', 'fade', 'show');
             errorsAlert.role = 'alert';
             errorsAlert.innerHTML = `<h4>Ci sono dei campi non validi!</h4>
-                 ${errorMessages}
-                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                 </ul>`
-            const alertParent = document.getElementById('form-alert')
+         ${errorMessages}
+         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+         </ul>`;
+            const alertParent = document.getElementById('form-alert');
+            alertParent.innerHTML = ''; // Pulisci eventuali messaggi di errore precedenti
             alertParent.appendChild(errorsAlert);
         }
+
 
 
     })

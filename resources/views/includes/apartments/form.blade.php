@@ -278,19 +278,21 @@
     const closeButton = document.querySelector('.tt-search-box-close-icon');
     closeButton.remove();
 
+    const latitudeInput = document.getElementById('latitude');
+    const longitudeInput = document.getElementById('longitude');
+    const addressInput = document.getElementById('address');
+
     // Aggiungo un event listener per intercettare i clic sugli elementi suggeriti nella dropdown della search box
     const searchResultListContainer = document.querySelector('.tt-search-box-result-list-container');
     searchResultListContainer.addEventListener('click', function(event) {
         const selectedResult = event.target.innerText;
-        const addressInput = document.getElementById('address');
         
         // Chiamata API per ottenere le coordinate dall'indirizzo selezionato
         fetch(`https://api.tomtom.com/search/2/geocode/${selectedResult}.json?key=JCA7jDznFGPlGy91V9K6LVAp8heuxKMU&limit=1`)
             .then(response => response.json())
             .then(data => {
                 const coordinates = data.results[0].position;
-                const latitudeInput = document.getElementById('latitude');
-                const longitudeInput = document.getElementById('longitude');
+                
                 latitudeInput.value = coordinates.lat;
                 longitudeInput.value = coordinates.lon;
                  
@@ -299,6 +301,14 @@
                 console.error('Errore durante la richiesta delle coordinate:', error);
             });
     });
+
+    // Aggiungo un event listener per svuotare i campi delle coordinate quando l'utente clicca sulla barra di ricerca
+    inputAddressBox.addEventListener('click', function() {
+    // Svuota i campi delle coordinate
+    latitudeInput.value = '';
+    longitudeInput.value = '';
+});
+
 
     @error('address')
         inputAddressBox.classList.add('is-invalid');
