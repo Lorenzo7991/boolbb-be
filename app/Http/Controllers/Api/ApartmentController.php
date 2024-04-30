@@ -76,6 +76,7 @@ class ApartmentController extends Controller
 
             $apartments = Apartment::select(
                 'id',
+                'user_id',
                 'title',
                 'slug',
                 'address',
@@ -94,6 +95,9 @@ class ApartmentController extends Controller
                 ->whereIsVisible(true)
                 ->having('distance', '<', $distance)
                 ->orderBy('distance')
+                ->with('user')
+                ->with('services')
+                ->with('images')
                 ->get();
 
             return response()->json($apartments);
