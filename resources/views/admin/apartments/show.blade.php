@@ -68,18 +68,29 @@
                                         : '<i class="fa-solid fa-circle-xmark text-danger "></i>' !!}
                                 </p>
                                 {{-- INSERIMENTO IMMAGINI AGGIUNTIVE --}}
-                                <div>
-                                    <h5 for="image" class="form-label">Aggiungi nuove immagini:</h5>
-                                    <form id="add-image" class="d-none" action="{{ route('image.store', $apartment->id) }}"
-                                        method="POST" enctype="multipart/form-data">
-                                        @csrf
-                                        <input type="file" name="image"
+                                <div class="d-flex">
+                                    <div>
+                                        <h5 for="image" class="form-label">Aggiungi nuove immagini:</h5>
+                                        <form id="add-image" class="d-none" action="{{ route('image.store', $apartment->id) }}"
+                                            method="POST" enctype="multipart/form-data">
+                                            @csrf
+                                            <input type="file" name="image"
                                             class="form-control  @error('image') is-invalid @elseif(old('image', '')) is-valid @enderror"
                                             id="add-secondary-image">
-                                    </form>
-                                    <button id="add-img-btn" type="button" class="btn btn-primary mb-3"><i
+                                        </form>
+                                        <button id="add-img-btn" type="button" class="btn btn-primary mb-3"><i
                                             class="fas fa-plus"></i></button>
+                                    </div>
+                                    <div>
+                                        <h5>Sponsorizza:</h5>
+                                        <a class="btn btn-success" href="{{route('sponsorship.create', $apartment->id) }}">
+                                            <i class="fas fa-plus"></i>
+                                        </a>
+
+                                    </div>
                                 </div>
+
+
 
                             </div>
 

@@ -19,6 +19,14 @@
     <script src="https://api.tomtom.com/maps-sdk-for-web/cdn/6.x/6.1.2-public-preview.15/services/services-web.min.js">
     </script>
 
+
+    <!--BRAINTREE-->
+    <script src="https://js.braintreegateway.com/web/dropin/1.42.0/js/dropin.min.js"></script>
+    <script src="https://js.braintreegateway.com/web/3.102.0/js/client.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    
+
+
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
@@ -48,7 +56,12 @@
                 @yield('content')
             </main>
         </div>
+
+
+                <!-- Step one: add an empty container to your page -->
+                <div id="dropin-container"></div>
     </div>
+
 
     @yield('script')
 

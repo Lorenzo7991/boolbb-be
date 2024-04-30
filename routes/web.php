@@ -3,6 +3,7 @@
 use App\Http\Controllers\ApartmentController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SponsorshipController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,12 +22,17 @@ Route::get('/', function () {
 });
 
 Route::middleware('auth')->group(function () {
+    Route::get('apartments/{apartment}/sponsorship', [SponsorshipController::class, 'create'])->name('sponsorship.create');
+    Route::post('apartments/{apartment}/sponsorship', [SponsorshipController::class, 'store'])->name('sponsorship.store');
     Route::patch('apartments/{apartment}/toggle-visibility', [ApartmentController::class, 'toggleVisibility'])->name('apartment.toggle-visibility');
     Route::resource('apartments', ApartmentController::class);
 });
 
 Route::post('apartments/{apartment}/images}', [ImageController::class, 'store'])->name('image.store');
 Route::delete('apartments/images/{image}', [ImageController::class, 'destroy'])->name('image.destroy');
+
+//rotta pagamenti
+
 
 Route::get('/admin', function () {
     return view('admin.home');
