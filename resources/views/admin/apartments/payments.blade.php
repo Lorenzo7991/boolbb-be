@@ -15,21 +15,26 @@
       <input x-on:click="currentActive = gold" value="gold" type="radio" class="btn-check" name="sponsorship" id="gold" autocomplete="off">
       <label class="btn btn-outline-primary" for="gold">Oro</label>
     </div>
-    @foreach ( $sponsorships as $sponsorship )
     
     <!--card sponsorizzazione-->
-    <div x-if="currentActive === {{$sponsorship->label}}" class="card text-center">
-      <div class="card-header">
-        {{$sponsorship->label}}
+    
+    <div class="d-flex row-cols-3 gap-3">
+
+      @foreach ( $sponsorships as $sponsorship )
+      <div x-if="currentActive === {{$sponsorship->label}}" class="card text-center ">
+        <div class="card-header">
+          {{$sponsorship->label}}
+        </div>
+        <div class="card-body">
+          <p class="card-text">Durata sponsorizzazione : {{$sponsorship->duration}} ore</p>
+        </div>
+        <div class="card-footer text-body-secondary">
+          Prezzo:{{$sponsorship->price}}€
+        </div>
+      </div>
+      
+      @endforeach
     </div>
-    <div class="card-body">
-      <p class="card-text">Durata sponsorizzazione : {{$sponsorship->duration}}</p>
-    </div>
-    <div class="card-footer text-body-secondary">
-      Prezzo:{{$sponsorship->price}}€
-    </div>
-  </div>
-  @endforeach
 </div>
   
   
