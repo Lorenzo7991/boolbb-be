@@ -68,27 +68,46 @@
                                         : '<i class="fa-solid fa-circle-xmark text-danger "></i>' !!}
                                 </p>
                                 {{-- INSERIMENTO IMMAGINI AGGIUNTIVE --}}
-                                <div class="d-flex">
-                                    <div>
-                                        <h5 for="image" class="form-label">Aggiungi nuove immagini:</h5>
-                                        <form id="add-image" class="d-none" action="{{ route('image.store', $apartment->id) }}"
-                                            method="POST" enctype="multipart/form-data">
+                                <div class="row">
+                                    <div class="col-3">
+                                        <form id="add-image" class="d-none"
+                                            action="{{ route('image.store', $apartment->id) }}" method="POST"
+                                            enctype="multipart/form-data">
                                             @csrf
                                             <input type="file" name="image"
-                                            class="form-control  @error('image') is-invalid @elseif(old('image', '')) is-valid @enderror"
-                                            id="add-secondary-image">
+                                                class="form-control  @error('image') is-invalid @elseif(old('image', '')) is-valid @enderror"
+                                                id="add-secondary-image">
                                         </form>
-                                        <button id="add-img-btn" type="button" class="btn btn-primary mb-3"><i
-                                            class="fas fa-plus"></i></button>
+                                        <button id="add-img-btn" type="button" class="btn btn-sm btn-primary mb-3"><i
+                                                class="fas fa-plus"></i> Immagine</button>
                                     </div>
-                                    <div>
-                                        <h5>Sponsorizza:</h5>
-                                        <a class="btn btn-success" href="{{route('sponsorship.create', $apartment->id) }}">
-                                            <i class="fas fa-plus"></i>
+                                    {{-- Aggiunta sponsorizzazione --}}
+                                    <div class="col-4">
+                                        <a class="btn btn-sm btn-success"
+                                            href="{{ route('sponsorship.create', $apartment->id) }}">
+                                            <i class="fas fa-plus"></i> Sponsorizza
                                         </a>
 
                                     </div>
+                                    {{-- Sponsorizzazione --}}
+                                    @if (count($apartment->sponsorships))
+                                        <div class="col-5 row" id="counter"
+                                            data-expiration-date="{{ $latest_expiration }}">
+                                            <div class="col-12 d-flex flex-column">Durata sponsorizzazione:
+                                                <div>
+                                                    <span id="days"></span>:<span id="hours"></span>:<span
+                                                        id="minutes"></span>:<span id="seconds"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @else
+                                        <div class="row">
+                                            <div class="col-6">Durata sponsorizzazione: 0</div>
+                                        </div>
+                                    @endif
                                 </div>
+
+
 
 
 
@@ -152,6 +171,8 @@
     @include('includes.delete_modal')
 @endsection
 @section('script')
+    @vite('resources/js/sponsorship_countdown.js')
     @vite('resources/js/delete_confirmation.js')
     @vite('resources/js/secondary_images.js')
+
 @endsection

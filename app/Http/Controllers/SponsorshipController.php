@@ -74,9 +74,16 @@ class SponsorshipController extends Controller
         // ]);
         //if ($result->success) {
         if ($result->success) {
-            $start_date = Carbon::now();
-            $expire_date = Carbon::parse($start_date)->addHours($sponsorship->duration);
+            if (count($apartment->sponsorships)) {
+                $latest_expiration = Apartment::find($apartment->id)->sponsorships()->max('expire_date');
+                $start_date = $latest_expiration;
+                $expire_date = Carbon::parse($start_date)->addHours($sponsorship->duration);
+            } else {
+                $start_date = Carbon::now();
+                $expire_date = Carbon::parse($start_date)->addHours($sponsorship->duration);
+            }
             $apartment->sponsorships()->attach($sponsorship, ['start_date' => $start_date, 'expire_date' => $expire_date]);
+
             //$verification = $result->paymentMethod->verification;
             // Il pagamento è stato elaborato con successo
             $transactionId = $result->transaction->id;
