@@ -3,26 +3,33 @@
 @section('content')
     <form id="payment-form" action="{{ route('sponsorship.store', $apartment->id) }}" method="post">
         @csrf
-        <div x-data="{ currentActive: 'Gold' }">
-            <h1 class="text-center" x-text="currentActive"> </h1>
-            <div class=" row row-cols-3">
-              @foreach ($sponsorships as $sponsorship)
-              <!--card sponsorizzazione-->
-              <div class="col">
-                <div class="card text-center">
-                  <div class="card-header">
-                    {{ $sponsorship->label }}
-                  </div>
-                  <div class="card-body">
-                    <p class="card-text">Durata sponsorizzazione : {{ $sponsorship->duration }}</p>
-                    <input x-model="currentActive" x-on:click="currentActive = '{{$sponsorship->label}}'" class="form-check-input border border-danger" type="radio" value="{{$sponsorship->label}}"  name="sponsorship" id="sponsorship-{{$sponsorship->id}}">
-                  </div>
-                  <div class="card-footer text-body-secondary">
-                    Prezzo:{{ $sponsorship->price }}€
-                  </div>
-                </div>
-              </div>
-              @endforeach
+        <div x-data="{ currentActive: 'gold' }">
+            <h1 class="text-center mb-5">Piani di sponsorizzazione</h1>
+            <div class=" row row-cols-3" id="sponsorship-cards">
+                @foreach ($sponsorships as $sponsorship)
+                    <!--card sponsorizzazione-->
+                    <div class="col">
+                        <div x-on:click="currentActive= '{{ $sponsorship->label }}'"
+                            class="card text-center card-{{ $sponsorship->label }} rounded-4 overflow-hidden shadow-lg"
+                            :class="currentActive == '{{ $sponsorship->label }}' ? 'active-card' : ''">
+                            <div class="card-header text-capitalize fw-bold">
+                                <h4>
+                                    {{ $sponsorship->label }}
+                                </h4>
+                            </div>
+                            <div class="card-body">
+                                <p class="card-text">Metti in evidenza il tuo appartamento per: {{ $sponsorship->duration }}
+                                    ore</p>
+                                <input x-model="currentActive" class="form-check-input card-radio" type="radio"
+                                    value="{{ $sponsorship->label }}" name="sponsorship"
+                                    id="sponsorship-{{ $sponsorship->id }}">
+                            </div>
+                            <div class="card-footer fw-bold">
+                                Prezzo: {{ $sponsorship->price }} €
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
             </div>
         </div>
 
