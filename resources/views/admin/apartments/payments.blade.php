@@ -3,35 +3,27 @@
 @section('content')
     <form id="payment-form" action="{{ route('sponsorship.store', $apartment->id) }}" method="post">
         @csrf
-        <div x-data="{ currentActive: 'bronze' }">
-            <h1 x-text="currentActive"> </h1>
-            <div class="btn-group" role="group">
-                <input x-on:click="currentActive = 'bronze'" value="bronze" type="radio" class="btn-check" name="sponsorship"
-                    id="bronze" autocomplete="off" checked>
-                <label class="btn btn-outline-primary" for="bronze">Bronzo</label>
-
-                <input x-on:click="currentActive = 'silver'" value="silver" type="radio" class="btn-check"
-                    name="sponsorship" id="silver" autocomplete="off">
-                <label class="btn btn-outline-primary" for="silver">Argento</label>
-
-                <input x-on:click="currentActive = 'gold'" value="gold" type="radio" class="btn-check"
-                    name="sponsorship" id="gold" autocomplete="off">
-                <label class="btn btn-outline-primary" for="gold">Oro</label>
-            </div>
-            @foreach ($sponsorships as $sponsorship)
-                <!--card sponsorizzazione-->
-                <div x-if="currentActive === {{ $sponsorship->label }} " class="card text-center">
-                    <div class="card-header">
-                        {{ $sponsorship->label }}
-                    </div>
-                    <div class="card-body">
-                        <p class="card-text">Durata sponsorizzazione : {{ $sponsorship->duration }}</p>
-                    </div>
-                    <div class="card-footer text-body-secondary">
-                        Prezzo:{{ $sponsorship->price }}€
-                    </div>
+        <div x-data="{ currentActive: 'Gold' }">
+            <h1 class="text-center" x-text="currentActive"> </h1>
+            <div class=" row row-cols-3">
+              @foreach ($sponsorships as $sponsorship)
+              <!--card sponsorizzazione-->
+              <div class="col">
+                <div class="card text-center">
+                  <div class="card-header">
+                    {{ $sponsorship->label }}
+                  </div>
+                  <div class="card-body">
+                    <p class="card-text">Durata sponsorizzazione : {{ $sponsorship->duration }}</p>
+                    <input x-model="currentActive" x-on:click="currentActive = '{{$sponsorship->label}}'" class="form-check-input border border-danger" type="radio" value="{{$sponsorship->label}}"  name="sponsorship" id="sponsorship-{{$sponsorship->id}}">
+                  </div>
+                  <div class="card-footer text-body-secondary">
+                    Prezzo:{{ $sponsorship->price }}€
+                  </div>
                 </div>
-            @endforeach
+              </div>
+              @endforeach
+            </div>
         </div>
 
 
