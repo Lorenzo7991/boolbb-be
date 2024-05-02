@@ -18,7 +18,7 @@
             <tr>
                 <th scope="col" class="text-center text-white brd-left"><i
                         class=" ps-1 fa-solid fa-camera-retro icon-border"></i></th>
-                <th scope="col" class="text-white"><i class="fa-solid fa-tag me-2  icon-border"></i>Titolo</th>
+                <th scope="col" class="text-white"><i class="fa-solid fa-tag me-2  icon-border"></i>Appartammento</th>
                 <th scope="col" class="text-white"><i class="fa-solid fa-location-dot  me-2  icon-border"></i>Indirizzo
                 </th>
                 <th scope="col" class="text-white"> <i class="fa-solid fa-expand me-2 icon-border"></i>mq<sup>2</sup>

@@ -6,6 +6,15 @@ body {
     background-color: rgb(218, 234, 238);
 }
 
+
+/* Stile Admin Home */
+.home-title {
+    background: linear-gradient(to right, #0E485B, #4BC9E4);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
 /*  Immagini nella index    */
 .index-figure {
     margin-bottom: 0;
@@ -169,12 +178,6 @@ body {
     height: fit-content;
 }
 
-/*#index-title {
-    font-family: "Arial", sans-serif;
-    color: white;
-    font-weight: bold;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-}*/
 
 // Regole tabella
 .table {
