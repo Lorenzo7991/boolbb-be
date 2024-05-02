@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Apartment;
+use App\Models\Service;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
@@ -105,5 +106,10 @@ class ApartmentController extends Controller
             // Gestisci il caso in cui non ci sono risultati dalla geocodifica
             return response()->json(['error' => 'Nessun risultato trovato per l\'indirizzo specificato.']);
         }
+    }
+    public function services()
+    {
+        $services = Service::all();
+        return response()->json($services);
     }
 }
