@@ -52,4 +52,15 @@
         </tbody>
     </table>
 </div>
+
+     {{-- Paginazione --}}
+    @if ($messages->hasPages())
+        {{ $messages->links() }}
+    @endif
+
+    <!-- Modale Eliminazione -->
+    @include('includes.delete_modal')
+@endsection
+@section('script')
+    @vite('resources/js/delete_confirmation.js')
 @endsection
