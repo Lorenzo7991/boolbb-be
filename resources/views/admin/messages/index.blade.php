@@ -23,7 +23,7 @@
             @forelse($apartmentsWithMessages as $apartment)
             <tr>
                 <td class="text-center">
-                    <img src="{{ $apartment->image }}" alt="Appartamento">
+                    <img style="width: 50px" src="{{ asset('storage/' . $apartment->image) }}" alt="Appartamento">
                 </td>
                 <td>{{ $apartment->title }}</td>
                 <td>{{ $apartment->address }}</td>
