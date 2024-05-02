@@ -23,7 +23,7 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link d-flex justify-content-between gap-5 align-items-center" href="{{ url('/') }}">
+            <a class="nav-link d-flex justify-content-between gap-5 align-items-center" href="{{url('/apartments/sponsored')}}">
                 <span>Sponsor</span> <i class="fa-solid fa-sack-dollar fa-lg fa-fw"></i>
             </a>
         </li>

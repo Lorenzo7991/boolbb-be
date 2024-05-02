@@ -68,18 +68,72 @@
                                         : '<i class="fa-solid fa-circle-xmark text-danger "></i>' !!}
                                 </p>
                                 {{-- INSERIMENTO IMMAGINI AGGIUNTIVE --}}
-                                <div>
-                                    <h5 for="image" class="form-label">Aggiungi nuove immagini:</h5>
-                                    <form id="add-image" class="d-none" action="{{ route('image.store', $apartment->id) }}"
-                                        method="POST" enctype="multipart/form-data">
-                                        @csrf
-                                        <input type="file" name="image"
-                                            class="form-control  @error('image') is-invalid @elseif(old('image', '')) is-valid @enderror"
-                                            id="add-secondary-image">
-                                    </form>
-                                    <button id="add-img-btn" type="button" class="btn btn-primary mb-3"><i
-                                            class="fas fa-plus"></i></button>
+                                <div class="row">
+                                    <div class="col-3">
+                                        <form id="add-image" class="d-none"
+                                            action="{{ route('image.store', $apartment->id) }}" method="POST"
+                                            enctype="multipart/form-data">
+                                            @csrf
+                                            <input type="file" name="image"
+                                                class="form-control  @error('image') is-invalid @elseif(old('image', '')) is-valid @enderror"
+                                                id="add-secondary-image">
+                                        </form>
+                                        <button id="add-img-btn" type="button" class="btn btn-sm btn-primary mb-3"><i
+                                                class="fas fa-plus"></i> Immagine</button>
+                                    </div>
+                                    {{-- Sponsorizzazione --}}
+                                    @if ($latest_expiration_string !== null)
+                                        <div class="col-9">
+                                            <a class="card text-decoration-none sponsorship-button"
+                                                href="{{ route('sponsorship.create', $apartment->id) }}">
+                                                <div class="card-header text-center ">
+                                                    <i class="fa-solid fa-bolt-lightning"></i> Estendi
+                                                </div>
+                                                <div class="card-body" id="counter"
+                                                    data-expiration-date="{{ $latest_expiration_string }}">
+                                                    <div class="d-flex justify-content-between column-gap-3 ">
+                                                        {{-- Giorni --}}
+                                                        <div
+                                                            class="d-flex flex-column align-items-center border rounded w-25 ">
+                                                            <span class="text-nowrap" id="days"></span>
+                                                            <small>Giorni</small>
+                                                        </div>
+                                                        {{-- Ore --}}
+                                                        <div
+                                                            class="d-flex flex-column align-items-center border rounded w-25  ">
+                                                            <span class="text-nowrap" id="hours"></span>
+                                                            <small>Ore</small>
+                                                        </div>
+                                                        {{-- Minuti --}}
+                                                        <div
+                                                            class="d-flex flex-column align-items-center border rounded w-25 ">
+                                                            <span class="text-nowrap" id="minutes"></span>
+                                                            <small>Minuti</small>
+                                                        </div>
+                                                        {{-- Secondi --}}
+                                                        <div
+                                                            class="d-flex flex-column align-items-center border rounded w-25 ">
+                                                            <span class="text-nowrap" id="seconds"></span>
+                                                            <small>Secondi</small>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    @else
+                                        <div class="col-4">
+                                            <a class="btn btn-sm sponsorship-button"
+                                                href="{{ route('sponsorship.create', $apartment->id) }}">
+                                                <i class="fa-solid fa-bolt-lightning"></i> Metti in evidenza
+                                            </a>
+                                        </div>
+                                    @endif
+
                                 </div>
+
+
+
+
 
                             </div>
 
@@ -141,6 +195,8 @@
     @include('includes.delete_modal')
 @endsection
 @section('script')
+    @vite('resources/js/sponsorship_countdown.js')
     @vite('resources/js/delete_confirmation.js')
     @vite('resources/js/secondary_images.js')
+
 @endsection
