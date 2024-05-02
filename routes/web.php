@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ApartmentController;
 use App\Http\Controllers\ImageController;
+use App\Http\Controllers\MessageController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -23,7 +24,9 @@ Route::get('/', function () {
 Route::middleware('auth')->group(function () {
     Route::patch('apartments/{apartment}/toggle-visibility', [ApartmentController::class, 'toggleVisibility'])->name('apartment.toggle-visibility');
     Route::resource('apartments', ApartmentController::class);
+    Route::resource('messages', MessageController::class);
 });
+
 
 Route::post('apartments/{apartment}/images}', [ImageController::class, 'store'])->name('image.store');
 Route::delete('apartments/images/{image}', [ImageController::class, 'destroy'])->name('image.destroy');

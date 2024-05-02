@@ -28,4 +28,5 @@ Route::get('apartments/search/', [ApartmentController::class, 'search'])->name('
 Route::get('/apartments/{slug}', [ApartmentController::class, 'show']);
 
 //Rotta messaggi
-Route::post('/contact-message', [ContactController::class, 'message']);
+Route::post('/contact-message/{apartment_id}', [ContactController::class, 'message']);
+
