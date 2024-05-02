@@ -13,8 +13,8 @@ class MessageController extends Controller
      */
     public function index()
     {
-        // Recupera tutti i messaggi
-        $messages = Message::all();
+        // Recupera tutti i messaggi con paginazione
+        $messages = Message::paginate(5);
 
         // Passa i dati alla vista
         return view('admin.messages.index', compact('messages'));
@@ -69,6 +69,11 @@ class MessageController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        // Trova il messaggio con l'ID specificato e lo elimina
+        $message = Message::findOrFail($id);
+        $message->delete();
+
+        // Redirect alla lista dei messaggi con un messaggio di successo
+        return redirect()->route('messages.index')->with('success', 'Messaggio eliminato con successo.');
     }
 }

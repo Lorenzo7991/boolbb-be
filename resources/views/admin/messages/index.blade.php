@@ -30,7 +30,7 @@
                 <td>{{ $message->apartment->address }}</td>
                 <td>{{ $message->name }} {{ $message->last_name }}</td>
                 <td>{{ $message->subject }}</td>
-                <td>{{ substr($message->text, 0, 30) }}{{ strlen($message->text) > 50 ? "..." : "" }}</td>
+                <td>{{ substr($message->text, 0, 30) }}{{ strlen($message->text) > 30 ? "..." : "" }}</td>
                 <td>
                     <div class="d-flex justify-content-center  gap-2">
                         <!--Bottone dettaglio-->
@@ -52,4 +52,15 @@
         </tbody>
     </table>
 </div>
+
+     {{-- Paginazione --}}
+    @if ($messages->hasPages())
+        {{ $messages->links() }}
+    @endif
+
+    <!-- Modale Eliminazione -->
+    @include('includes.delete_modal')
+@endsection
+@section('script')
+    @vite('resources/js/delete_confirmation.js')
 @endsection
