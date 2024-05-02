@@ -27,9 +27,9 @@ class SponsorshipController extends Controller
     {
         $gateway = new Gateway([
             'environment' => 'sandbox',
-            'merchantId' => 'sxn9vpc42fpsdxjb',
-            'publicKey' => 'p4689b9sy2g9yjbc',
-            'privateKey' => '765e7b9d497155a2d1e8516aa2bedd63'
+            'merchantId' => 'tqcvwgvx389yj3m8',
+            'publicKey' => 'sh2nkfvtt3pzfsp6',
+            'privateKey' => '22857b34c162952e9161b76d2809ab4f'
         ]);
 
         // pass $clientToken to your front-end
@@ -52,9 +52,9 @@ class SponsorshipController extends Controller
         //$deviceDataFromTheClient = $request->device_data;
         $gateway = new Gateway([
             'environment' => 'sandbox',
-            'merchantId' => 'sxn9vpc42fpsdxjb',
-            'publicKey' => 'p4689b9sy2g9yjbc',
-            'privateKey' => '765e7b9d497155a2d1e8516aa2bedd63'
+            'merchantId' => 'tqcvwgvx389yj3m8',
+            'publicKey' => 'sh2nkfvtt3pzfsp6',
+            'privateKey' => '22857b34c162952e9161b76d2809ab4f'
         ]);
         //$result = $gateway->transaction()->sale([
         $result =  $gateway->transaction()->sale([
