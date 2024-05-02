@@ -69,6 +69,11 @@ class MessageController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        // Trova il messaggio con l'ID specificato e lo elimina
+        $message = Message::findOrFail($id);
+        $message->delete();
+
+        // Redirect alla lista dei messaggi con un messaggio di successo
+        return redirect()->route('messages.index')->with('success', 'Messaggio eliminato con successo.');
     }
 }
