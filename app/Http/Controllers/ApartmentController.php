@@ -11,6 +11,7 @@ use App\Http\Requests\StoreApartmentRequest;
 use App\Http\Requests\UpdateApartmentRequest;
 use Carbon\Carbon;
 use DateTime;
+use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
@@ -78,19 +79,18 @@ class ApartmentController extends Controller
      */
     public function show(Apartment $apartment)
     {
-        $current_date = Carbon::now();
-        $latest_expiration = Apartment::find($apartment->id)->sponsorships()->max('expire_date'); // Stringa
-        //$latest_expiration = new DateTime($latest_expiration); // La converto in formato DateTime
-        // $time_left = $current_date->diff($latest_expiration);
-        // $current_date_carbon = Carbon::instance($current_date); // Current date in formato carbon
-        // $latest_expiration_carbon = Carbon::instance($latest_expiration); // Latest expiration in formato carbon
-        // $timeDifferenceMilliseconds = $latest_expiration_carbon->diffInMilliseconds($current_date_carbon);  // Differenza di tempo in millisecondi
-        // $sponsorship_duration['hours'] = $time_left->days * 24 + $time_left->h;
-        // $sponsorship_duration['minutes'] = $time_left->i;
-        // $sponsorship_duration['seconds'] = $time_left->s;
+        Carbon::setLocale('it');
+        $current_date = Carbon::now('Europe/Rome');
+        $latest_expiration_string = Apartment::find($apartment->id)->sponsorships()->max('expire_date'); // Stringa
+        $latest_expiration = new DateTime($latest_expiration_string); // La converto in formato DateTime
+
+        if ($current_date > $latest_expiration) {
+            $latest_expiration_string = null;
+        }
+
         if (!(Auth::id() == $apartment->user_id))
             return to_route('admin.home')->with('type', 'danger')->with('message', 'Non sei autorizzato ad eseguire questa azione');
-        return view('admin.apartments.show', compact('apartment', 'latest_expiration'));
+        return view('admin.apartments.show', compact('apartment', 'latest_expiration_string'));
     }
 
     /**

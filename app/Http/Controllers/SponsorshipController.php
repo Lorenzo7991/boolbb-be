@@ -74,12 +74,12 @@ class SponsorshipController extends Controller
         // ]);
         //if ($result->success) {
         if ($result->success) {
-            if (count($apartment->sponsorships)) {
+            if (count($apartment->sponsorships) &&  Apartment::find($apartment->id)->sponsorships()->max('expire_date') > Carbon::now()) {
                 $latest_expiration = Apartment::find($apartment->id)->sponsorships()->max('expire_date');
                 $start_date = $latest_expiration;
                 $expire_date = Carbon::parse($start_date)->addHours($sponsorship->duration);
             } else {
-                $start_date = Carbon::now();
+                $start_date = Carbon::now('Europe/Rome');
                 $expire_date = Carbon::parse($start_date)->addHours($sponsorship->duration);
             }
             $apartment->sponsorships()->attach($sponsorship, ['start_date' => $start_date, 'expire_date' => $expire_date]);

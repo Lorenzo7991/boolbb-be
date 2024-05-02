@@ -265,7 +265,7 @@ main {
     }
 
     input.card-radio:checked {
-        background-color: #000000;
+        background-color: gold;
     }
 
     .card-footer {
@@ -289,7 +289,7 @@ main {
     }
 
     input.card-radio:checked {
-        background-color: #000000;
+        background-color: #888888;
     }
 
     .card-footer {
@@ -313,7 +313,7 @@ main {
     }
 
     input.card-radio:checked {
-        background-color: #000000;
+        background-color: #824c2f;
     }
 
     .card-footer {
@@ -354,5 +354,19 @@ main {
         &.active-card {
             transform: scale(1);
         }
+    }
+}
+
+// Sponsorship button sulla show
+
+.sponsorship-button {
+    .card-header {
+        background-color: #25475a;
+        color: white;
+    }
+
+    &.btn.btn-sm {
+        background-color: #25475a;
+        color: white;
     }
 }

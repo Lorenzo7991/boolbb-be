@@ -81,30 +81,54 @@
                                         <button id="add-img-btn" type="button" class="btn btn-sm btn-primary mb-3"><i
                                                 class="fas fa-plus"></i> Immagine</button>
                                     </div>
-                                    {{-- Aggiunta sponsorizzazione --}}
-                                    <div class="col-4">
-                                        <a class="btn btn-sm btn-success"
-                                            href="{{ route('sponsorship.create', $apartment->id) }}">
-                                            <i class="fas fa-plus"></i> Sponsorizza
-                                        </a>
-
-                                    </div>
                                     {{-- Sponsorizzazione --}}
-                                    @if (count($apartment->sponsorships))
-                                        <div class="col-5 row" id="counter"
-                                            data-expiration-date="{{ $latest_expiration }}">
-                                            <div class="col-12 d-flex flex-column">Durata sponsorizzazione:
-                                                <div>
-                                                    <span id="days"></span>:<span id="hours"></span>:<span
-                                                        id="minutes"></span>:<span id="seconds"></span>
+                                    @if ($latest_expiration_string !== null)
+                                        <div class="col-9">
+                                            <a class="card text-decoration-none sponsorship-button"
+                                                href="{{ route('sponsorship.create', $apartment->id) }}">
+                                                <div class="card-header text-center ">
+                                                    <i class="fa-solid fa-bolt-lightning"></i> Estendi
                                                 </div>
-                                            </div>
+                                                <div class="card-body" id="counter"
+                                                    data-expiration-date="{{ $latest_expiration_string }}">
+                                                    <div class="d-flex justify-content-between column-gap-3 ">
+                                                        {{-- Giorni --}}
+                                                        <div
+                                                            class="d-flex flex-column align-items-center border rounded w-25 ">
+                                                            <span class="text-nowrap" id="days"></span>
+                                                            <small>Giorni</small>
+                                                        </div>
+                                                        {{-- Ore --}}
+                                                        <div
+                                                            class="d-flex flex-column align-items-center border rounded w-25  ">
+                                                            <span class="text-nowrap" id="hours"></span>
+                                                            <small>Ore</small>
+                                                        </div>
+                                                        {{-- Minuti --}}
+                                                        <div
+                                                            class="d-flex flex-column align-items-center border rounded w-25 ">
+                                                            <span class="text-nowrap" id="minutes"></span>
+                                                            <small>Minuti</small>
+                                                        </div>
+                                                        {{-- Secondi --}}
+                                                        <div
+                                                            class="d-flex flex-column align-items-center border rounded w-25 ">
+                                                            <span class="text-nowrap" id="seconds"></span>
+                                                            <small>Secondi</small>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </a>
                                         </div>
                                     @else
-                                        <div class="row">
-                                            <div class="col-6">Durata sponsorizzazione: 0</div>
+                                        <div class="col-4">
+                                            <a class="btn btn-sm sponsorship-button"
+                                                href="{{ route('sponsorship.create', $apartment->id) }}">
+                                                <i class="fa-solid fa-bolt-lightning"></i> Metti in evidenza
+                                            </a>
                                         </div>
                                     @endif
+
                                 </div>
 
 
