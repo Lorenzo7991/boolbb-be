@@ -24,6 +24,10 @@ Route::get('/', function () {
 Route::middleware('auth')->group(function () {
     Route::get('apartments/{apartment}/sponsorship', [SponsorshipController::class, 'create'])->name('sponsorship.create');
     Route::post('apartments/{apartment}/sponsorship', [SponsorshipController::class, 'store'])->name('sponsorship.store');
+
+    //appartamenti sponsorizzati
+    Route::get('apartments/sponsored', [ApartmentController::class, 'sponsored']);
+
     Route::patch('apartments/{apartment}/toggle-visibility', [ApartmentController::class, 'toggleVisibility'])->name('apartment.toggle-visibility');
     Route::resource('apartments', ApartmentController::class);
 });
