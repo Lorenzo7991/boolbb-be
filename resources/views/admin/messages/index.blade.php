@@ -30,7 +30,7 @@
                 @if ($apartment->messages->isNotEmpty())
                 <td>{{ $apartment->messages->first()->name }}</td>
                 <td>{{ $apartment->messages->first()->subject }}</td>
-                <td>{{ substr($apartment->messages->first()->text, 0, 40) }}{{ strlen($apartment->messages->first()->text) > 50 ? "..." : "" }}</td>
+                <td>{{ substr($apartment->messages->first()->text, 0, 30) }}{{ strlen($apartment->messages->first()->text) > 50 ? "..." : "" }}</td>
                 <td >
                     <div class="d-flex justify-content-center  gap-2">
                     <div class="d-flex justify-content-center  gap-2">
