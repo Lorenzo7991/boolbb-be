@@ -13,9 +13,8 @@
             <th scope="col" class="text-white"><i class="fa-solid fa-tag me-2  icon-border"></i>Titolo</th>
             <th scope="col" class="text-white"><i class="fa-solid fa-location-dot  me-2  icon-border"></i>Indirizzo
             </th>
-            <th scope="col" class="text-white"> <i class="fa-solid fa-expand me-2 icon-border"></i>mq<sup>2</sup>
+            <th scope="col" class=" text-center text-white"> <i  class="fa-regular fa-clock me-2"></i>Scadenza sponsorizzazione
             </th>
-            <th scope="col" class="text-white"><i class="fa-solid fa-coins  icon-border"></i>/notte</th>
             <th scope="col" class="text-white">Publicati</th>
             <th class="text-center text-white brd-right" scope="col"><i class="fa-solid fa-gamepad icon-border"></i>
             </th>
@@ -40,10 +39,10 @@
                 <td>{{ $apartment->address }}</td>
 
                 <!--Metri quadri appartemento-->
-                <td>{{ $apartment->square_meters }}</td>
+                <td class="text-center">{{ $apartment->expiration_date }}</td>
 
-                <!--Prezzp per notte -->
-                <td>{{ $apartment->price_per_night }}</td>
+        
+                
 
                 <!--Visibilità appartamento-->
                 <td>

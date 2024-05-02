@@ -11,6 +11,7 @@ use App\Http\Requests\StoreApartmentRequest;
 use App\Http\Requests\UpdateApartmentRequest;
 use Carbon\Carbon;
 use DateTime;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
@@ -163,10 +164,30 @@ class ApartmentController extends Controller
         $sponsoredApartments = Apartment::whereHas('sponsorships', function ($query) use ($current_date) {
             // Filtra le sponsorship con scadenza maggiore della data attuale
             $query->where('expire_date', '>', $current_date);
-        })->with(['sponsorships' => function ($query) use ($current_date) {
-            // Seleziona la data di scadenza
-            $query->where('expire_date', '>', $current_date);
-        }])->get();
+        })
+            ->with(['sponsorships' => function ($query) use ($current_date) {
+                // Seleziona la data di scadenza
+                $query->where('expire_date', '>', $current_date);
+            }])
+            ->whereHas('sponsorships', function ($query) use ($current_date) {
+                // Seleziona gli appartamenti con la massima data di scadenza
+                $query->where('expire_date', DB::raw('(SELECT MAX(expire_date) FROM apartment_sponsorship WHERE apartment_id = apartments.id)'));
+            })
+            ->addSelect([
+                'expiration_date' => DB::table('apartment_sponsorship')
+                    ->select('expire_date')
+                    ->whereColumn('apartment_id', 'apartments.id')
+                    ->orderByDesc('expire_date')
+                    ->limit(1),
+            ])
+            ->get();
+        // Apartment::whereHas('sponsorships', function ($query) use ($current_date) {
+        //     // Filtra le sponsorship con scadenza maggiore della data attuale
+        //     $query->where('expire_date', '>', $current_date);
+        // })->with(['sponsorships' => function ($query) use ($current_date) {
+        //     // Seleziona la data di scadenza
+        //     $query->where('expire_date', '>', $current_date);
+        // }])->get();
         return view('admin.apartments.sponsored', compact('sponsoredApartments'));
     }
 }
