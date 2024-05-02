@@ -13,11 +13,11 @@ class MessageController extends Controller
      */
     public function index()
     {
-        // Recupera tutti gli appartamenti che hanno messaggi associati
-        $apartmentsWithMessages = Apartment::has('messages')->get();
+        // Recupera tutti i messaggi
+        $messages = Message::all();
 
         // Passa i dati alla vista
-        return view('admin.messages.index', compact('apartmentsWithMessages'));
+        return view('admin.messages.index', compact('messages'));
     }
 
     /**

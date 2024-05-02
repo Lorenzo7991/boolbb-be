@@ -13,7 +13,6 @@ class ContactController extends Controller
 {
     public function message(Request $request, $apartment_id)
     {
-        dump($apartment_id);
         // Verifica che l'appartamento esista nel database
         $apartment = Apartment::find($apartment_id);
         if (!$apartment) {

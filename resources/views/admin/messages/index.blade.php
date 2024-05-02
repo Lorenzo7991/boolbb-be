@@ -20,35 +20,29 @@
             </tr>
         </thead>
         <tbody>
-            @forelse($apartmentsWithMessages as $apartment)
+            @forelse($messages as $message)
             <tr>
                 <td class="text-center">
-                    <img style="width: 50px" src="{{ asset('storage/' . $apartment->image) }}" alt="Appartamento">
+                    <!-- Immagine dell'appartamento associato al messaggio -->
+                    <img style="width: 50px" src="{{ asset('storage/' . $message->apartment->image) }}" alt="Appartamento">
                 </td>
-                <td>{{ $apartment->title }}</td>
-                <td>{{ $apartment->address }}</td>
-                @if ($apartment->messages->isNotEmpty())
-                <td>{{ $apartment->messages->first()->name }}</td>
-                <td>{{ $apartment->messages->first()->subject }}</td>
-                <td>{{ substr($apartment->messages->first()->text, 0, 30) }}{{ strlen($apartment->messages->first()->text) > 50 ? "..." : "" }}</td>
-                <td >
+                <td>{{ $message->apartment->title }}</td>
+                <td>{{ $message->apartment->address }}</td>
+                <td>{{ $message->name }} {{ $message->last_name }}</td>
+                <td>{{ $message->subject }}</td>
+                <td>{{ substr($message->text, 0, 30) }}{{ strlen($message->text) > 50 ? "..." : "" }}</td>
+                <td>
                     <div class="d-flex justify-content-center  gap-2">
-                    <div class="d-flex justify-content-center  gap-2">
-                            <!--Bottone dettaglio-->
-                            <a href="{{ route('messages.show', $apartment->messages->first()) }}" class="btn btn-primary"><i
-                                    class="fa-solid fa-eye"></i></a>
-                            <!--Bottone cancella-->
-                            <form id="delete-form-{{ $apartment->id }}"
-                                action="{{ route('apartments.destroy', $apartment->id) }}" method="POST"
-                                class="delete-form" data-bs-toggle="modal" data-bs-target="#delete-modal"
-                                data-title="{{ $apartment->title }}">
-                                @csrf
-                                @method('DELETE')
-                                <button class="btn btn-danger" type="submit"><i class="fa-solid fa-trash"></i></button>
-                            </form>
+                        <!--Bottone dettaglio-->
+                    <a href="{{ route('messages.show', $message) }}" class="btn btn-primary"><i class="fa-solid fa-eye"></i></a>
+                    <!-- Form per la cancellazione -->
+                    <form id="delete-form-{{ $message->id }}" action="{{ route('messages.destroy', $message) }}" method="POST" class="delete-form" data-bs-toggle="modal" data-bs-target="#delete-modal" data-title="{{ $message->title }}">
+                        @csrf
+                        @method('DELETE')
+                        <button class="btn btn-danger" type="submit"><i class="fa-solid fa-trash"></i></button>
+                    </form>
                     </div>
                 </td>
-                @endif
             </tr>
             @empty
             <tr>
