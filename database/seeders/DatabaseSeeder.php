@@ -21,6 +21,6 @@ class DatabaseSeeder extends Seeder
             'email' => 'mario@gmail.com',
         ]);*/
 
-        $this->call([ServiceSeeder::class, UserSeeder::class, ApartmentSeeder::class]);
+        $this->call([ServiceSeeder::class, UserSeeder::class, ApartmentSeeder::class, SponsorshipSeeder::class]);
     }
 }
