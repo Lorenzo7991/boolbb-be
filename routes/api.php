@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\ApartmentController;
+use App\Http\Controllers\API\ContactController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -23,3 +24,6 @@ Route::apiResource('apartments', ApartmentController::class)->only('index');
 Route::get('apartments/search/', [ApartmentController::class, 'search'])->name('apartments.search');
 
 Route::get('/apartments/{slug}', [ApartmentController::class, 'show']);
+
+//Rotta messaggi
+Route::post('/contact-message', [ContactController::class, 'message']);
