@@ -41,7 +41,11 @@ class MessageController extends Controller
      */
     public function show(string $id)
     {
-        //
+        // Trova il messaggio con l'ID specificato
+        $message = Message::findOrFail($id);
+
+        // Passa il messaggio alla vista
+        return view('admin.messages.show', compact('message'));
     }
 
     /**

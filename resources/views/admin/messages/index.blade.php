@@ -13,7 +13,7 @@
                 <th scope="col" class="text-center text-white brd-left"><i class=" ps-1 fa-solid fa-camera-retro icon-border"></i></th>
                 <th scope="col" class="text-white"><i class="fa-solid fa-tag me-2  icon-border"></i>Appartamento</th>
                 <th scope="col" class="text-white"><i class="fa-solid fa-location-dot  me-2  icon-border"></i>Indirizzo</th>
-                <th scope="col" class="text-white"><i class="fa-solid fa-paper-plane  me-2  icon-border"></i>Mittente</th>
+                <th scope="col" class="text-white"><i class="fa-solid fa-paper-plane  me-2  icon-border "></i>Mittente</th>
                 <th scope="col" class="text-white"><i class="fa-solid fa-envelope-open  me-2  icon-border"></i>Oggetto</th>
                 <th scope="col" class="text-white"><i class="fa-solid fa-eye  me-2  icon-border"></i>Anteprima</th>
                 <th class="text-center text-white brd-right" scope="col"><i class="fa-solid fa-gamepad icon-border"></i>
@@ -30,9 +30,23 @@
                 @if ($apartment->messages->isNotEmpty())
                 <td>{{ $apartment->messages->first()->name }}</td>
                 <td>{{ $apartment->messages->first()->subject }}</td>
-                <td>{{ $apartment->messages->first()->text }}</td>
-                <td class="text-center">
-                    <a href="{{ route('messages.show', $apartment->messages->first()) }}"><i class="fas fa-eye"></i></a>
+                <td>{{ substr($apartment->messages->first()->text, 0, 40) }}{{ strlen($apartment->messages->first()->text) > 50 ? "..." : "" }}</td>
+                <td >
+                    <div class="d-flex justify-content-center  gap-2">
+                    <div class="d-flex justify-content-center  gap-2">
+                            <!--Bottone dettaglio-->
+                            <a href="{{ route('messages.show', $apartment->messages->first()) }}" class="btn btn-primary"><i
+                                    class="fa-solid fa-eye"></i></a>
+                            <!--Bottone cancella-->
+                            <form id="delete-form-{{ $apartment->id }}"
+                                action="{{ route('apartments.destroy', $apartment->id) }}" method="POST"
+                                class="delete-form" data-bs-toggle="modal" data-bs-target="#delete-modal"
+                                data-title="{{ $apartment->title }}">
+                                @csrf
+                                @method('DELETE')
+                                <button class="btn btn-danger" type="submit"><i class="fa-solid fa-trash"></i></button>
+                            </form>
+                    </div>
                 </td>
                 @endif
             </tr>
