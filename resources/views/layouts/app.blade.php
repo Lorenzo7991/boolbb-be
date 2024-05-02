@@ -49,7 +49,9 @@
 
         <div class= "main-content">
             {{-- SideBar --}}
+            @auth                
             @include('includes.layouts.sidebar')
+            @endauth
 
             <main class="container-fluid p-5">
                 @include('includes.alert')
