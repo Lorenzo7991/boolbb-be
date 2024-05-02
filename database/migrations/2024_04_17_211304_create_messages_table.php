@@ -20,7 +20,7 @@ return new class extends Migration
             $table->text('text');
             $table->string('name', 30);
             $table->string('last_name', 30);
-            $table->string('email', 50)->unique();
+            $table->string('email', 50);
             $table->timestamps();
         });
     }
