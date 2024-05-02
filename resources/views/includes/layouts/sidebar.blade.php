@@ -1,7 +1,7 @@
 <div id="sidebar">
     <ul class="list-group">
         <li class="nav-item">
-            <a class="nav-link d-flex justify-content-between gap-5 align-items-center" href="{{ url('/') }}">
+            <a class="nav-link d-flex justify-content-between gap-5 align-items-center" href="{{ url('/admin') }}">
                 <span>Dashboard</span> <i class="fa-solid fa-tachometer-alt fa-lg fa-fw"></i>
             </a>
         </li>
