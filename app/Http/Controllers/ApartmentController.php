@@ -155,4 +155,18 @@ class ApartmentController extends Controller
         $apartment->save();
         return back();
     }
+
+    public function sponsored()
+    {
+        Carbon::setLocale('it');
+        $current_date = Carbon::now('Europe/Rome');
+        $sponsoredApartments = Apartment::whereHas('sponsorships', function ($query) use ($current_date) {
+            // Filtra le sponsorship con scadenza maggiore della data attuale
+            $query->where('expire_date', '>', $current_date);
+        })->with(['sponsorships' => function ($query) use ($current_date) {
+            // Seleziona la data di scadenza
+            $query->where('expire_date', '>', $current_date);
+        }])->get();
+        return view('admin.apartments.sponsored', compact('sponsoredApartments'));
+    }
 }
