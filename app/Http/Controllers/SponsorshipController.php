@@ -34,7 +34,6 @@ class SponsorshipController extends Controller
 
         // pass $clientToken to your front-end
         $clientToken = $gateway->clientToken()->generate(
-            //["customerId" => Auth::id()]
         );
         $sponsorships = Sponsorship::all();
 
@@ -57,7 +56,7 @@ class SponsorshipController extends Controller
             'privateKey' => '22857b34c162952e9161b76d2809ab4f'
         ]);
         //$result = $gateway->transaction()->sale([
-        $result =  $gateway->transaction()->sale([
+        $result = $gateway->transaction()->sale([
             'amount' => '10',
             'paymentMethodNonce' => $nonceFromTheClient,
             //'deviceData' => $deviceDataFromTheClient,
@@ -65,16 +64,9 @@ class SponsorshipController extends Controller
                 'submitForSettlement' => True
             ]
         ]);
-        // $result = $gateway->paymentMethod()->create([
-        //     'customerId' => 'the_customer_id',
-        //     'paymentMethodNonce' => $nonceFromTheClient,
-        //     'options' => [
-        //         'verifyCard' => true
-        //     ]
-        // ]);
-        //if ($result->success) {
+
         if ($result->success) {
-            if (count($apartment->sponsorships) &&  Apartment::find($apartment->id)->sponsorships()->max('expire_date') > Carbon::now()) {
+            if (count($apartment->sponsorships) && Apartment::find($apartment->id)->sponsorships()->max('expire_date') > Carbon::now()) {
                 $latest_expiration = Apartment::find($apartment->id)->sponsorships()->max('expire_date');
                 $start_date = $latest_expiration;
                 $expire_date = Carbon::parse($start_date)->addHours($sponsorship->duration);
@@ -84,17 +76,14 @@ class SponsorshipController extends Controller
             }
             $apartment->sponsorships()->attach($sponsorship, ['start_date' => $start_date, 'expire_date' => $expire_date]);
 
-            //$verification = $result->paymentMethod->verification;
             // Il pagamento è stato elaborato con successo
             $transactionId = $result->transaction->id;
             // Esegui qui eventuali azioni aggiuntive, come aggiornare il database, inviare notifiche, etc.
-            //return  response()->json(['success' => true, 'transaction_id' => $transactionId]);
             return to_route('apartments.show', $apartment->id)->with('message', 'Sponsorizzazione attivata')->with('type', 'success');
         } else {
 
             // Il pagamento non è riuscito
             $errorMessage = $result->message;
-            //return response()->json(['success' => false, 'error' => $errorMessage]);
             return back()->with('message', 'pagamento rifiutato')->with('type', 'danger');
         }
     }

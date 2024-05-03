@@ -11,6 +11,7 @@
         <thead>
             <tr>
                 <th scope="col" class="text-center text-white brd-left"><i class=" ps-1 fa-solid fa-camera-retro icon-border"></i></th>
+                <th scope="col" class="text-white"><i class="fa-solid fa-clock me-2 icon-border"></i>Data e ora</th>
                 <th scope="col" class="text-white"><i class="fa-solid fa-tag me-2  icon-border"></i>Appartamento</th>
                 <th scope="col" class="text-white"><i class="fa-solid fa-location-dot  me-2  icon-border"></i>Indirizzo</th>
                 <th scope="col" class="text-white"><i class="fa-solid fa-paper-plane  me-2  icon-border "></i>Mittente</th>
@@ -26,6 +27,7 @@
                     <!-- Immagine dell'appartamento associato al messaggio -->
                     <img style="width: 50px" src="{{ asset('storage/' . $message->apartment->image) }}" alt="Appartamento">
                 </td>
+                <td>{{ $message->created_at->format('d/m/Y H:i:s') }}</td>
                 <td>{{ $message->apartment->title }}</td>
                 <td>{{ $message->apartment->address }}</td>
                 <td>{{ $message->name }} {{ $message->last_name }}</td>
@@ -51,12 +53,12 @@
             @endforelse
         </tbody>
     </table>
+    {{-- Paginazione --}}
+    @if ($messages->hasPages())
+       {{ $messages->links() }}
+    @endif
 </div>
 
-     {{-- Paginazione --}}
-    @if ($messages->hasPages())
-        {{ $messages->links() }}
-    @endif
 
     <!-- Modale Eliminazione -->
     @include('includes.delete_modal')

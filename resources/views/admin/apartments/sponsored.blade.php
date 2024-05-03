@@ -1,30 +1,29 @@
 @extends('layouts.app')
+
 @section('title', 'Appartamenti')
+
 @section('content')
 <div class="d-flex justify-content-between align-items-center">
-    <h1 id="index-title" class="text-center">I tuoi appartamenti con sponsorizzazione attiva:</h1>
+    <h1 id="index-title" class="home-title text-center">I tuoi appartamenti con sponsorizzazione attiva:</h1>
 </div>
 <table class="table mt-4 shadow-lg p-3 mb-5 rounded">
     <thead>
-        <!--Colonne tabella-->
+        <!-- Colonne tabella -->
         <tr>
             <th scope="col" class="text-center text-white brd-left"><i
-                    class=" ps-1 fa-solid fa-camera-retro icon-border"></i></th>
-            <th scope="col" class="text-white"><i class="fa-solid fa-tag me-2  icon-border"></i>Titolo</th>
-            <th scope="col" class="text-white"><i class="fa-solid fa-location-dot  me-2  icon-border"></i>Indirizzo
-            </th>
-            <th scope="col" class=" text-center text-white"> <i  class="fa-regular fa-clock me-2"></i>Scadenza sponsorizzazione
-            </th>
+                    class="ps-1 fa-solid fa-camera-retro icon-border"></i></th>
+            <th scope="col" class="text-white"><i class="fa-solid fa-tag me-2 icon-border"></i>Titolo</th>
+            <th scope="col" class="text-white"><i class="fa-solid fa-location-dot me-2 icon-border"></i>Indirizzo</th>
+            <th scope="col" class="text-center text-white"><i class="fa-regular fa-clock me-2"></i>Scadenza sponsorizzazione</th>
             <th scope="col" class="text-white">Publicati</th>
-            <th class="text-center text-white brd-right" scope="col"><i class="fa-solid fa-gamepad icon-border"></i>
-            </th>
+            <th class="text-center text-white brd-right" scope="col"><i class="fa-solid fa-gamepad icon-border"></i></th>
         </tr>
     </thead>
-    <!--ciclo per girare sugli appartamenti e prendere i dettagli del singolo appartamento-->
+    <!-- Ciclo per iterare sugli appartamenti e prendere i dettagli del singolo appartamento -->
     @foreach ($sponsoredApartments as $apartment)
         <tbody>
             <tr class="">
-                <!--Immagine appartamento-->
+                <!-- Immagine appartamento -->
                 <td class="d-flex justify-content-center ">
                     <figure class="index-figure">
                         <img style="width: 50px" src="{{ asset('storage/' . $apartment->image) }}"
@@ -32,19 +31,18 @@
                     </figure>
                 </td>
 
-                <!--Titolo appartemento-->
+                <!-- Titolo appartamento -->
                 <td scope="row">{{ $apartment->title }}</td>
 
-                <!--Indirizzo appartemento-->
+                <!-- Indirizzo appartamento -->
                 <td>{{ $apartment->address }}</td>
 
-                <!--Metri quadri appartemento-->
-                <td class="text-center">{{ $apartment->expiration_date }}</td>
+                <!-- Data di scadenza della sponsorizzazione -->
+                <td class="text-center">
+                    {{ \Carbon\Carbon::parse($apartment->expiration_date)->format('d-m-Y H:i:s') }}
+                </td>
 
-        
-                
-
-                <!--Visibilità appartamento-->
+                <!-- Visibilità appartamento -->
                 <td>
                     <div class="form-check form-switch">
                         <form onclick="this.submit()" method="POST"
@@ -64,13 +62,13 @@
                 {{-- Bottoni --}}
                 <td>
                     <div class="d-flex justify-content-center  gap-2">
-                        <!--Bottone dettaglio-->
+                        <!-- Bottone dettaglio -->
                         <a href="{{ route('apartments.show', $apartment->id) }}" class="btn btn-primary"><i
                                 class="fa-solid fa-magnifying-glass"></i></a>
-                        <!--Bottone modifica-->
+                        <!-- Bottone modifica -->
                         <a class="btn btn-warning" href="{{ route('apartments.edit', $apartment->id) }}"><i
                                 class="fa-solid fa-pen-to-square text-white"></i></a>
-                        <!--Bottone cancella-->
+                        <!-- Bottone cancella -->
                         <form id="delete-form-{{ $apartment->id }}"
                             action="{{ route('apartments.destroy', $apartment->id) }}" method="POST"
                             class="delete-form" data-bs-toggle="modal" data-bs-target="#delete-modal"
@@ -86,5 +84,6 @@
     @endforeach
 </table>
 @endsection
+
 @section('script')
 @endsection
