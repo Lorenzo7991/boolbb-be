@@ -14,7 +14,7 @@ class MessageController extends Controller
     public function index()
     {
         // Recupera tutti i messaggi con paginazione
-        $messages = Message::paginate(5);
+        $messages = Message::orderBy('created_at', 'desc')->paginate(5);
 
         // Passa i dati alla vista
         return view('admin.messages.index', compact('messages'));
