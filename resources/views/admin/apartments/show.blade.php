@@ -7,6 +7,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
         integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
         crossorigin="anonymous">
+
+         <link href="https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.css" rel="stylesheet">
 @endsection
 
 @section('content')
@@ -58,8 +60,10 @@
                                 {{-- INDIRIZZO - LAT - LON --}}
                                 <p><strong>Indirizzo:</strong> {{ $apartment->address }}</p>
                                 <p><strong>Prezzo/n:</strong> {{ $apartment->price_per_night }}€</p>
-                                <p><strong>longitudine:</strong> {{ $apartment->latitude }}</p>
-                                <p><strong>latitudine:</strong> {{ $apartment->longitude }}</p>
+
+
+                                <div id="map" style="width: 100%; height: 400px;"></div>
+
 
                                 {{-- STATO PUBBLICAZIONE --}}
                                 <p><strong>Pubblicato:</strong>
@@ -130,11 +134,6 @@
                                     @endif
 
                                 </div>
-
-
-
-
-
                             </div>
 
                             {{-- GALLERIA IMMAGINI --}}
@@ -199,4 +198,18 @@
     @vite('resources/js/delete_confirmation.js')
     @vite('resources/js/secondary_images.js')
 
+    <script src="https://api.tomtom.com/maps-sdk-for-web/cdn/6.x/6.0.0/maps/maps-web.min.js"></script>
+
+    <script>
+ var map = tt.map({
+    key: 'AWAhF6IT1ChO0k28GMmsIysmnTgt0Gpp',
+    container: 'map',
+    center: [{!! $apartment->longitude !!}, {!! $apartment->latitude !!}], 
+    zoom: 15 // Livello di zoom della mappa
+});
+
+// Aggiungi un marker per le tue coordinate
+var marker = new tt.Marker().setLngLat([{!! $apartment->longitude !!}, {!! $apartment->latitude !!}]).addTo(map);
+
+</script>
 @endsection
