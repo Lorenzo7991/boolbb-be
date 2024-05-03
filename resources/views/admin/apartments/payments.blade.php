@@ -37,10 +37,16 @@
 
         <!--card pagamento-->
         <div id="dropin-container"></div>
-        <input type="submit" />
+        <input id="paybutton" type="submit" />
         <input type="hidden" id="nonce" name="payment_method_nonce" />
         <input type="hidden" id="device_data" name="device_data">
     </form>
+    <div id="loader" class="d-none">
+        <div class="loader-overlay">
+            <div class="spinner-border text-primary" role="status">
+            </div>
+        </div>   
+    </div>
 
 
 @endsection
@@ -97,5 +103,42 @@
                 });
             });
         });
+        
+        document.getElementById('paybutton').addEventListener('click', function() {
+        document.getElementById('loader').classList.remove('d-none');
+    });
+
     </script>
 @endsection
+
+<style scoped lang="scss">
+
+#loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.7);
+    z-index: 9;
+}
+
+.loader-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(.5, .5, .5, .5);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+
+}
+.loader-overlay .spinner-border {
+    width: 250px;
+    height: 250px;
+}
+</style>
