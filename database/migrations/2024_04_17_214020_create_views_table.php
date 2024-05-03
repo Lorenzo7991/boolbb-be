@@ -16,7 +16,7 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(Apartment::class)->constrained()->cascadeOnDelete();
             $table->string('ip', 50);
-            $table->dateTime('date');
+            $table->date('date');
             $table->timestamps();
         });
     }

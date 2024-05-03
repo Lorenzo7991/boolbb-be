@@ -33,8 +33,7 @@ class SponsorshipController extends Controller
         ]);
 
         // pass $clientToken to your front-end
-        $clientToken = $gateway->clientToken()->generate(
-        );
+        $clientToken = $gateway->clientToken()->generate();
         $sponsorships = Sponsorship::all();
 
         return view('admin.apartments.payments', compact('clientToken', 'sponsorships', 'apartment'));
@@ -66,7 +65,7 @@ class SponsorshipController extends Controller
         ]);
 
         if ($result->success) {
-            if (count($apartment->sponsorships) && Apartment::find($apartment->id)->sponsorships()->max('expire_date') > Carbon::now()) {
+            if (count($apartment->sponsorships) && Apartment::find($apartment->id)->sponsorships()->max('expire_date') > Carbon::now('Europe/Rome')) {
                 $latest_expiration = Apartment::find($apartment->id)->sponsorships()->max('expire_date');
                 $start_date = $latest_expiration;
                 $expire_date = Carbon::parse($start_date)->addHours($sponsorship->duration);

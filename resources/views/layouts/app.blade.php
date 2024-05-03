@@ -24,10 +24,11 @@
     <script src="https://js.braintreegateway.com/web/dropin/1.42.0/js/dropin.min.js"></script>
     <script src="https://js.braintreegateway.com/web/3.102.0/js/client.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    
 
+    {{-- Chart Js --}}
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-    <!-- Fonts -->
+    {{-- Fonts --}}
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
@@ -49,8 +50,8 @@
 
         <div class= "main-content">
             {{-- SideBar --}}
-            @auth                
-            @include('includes.layouts.sidebar')
+            @auth
+                @include('includes.layouts.sidebar')
             @endauth
 
             <main class="container-fluid p-5">
@@ -60,8 +61,8 @@
         </div>
 
 
-                <!-- Step one: add an empty container to your page -->
-                <div id="dropin-container"></div>
+        <!-- Step one: add an empty container to your page -->
+        <div id="dropin-container"></div>
     </div>
 
 

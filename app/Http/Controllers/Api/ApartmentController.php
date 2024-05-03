@@ -122,7 +122,7 @@ class ApartmentController extends Controller
         $view = new View();
         $view->apartment_id = $apartment_id;
         $view->ip = $ip;
-        $view->date = Carbon::now('Europe/Rome');
+        $view->date = Carbon::today();
         $view->save();
         return response()->json('Visualizzazione aggiunta con successo');
     }
