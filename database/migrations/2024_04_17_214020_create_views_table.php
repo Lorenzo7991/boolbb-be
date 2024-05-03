@@ -15,7 +15,7 @@ return new class extends Migration
         Schema::create('views', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(Apartment::class)->constrained()->cascadeOnDelete();
-            $table->string('ip', 50)->unique();
+            $table->string('ip', 50);
             $table->dateTime('date');
             $table->timestamps();
         });
