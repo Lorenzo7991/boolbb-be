@@ -2,7 +2,7 @@
 @section('title', 'Appartamenti')
 @section('content')
 <div class="d-flex justify-content-between align-items-center">
-    <h1 id="index-title" class="text-center">I tuoi appartamenti con sponsorizzazione attiva:</h1>
+    <h1 id="index-title" class="home-title text-center">I tuoi appartamenti con sponsorizzazione attiva:</h1>
 </div>
 <table class="table mt-4 shadow-lg p-3 mb-5 rounded">
     <thead>
