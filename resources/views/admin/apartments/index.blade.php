@@ -6,7 +6,7 @@
 @section('content')
 
     <div class="d-flex justify-content-between align-items-center">
-        <h1 id="index-title" class="text-center">I tuoi appartamenti:</h1>
+        <h1 id="index-title" class="text-center home-title">I tuoi appartamenti:</h1>
         <!--Bottone per andare alla pagina di creazione appartamento-->
         <a class="btn btn-primary text-align-center" href="{{ route('apartments.create') }}"><i
                 class="fa-solid fa-plus me-2"></i>Aggiungi appartamento</a>
