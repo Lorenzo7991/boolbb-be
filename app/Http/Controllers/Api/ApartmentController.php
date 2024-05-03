@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Apartment;
 use App\Models\Service;
+use App\Models\View;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
@@ -111,5 +113,17 @@ class ApartmentController extends Controller
     {
         $services = Service::all();
         return response()->json($services);
+    }
+
+    public function countViews(Request $request)
+    {
+        $ip = $request->ip();
+        $apartment_id = $request->apartment_id;
+        $view = new View();
+        $view->apartment_id = $apartment_id;
+        $view->ip = $ip;
+        $view->date = Carbon::now('Europe/Rome');
+        $view->save();
+        return response()->json('Visualizzazione aggiunta con successo');
     }
 }

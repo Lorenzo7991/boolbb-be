@@ -20,13 +20,18 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 Route::apiResource('apartments', ApartmentController::class)->only('index');
+
+// Rotta per contare le visite ad un appartamento
+Route::post('/apartments/views/', [ApartmentController::class, 'countViews']);
+
+// Rotta per ottenere tutti i servizi
 Route::get('/apartments/services', [ApartmentController::class, 'services']);
 
-
+// Rotta per cercare gli appartamenti per indirizzo e distanza
 Route::get('apartments/search/', [ApartmentController::class, 'search'])->name('apartments.search');
 
+// Rotta per il dettaglio dell'appartamento
 Route::get('/apartments/{slug}', [ApartmentController::class, 'show']);
 
 //Rotta messaggi
 Route::post('/contact-message/{apartment_id}', [ContactController::class, 'message']);
-
