@@ -61,9 +61,7 @@ class ApartmentController extends Controller
     {
         $address = $request->query('address'); // Indirizzo in query string scelto dall'utente
         $distance = $request->query('distance'); // Distanza in query string scelto dall'utente
-
-        // Cerca gli appartamenti in un raggio di 20 km
-        // $distance = 20;
+        // $price = $request->query('price');
 
         // Geocodifica dell'indirizzo inserito dall'utente
         $response = Http::withOptions([
