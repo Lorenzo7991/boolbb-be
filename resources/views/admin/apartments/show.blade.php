@@ -235,9 +235,25 @@
         const ctx = document.getElementById('myChart');
         const graphType = document.getElementById('graph-type')
 
-        views = JSON.parse(ctx.dataset
-            .views
-        ); // Array di visualizzazioni (Arriva come stringa e tramite JSON.parse lo riconverto in array di oggetti)
+
+        // Funzione per generare un array di colori casuali
+        function generateRandomColors(numColors) {
+            var colors = [];
+            for (var i = 0; i < numColors; i++) {
+                colors.push('#' + Math.floor(Math.random() * 16777215).toString(16));
+            }
+            return colors;
+        }
+
+
+
+        // Array di visualizzazioni (Arriva come stringa e tramite JSON.parse lo riconverto in array di oggetti)
+        views = JSON.parse(ctx.dataset.views);
+
+        const numBars = views.length;
+        const backgroundColors = generateRandomColors(numBars);
+
+
         console.log(views)
         const daysWithViews = views.reduce((res, view) => {
             if (!res.includes(view.date)) res.push(view.date);
@@ -260,11 +276,7 @@
         console.log('Views per day dopo:', viewsPerDay)
 
         const graph = new Chart(ctx, {
-            // type: 'pie',
-            // type: 'doughnut',        //SCEGLI IL TIPO DI GRAFICO
-            // type: 'line',
-            // type: 'bar',
-            type: graphType.value,
+            type: 'bar',
             data: {
                 labels: Object.keys(
                     viewsPerDay), // Creo una barra per ogni giorno (chiave nell'oggetto viewsPerDay)
@@ -275,6 +287,7 @@
                     ) { // Ad ogni barra assegno il valore delle sue visualizzazioni
                         return viewsPerDay[date];
                     }),
+                    backgroundColor: backgroundColors,
                     borderWidth: 1
                 }]
             },
@@ -282,6 +295,7 @@
                 layout: {
                     padding: 0 // Da qui modifica il padding del grafico
                 },
+                responsive: true,
                 scales: {
                     y: {
                         beginAtZero: true
@@ -295,7 +309,6 @@
                 // }
             }
         });
-        console.log(graph)
         graphType.addEventListener('change', () => {
             console.log(graphType.value)
             graph.config.type = graphType.value;
