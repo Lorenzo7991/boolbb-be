@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm py-0 sticky-top">
+<nav class="navbar navbar-expand navbar-light bg-white shadow-sm py-0 sticky-top">
     <div class="container-fluid">
 
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
@@ -10,13 +10,13 @@
             <!-- Left Side Of Navbar -->
             <ul class="navbar-nav me-auto">
                 <li class="nav-item">
-                    <a class="nav-link" id="logo-link" href="{{ url('/') }}">
+                    <a class="nav-link d-flex align-items-center" id="logo-link" href="{{ url('/') }}">
                         <figure class="logo-wrapper">
 
                             <img class="img-fluid" src="{{ asset('assets/logo.png') }}" alt="logo">
                         </figure>
 
-                        <span class="fs-1 me-5">
+                        <span class="fs-4 me-5">
                             BoolBnB
                         </span>
                     </a>

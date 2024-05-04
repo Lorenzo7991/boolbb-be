@@ -13,7 +13,7 @@
 
 @section('content')
 
-    <div class="container">
+    <div>
         <div class="row justify-content-center">
             <div class="col-md-10">
                 <div class="card">
@@ -35,7 +35,7 @@
                                 <p><strong>Descrizione:</strong> {{ $apartment->description }}</p>
 
                                 {{-- gruppo informazioni stanze, letti e bagni ecc... --}}
-                                <div id="services" class="d-flex align-items-center gap-3">
+                                <div id="services" class="align-items-center gap-3">
                                     <p><i class="fa-solid fa-house me-2"></i><strong>Stanze:</strong>
                                         {{ $apartment->rooms }}</p>
                                     <p><i class="fa-solid fa-bed me-2"></i><strong>Letti:</strong> {{ $apartment->beds }}
@@ -47,7 +47,7 @@
                                 </div>
                                 <div>
                                     {{-- SERVIZI --}}
-                                    <h5>Servizi:</h3>
+                                    <h5>Servizi:</h5>
                                         <ul class="d-flex list-unstyled gap-4">
                                             @foreach ($apartment->services as $service)
                                                 <li>
@@ -62,7 +62,7 @@
                                 <p><strong>Prezzo/n:</strong> {{ $apartment->price_per_night }}€</p>
 
                                 {{-- Mappa --}}
-                                <div id="map" style="width: 100%; height: 400px;"></div>
+                                <div id="map" class="rounded-4" style="width: 100%; height: 250px;"></div>
 
 
                                 {{-- STATO PUBBLICAZIONE --}}
@@ -73,7 +73,7 @@
                                 </p>
                                 {{-- INSERIMENTO IMMAGINI AGGIUNTIVE --}}
                                 <div class="row">
-                                    <div class="col-3">
+                                    <div class="d-flex justify-content-center">
                                         <form id="add-image" class="d-none"
                                             action="{{ route('image.store', $apartment->id) }}" method="POST"
                                             enctype="multipart/form-data">
@@ -87,7 +87,7 @@
                                     </div>
                                     {{-- Sponsorizzazione --}}
                                     @if ($latest_expiration_string !== null)
-                                        <div class="col-9">
+                                        <div class="col-12">
                                             <a class="card text-decoration-none sponsorship-button"
                                                 href="{{ route('sponsorship.create', $apartment->id) }}">
                                                 <div class="card-header text-center ">
@@ -125,10 +125,10 @@
                                             </a>
                                         </div>
                                     @else
-                                        <div class="col-4">
+                                        <div>
                                             <a class="btn btn-sm sponsorship-button"
                                                 href="{{ route('sponsorship.create', $apartment->id) }}">
-                                                <i class="fa-solid fa-bolt-lightning"></i> Metti in evidenza
+                                                <i class="fa-solid fa-bolt-lightning"></i> Sponsorizza
                                             </a>
                                         </div>
                                     @endif
@@ -174,40 +174,29 @@
                     </div>
 
 
-                    <div class="card-footer d-flex align-items-center justify-content-between">
-                        {{-- Gruppo pulsanti navigazione --}}
-                        <div id="btn-group">
-                            {{-- Pulsante home --}}
-                            <a href="{{ route('admin.home') }}" class="btn btn-primary me-2"><i
-                                    class="fa-solid fa-arrow-left me-2"></i>{{ __('Torna alla Home') }}</a>
-                            {{-- Pulsante per tornare al pannello di controllo --}}
-                            <a href="{{ route('apartments.index') }}" class="btn btn-secondary"><i
-                                    class="fa-solid fa-bars me-2"></i>{{ __('Torna alla lista Appartamenti') }}</a>
-                        </div>
-                        {{-- Gruppo pulsanti azione --}}
-                        <div id="btn-action-group">
-                            <div class="d-flex justify-content-end gap-3">
+                    <div id="btn-group-action" class="card-footer d-flex align-items-center justify-content-between">
+                         {{-- Gruppo pulsanti navigazione --}}
+                                {{-- Gruppo pulsanti azione --}}                                                 
                                 {{-- Pulsante modifica --}}
-                                <a href="{{ route('apartments.edit', $apartment->id) }}" class="btn btn-warning"><i
-                                        class="fa-solid fa-pencil me-2"></i>{{ __('Modifica') }}</a>
-                                {{-- Form(pulsante) eliminazione --}}
-                                <form action="{{ route('apartments.destroy', $apartment->id) }}" method="POST"
-                                    class="delete-form" data-bs-toggle="modal" data-bs-target="#delete-modal"
-                                    data-title="{{ $apartment->title }}">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-danger"><i
-                                            class="fa-solid fa-trash-can me-2"></i>{{ __('Elimina') }}</button>
-                                </form>
-                            </div>
-                        </div>
+                        <a href="{{ route('apartments.edit', $apartment->id) }}" class="btn btn-warning">
+                        <i class="fa-solid fa-pencil me-2"></i>{{ __('Modifica') }}</a>
+                            {{-- Form(pulsante) eliminazione --}}
+                        <form action="{{ route('apartments.destroy', $apartment->id) }}" method="POST"
+                            class="delete-form" data-bs-toggle="modal" data-bs-target="#delete-modal"
+                            data-title="{{ $apartment->title }}">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger">
+                                <i class="fa-solid fa-trash-can me-2"></i>{{ __('Elimina') }}
+                            </button>
+                        </form>                                                             
                     </div>
                 </div>
             </div>
         </div>
     </div>
     <!-- Modale Eliminazione -->
-    @include('includes.delete_modal')
+@include('includes.delete_modal')
 @endsection
 @section('script')
     @vite('resources/js/sponsorship_countdown.js')
