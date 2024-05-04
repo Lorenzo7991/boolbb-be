@@ -18,7 +18,8 @@ export default defineConfig({
                 'resources/js/register_form_validation.js',
                 'resources/js/profile_edit_form_validation.js',
                 'resources/js/password_update_validation.js',
-                'resources/js/sponsorship_countdown.js'
+                'resources/js/sponsorship_countdown.js',
+                'resources/js/views_graph.js'
 
             ],
             refresh: true,

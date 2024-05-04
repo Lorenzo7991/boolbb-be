@@ -213,6 +213,9 @@
     @vite('resources/js/sponsorship_countdown.js')
     @vite('resources/js/delete_confirmation.js')
     @vite('resources/js/secondary_images.js')
+    @vite('resources/js/views_graph.js')
+
+
 
     <script src="https://api.tomtom.com/maps-sdk-for-web/cdn/6.x/6.0.0/maps/maps-web.min.js"></script>
 
@@ -226,93 +229,5 @@
 
         // Aggiungi un marker per le tue coordinate
         var marker = new tt.Marker().setLngLat([{!! $apartment->longitude !!}, {!! $apartment->latitude !!}]).addTo(map);
-
-
-
-
-
-        // Grafico visualizzazioni
-        const ctx = document.getElementById('myChart');
-        const graphType = document.getElementById('graph-type')
-
-
-        // Funzione per generare un array di colori casuali
-        function generateRandomColors(numColors) {
-            var colors = [];
-            for (var i = 0; i < numColors; i++) {
-                colors.push('#' + Math.floor(Math.random() * 16777215).toString(16));
-            }
-            return colors;
-        }
-
-
-
-        // Array di visualizzazioni (Arriva come stringa e tramite JSON.parse lo riconverto in array di oggetti)
-        views = JSON.parse(ctx.dataset.views);
-
-        const numBars = views.length;
-        const backgroundColors = generateRandomColors(numBars);
-
-
-        console.log(views)
-        const daysWithViews = views.reduce((res, view) => {
-            if (!res.includes(view.date)) res.push(view.date);
-            return res;
-        }, [])
-
-        let viewsPerDay = {}
-        // Trasformo viewsPerDay in un oggetto dove ogni chiave è una data e ha come valore corrispettivo il numero di visualizzazioni di quel giorno
-        for (let view of views) {
-            let date = view.date;
-            viewsPerDay[date] = (viewsPerDay[date] || 0) + 1;
-        }
-        console.log('Vies per day prima:', viewsPerDay)
-
-        // Riordino gli elementi dell'oggetto per chiave
-        viewsPerDay = Object.fromEntries(
-            Object.entries(viewsPerDay).sort(([chiaveA], [chiaveB]) => chiaveA.localeCompare(chiaveB))
-        );
-
-        console.log('Views per day dopo:', viewsPerDay)
-
-        const graph = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: Object.keys(
-                    viewsPerDay), // Creo una barra per ogni giorno (chiave nell'oggetto viewsPerDay)
-                datasets: [{
-                    label: 'Visualizzazioni al giorno',
-                    data: Object.keys(viewsPerDay).map(function(
-                        date
-                    ) { // Ad ogni barra assegno il valore delle sue visualizzazioni
-                        return viewsPerDay[date];
-                    }),
-                    backgroundColor: backgroundColors,
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                layout: {
-                    padding: 0 // Da qui modifica il padding del grafico
-                },
-                responsive: true,
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
-                },
-                // plugins: {
-                //     subtitle: {
-                //         display: true,
-                //         text: 'Custom Chart Subtitle'
-                //     }
-                // }
-            }
-        });
-        graphType.addEventListener('change', () => {
-            console.log(graphType.value)
-            graph.config.type = graphType.value;
-            graph.update();
-        })
     </script>
 @endsection
