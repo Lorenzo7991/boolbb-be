@@ -373,3 +373,18 @@ main {
         color: white;
     }
 }
+
+
+// Grafico visualizzazioni
+#graph-container {
+    position: relative;
+
+    #graph-type {
+        position: absolute;
+        width: auto;
+        top: 0;
+        right: 2%;
+        height: 30px;
+        font-size: 0.7rem;
+    }
+}

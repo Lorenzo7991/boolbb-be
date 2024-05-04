@@ -61,7 +61,7 @@
                                 <p><strong>Indirizzo:</strong> {{ $apartment->address }}</p>
                                 <p><strong>Prezzo/n:</strong> {{ $apartment->price_per_night }}€</p>
 
-
+                                {{-- Mappa --}}
                                 <div id="map" style="width: 100%; height: 400px;"></div>
 
 
@@ -160,8 +160,17 @@
 
 
                     {{-- Grafico visualizzazioni --}}
-                    <div>
+                    <div id="graph-container" class="p-5">
                         <canvas data-views="{{ $apartment->views }}" id="myChart"></canvas>
+                        <select class="form-select" id="graph-type">
+                            <option selected value="bar">Barre</option>
+                            <option value="line">Lineare</option>
+                            <option value="pie">Torta</option>
+                            <option value="doughnut">Anello</option>
+                            <option value="polarArea">Polar Area</option>
+                            <option value="radar">Radar</option>
+                            <option value="scatter">Scatter</option>
+                        </select>
                     </div>
 
 
@@ -224,6 +233,8 @@
 
         // Grafico visualizzazioni
         const ctx = document.getElementById('myChart');
+        const graphType = document.getElementById('graph-type')
+
         views = JSON.parse(ctx.dataset
             .views
         ); // Array di visualizzazioni (Arriva come stringa e tramite JSON.parse lo riconverto in array di oggetti)
@@ -247,18 +258,21 @@
         );
 
         console.log('Views per day dopo:', viewsPerDay)
+
         const graph = new Chart(ctx, {
             // type: 'pie',
             // type: 'doughnut',        //SCEGLI IL TIPO DI GRAFICO
             // type: 'line',
-            type: 'bar',
+            // type: 'bar',
+            type: graphType.value,
             data: {
                 labels: Object.keys(
                     viewsPerDay), // Creo una barra per ogni giorno (chiave nell'oggetto viewsPerDay)
                 datasets: [{
                     label: 'Visualizzazioni al giorno',
                     data: Object.keys(viewsPerDay).map(function(
-                        date) { // Ad ogni barra assegno il valore delle sue visualizzazioni
+                        date
+                    ) { // Ad ogni barra assegno il valore delle sue visualizzazioni
                         return viewsPerDay[date];
                     }),
                     borderWidth: 1
@@ -266,7 +280,7 @@
             },
             options: {
                 layout: {
-                    padding: 100 // Da qui modifica il padding del grafico
+                    padding: 0 // Da qui modifica il padding del grafico
                 },
                 scales: {
                     y: {
@@ -281,5 +295,11 @@
                 // }
             }
         });
+        console.log(graph)
+        graphType.addEventListener('change', () => {
+            console.log(graphType.value)
+            graph.config.type = graphType.value;
+            graph.update();
+        })
     </script>
 @endsection
