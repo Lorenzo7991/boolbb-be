@@ -77,7 +77,6 @@ class SponsorshipController extends Controller
 
             // Il pagamento è stato elaborato con successo
             $transactionId = $result->transaction->id;
-            // Esegui qui eventuali azioni aggiuntive, come aggiornare il database, inviare notifiche, etc.
             return to_route('apartments.show', $apartment->id)->with('message', 'Sponsorizzazione attivata')->with('type', 'success');
         } else {
 

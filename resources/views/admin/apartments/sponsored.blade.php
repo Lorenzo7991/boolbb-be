@@ -6,6 +6,7 @@
 <div class="d-flex justify-content-between align-items-center">
     <h1 id="index-title" class="home-title text-center">I tuoi appartamenti con sponsorizzazione attiva:</h1>
 </div>
+
 <table class="table mt-4 shadow-lg p-3 mb-5 rounded">
     <thead>
         <!-- Colonne tabella -->
@@ -20,8 +21,8 @@
         </tr>
     </thead>
     <!-- Ciclo per iterare sugli appartamenti e prendere i dettagli del singolo appartamento -->
-    @foreach ($sponsoredApartments as $apartment)
-        <tbody>
+    <tbody>
+        @forelse ($sponsoredApartments as $apartment)
             <tr class="">
                 <!-- Immagine appartamento -->
                 <td class="d-flex justify-content-center ">
@@ -52,7 +53,8 @@
                             <input class="form-check-input" type="checkbox" role="switch"
                                 id="visibility-{{ $apartment->is_visible }}"
                                 @if ($apartment->is_visible) checked @endif>
-                            <label class="form-check-label" for="visibility-{{ $apartment->is_visible }}"><i
+                            <label class="form-check-label"
+                                for="visibility-{{ $apartment->is_visible }}"><i
                                     class="fa-solid {{ $apartment->is_visible ? 'fa-eye text-primary' : 'fa-eye-slash text-secondary' }} "></i></label>
 
                         </form>
@@ -66,7 +68,8 @@
                         <a href="{{ route('apartments.show', $apartment->id) }}" class="btn btn-primary"><i
                                 class="fa-solid fa-magnifying-glass"></i></a>
                         <!-- Bottone modifica -->
-                        <a class="btn btn-warning" href="{{ route('apartments.edit', $apartment->id) }}"><i
+                        <a class="btn btn-warning"
+                            href="{{ route('apartments.edit', $apartment->id) }}"><i
                                 class="fa-solid fa-pen-to-square text-white"></i></a>
                         <!-- Bottone cancella -->
                         <form id="delete-form-{{ $apartment->id }}"
@@ -75,14 +78,20 @@
                             data-title="{{ $apartment->title }}">
                             @csrf
                             @method('DELETE')
-                            <button class="btn btn-danger" type="submit"><i class="fa-solid fa-trash"></i></button>
+                            <button class="btn btn-danger" type="submit"><i
+                                    class="fa-solid fa-trash"></i></button>
                         </form>
                     </div>
                 </td>
             </tr>
-        </tbody>
-    @endforeach
+        @empty
+            <tr>
+                <td colspan="6" class="text-center">Al momento non hai nessuna sponsorizazione attiva</td>
+            </tr>
+        @endforelse
+    </tbody>
 </table>
+
 @endsection
 
 @section('script')
