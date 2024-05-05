@@ -61,38 +61,66 @@ class ApartmentController extends Controller
     {
         $address = $request->query('address'); // Indirizzo in query string scelto dall'utente
         $distance = $request->query('distance'); // Distanza in query string scelto dall'utente
-        $latitude = $request->query('latitude');
-        $longitude = $request->query('longitude');
+        $latitude = $request->query('latitude'); // Coordinata in arrivo dal front
+        $longitude = $request->query('longitude'); // Coordinata arrivata dal front
         // $price = $request->query('price');
+        $selectedServices = json_decode($request->query('services'));
 
 
+        if ($address) {
+            $query = Apartment::select(
+                'id',
+                'user_id',
+                'title',
+                'slug',
+                'address',
+                'price_per_night',
+                'description',
+                'rooms',
+                'beds',
+                'bathrooms',
+                'square_meters',
+                'image',
+                'latitude',
+                'longitude',
+                DB::raw("(6371 * acos(cos(radians($latitude)) * cos(radians(latitude)) * cos(radians(longitude) - radians($longitude)) + sin(radians($latitude)) * sin(radians(latitude)))) AS distance")
+            )
+                ->having('distance', '<', $distance)
+                ->orderBy('distance');
+        } else {
+            $query = Apartment::select(
+                'id',
+                'user_id',
+                'title',
+                'slug',
+                'address',
+                'price_per_night',
+                'description',
+                'rooms',
+                'beds',
+                'bathrooms',
+                'square_meters',
+                'image',
+                'latitude',
+                'longitude',
+            );
+        }
 
 
-        $apartments = Apartment::select(
-            'id',
-            'user_id',
-            'title',
-            'slug',
-            'address',
-            'price_per_night',
-            'description',
-            'rooms',
-            'beds',
-            'bathrooms',
-            'square_meters',
-            'image',
-            'latitude',
-            'longitude',
-            DB::raw("(6371 * acos(cos(radians($latitude)) * cos(radians(latitude)) * cos(radians(longitude) - radians($longitude)) + sin(radians($latitude)) * sin(radians(latitude)))) AS distance")
-        )
-            ->whereNull('deleted_at')
+        if ($selectedServices && count($selectedServices)) {
+            $query->whereHas('services', function ($query) use ($selectedServices) {
+                $query->whereIn('services.id', $selectedServices);
+            }, '=', count($selectedServices));
+        }
+
+        $query->whereNull('deleted_at')
             ->whereIsVisible(true)
-            ->having('distance', '<', $distance)
-            ->orderBy('distance')
             ->with('user')
             ->with('services')
-            ->with('images')
-            ->get();
+            ->with('images');
+
+
+        $apartments = $query->get();
 
         return response()->json($apartments);
 
