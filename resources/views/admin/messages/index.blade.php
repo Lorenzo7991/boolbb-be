@@ -11,28 +11,28 @@
         <thead>
             <tr class="text-center">
                 <th scope="col" class="text-center text-white brd-left"><i class=" ps-1 fa-solid fa-camera-retro icon-border"></i></th>
-                <th scope="col" class="text-white d-none"><i class="fa-solid fa-clock me-2 icon-border"></i><span>Data e ora</span></th>
-                <th scope="col" class="text-white"><i class="fa-solid fa-tag me-2  icon-border"></i><span class="d-none">Appartamento</span></th>
-                <th scope="col" class="text-white d-none"><i class="fa-solid fa-location-dot  me-2  icon-border"></i><span>Indirizzo</span></th>
-                <th scope="col" class="text-white "><i class="fa-solid fa-paper-plane  me-2  icon-border "></i><span class="d-none">Mittente</span></th>
-                <th scope="col" class="text-white d-none"><i class="fa-solid fa-envelope-open  me-2  icon-border"></i><span>Oggetto</span></th>
-                <th scope="col" class="text-white d-none"><i class="fa-solid fa-eye  me-2  icon-border"></i><span>Anteprima</span></th>
-                <th class="text-center text-white brd-right" scope="col"><i class="fa-solid fa-gamepad icon-border"></i>
+                <th scope="col" class="text-white d-none d-md-table-cell"><i class="fa-solid fa-clock me-2 icon-border"></i><span>Data e ora</span></th>
+                <th scope="col" class="text-white"><div class="d-flex justify-content-center align-items-center"><i class="fa-solid fa-tag me-2  icon-border"></i><span class="d-none d-xl-table-cell">Appartamento</span></div></th>
+                <th scope="col" class="text-white d-none d-xl-table-cell"><i class="fa-solid fa-location-dot  me-2  icon-border"></i><span>Indirizzo</span></th>
+                <th scope="col" class="text-white "><div class="d-flex justify-content-center align-items-center" ><i class="fa-solid fa-paper-plane  me-2  icon-border "></i><span class="d-none d-xl-table-cell">Mittente</span></div></th>
+                <th scope="col" class="text-white d-none d-xl-table-cell"><i class="fa-solid fa-envelope-open  me-2  icon-border"></i><span>Oggetto</span></th>
+                <th scope="col" class="text-white d-none d-xxl-table-cell"><i class="fa-solid fa-eye  me-2  icon-border"></i><span>Anteprima</span></th>
+                <th class="text-center text-white brd-right" scope="col"><i class="fa-solid fa-gamepad icon-border"></i></th>
             </tr>
         </thead>
         <tbody>
             @forelse($messages as $message)
-            <tr>
+            <tr class="text-center align-middle">
                 <td class="text-center">
                     <!-- Immagine dell'appartamento associato al messaggio -->
                     <img style="width: 50px" src="{{ asset('storage/' . $message->apartment->image) }}" alt="Appartamento">
                 </td>
-                <td class="d-none">{{ $message->created_at->format('d/m/Y H:i:s') }}</td>
-                <td>{{ $message->apartment->title }}</td>
-                <td class="d-none">{{ $message->apartment->address }}</td>
+                <td class="d-none d-md-table-cell">{{ $message->created_at->format('d/m/Y H:i:s') }}</td>
+                <td >{{ $message->apartment->title }}</td>
+                <td class="d-none d-xl-table-cell">{{ $message->apartment->address }}</td>
                 <td >{{ $message->name }} {{ $message->last_name }}</td>
-                <td class="d-none">{{ $message->subject }}</td>
-                <td class="d-none">{{ substr($message->text, 0, 30) }}{{ strlen($message->text) > 30 ? "..." : "" }}</td>
+                <td class="d-none d-xl-table-cell">{{ $message->subject }}</td>
+                <td class="d-none d-xxl-table-cell">{{ substr($message->text, 0, 30) }}{{ strlen($message->text) > 30 ? "..." : "" }}</td>
                 <td>
                     <div class="d-flex justify-content-center  gap-2">
                         <!--Bottone dettaglio-->

@@ -15,22 +15,51 @@
 
     <div>
         <div class="row justify-content-center">
-            <div class="col-md-10">
+            <div class="col-10 py-2">
                 <div class="card">
 
                     {{-- TITOLO APPARTAMENTO --}}
                     <div class="card-header fs-3"><strong>{{ $apartment->title }}</strong></div>
-
+                    
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-md-6">
-
+                            <div class="col-12">
+                                
                                 {{-- IMMAGINE PRINCIPALE --}}
-                                <img src="{{ asset('storage/' . $apartment->image) }}" class="img-fluid show-main-img"
-                                    alt="{{ $apartment->title }}">
+                                <img  src="{{ asset('storage/' . $apartment->image) }}" class="img-fluid show-main-img mb-3"
+                                alt="{{ $apartment->title }}">
+                                <div class="d-flex justify-content-center">
+                                    <form id="add-image" class="d-none"
+                                    action="{{ route('image.store', $apartment->id) }}" method="POST"
+                                    enctype="multipart/form-data">
+                                    @csrf
+                                    <input type="file" name="image"
+                                    class="form-control  @error('image') is-invalid @elseif(old('image', '')) is-valid @enderror"
+                                    id="add-secondary-image">
+                                </form>
+                                <button id="add-img-btn" type="button" class="btn btn-sm btn-primary mb-3"><i
+                                    class="fas fa-plus"></i> Immagine</button>
+                                </div>
+                                {{-- GALLERIA IMMAGINI --}}
+                                <ul class="d-flex list-unstyled col-12 row row-cols-2 row-cols-lg-3 row-cols-xxl-4 mt-4">
+                                    @foreach ($apartment->images as $image)
+                                                    <li class="gallery-item col">
+                                                        <figure class="show-figure">
+                                                            <img src="{{ asset('storage/' . $image->path) }}" class="rounded img-fluid"
+                                                                alt="image-{{ $image->id }}">
+                                                        </figure>
+                                                        <form class="delete-img" action="{{ route('image.destroy', $image->id) }}"
+                                                            method="POST">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button class=" btn-sm btn delete-img-btn" type="submit"><i
+                                                                    class="text-white fa-solid fa-xmark"></i></button>
+                                                        </form>
+                                                    </li>
+                                            @endforeach
+                                            </ul>
                             </div>
-                            <div class="col-md-6">
-
+                            <div class="col">                               
                                 {{-- descrizione dell'appartamento --}}
                                 <p><strong>Descrizione:</strong> {{ $apartment->description }}</p>
 
@@ -73,21 +102,10 @@
                                 </p>
                                 {{-- INSERIMENTO IMMAGINI AGGIUNTIVE --}}
                                 <div class="row">
-                                    <div class="d-flex justify-content-center">
-                                        <form id="add-image" class="d-none"
-                                            action="{{ route('image.store', $apartment->id) }}" method="POST"
-                                            enctype="multipart/form-data">
-                                            @csrf
-                                            <input type="file" name="image"
-                                                class="form-control  @error('image') is-invalid @elseif(old('image', '')) is-valid @enderror"
-                                                id="add-secondary-image">
-                                        </form>
-                                        <button id="add-img-btn" type="button" class="btn btn-sm btn-primary mb-3"><i
-                                                class="fas fa-plus"></i> Immagine</button>
-                                    </div>
+                                    
                                     {{-- Sponsorizzazione --}}
                                     @if ($latest_expiration_string !== null)
-                                        <div class="col-12">
+                                        <div class="col-6 offset-3">
                                             <a class="card text-decoration-none sponsorship-button"
                                                 href="{{ route('sponsorship.create', $apartment->id) }}">
                                                 <div class="card-header text-center ">
@@ -125,7 +143,7 @@
                                             </a>
                                         </div>
                                     @else
-                                        <div>
+                                        <div class="d-flex justify-content-between">
                                             <a class="btn btn-sm sponsorship-button"
                                                 href="{{ route('sponsorship.create', $apartment->id) }}">
                                                 <i class="fa-solid fa-bolt-lightning"></i> Sponsorizza
@@ -136,41 +154,25 @@
                                 </div>
                             </div>
 
-                            {{-- GALLERIA IMMAGINI --}}
-                            <ul class="d-flex list-unstyled col-12 row row-cols-2 row-cols-lg-3 row-cols-xxl-4 mt-4">
-                                @foreach ($apartment->images as $image)
-                                    <li class="gallery-item col">
-                                        <figure class="show-figure">
-                                            <img src="{{ asset('storage/' . $image->path) }}" class="rounded img-fluid"
-                                                alt="image-{{ $image->id }}">
-                                        </figure>
-                                        <form class="delete-img" action="{{ route('image.destroy', $image->id) }}"
-                                            method="POST">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button class=" btn-sm btn delete-img-btn" type="submit"><i
-                                                    class="text-white fa-solid fa-xmark"></i></button>
-                                        </form>
-                                    </li>
-                                @endforeach
-                            </ul>
-
+                        
                         </div>
                     </div>
 
 
                     {{-- Grafico visualizzazioni --}}
-                    <div id="graph-container" class="p-5">
-                        <canvas data-views="{{ $apartment->views }}" id="myChart"></canvas>
-                        <select class="form-select" id="graph-type">
-                            <option selected value="bar">Barre</option>
-                            <option value="line">Lineare</option>
-                            <option value="pie">Torta</option>
-                            <option value="doughnut">Anello</option>
-                            <option value="polarArea">Polar Area</option>
-                            <option value="radar">Radar</option>
-                            <option value="scatter">Scatter</option>
-                        </select>
+                    
+                        <div id="graph-container" class="p-5">
+                            <canvas data-views="{{ $apartment->views }}" id="myChart"></canvas>
+                            <select class="form-select" id="graph-type">
+                                <option selected value="bar">Barre</option>
+                                <option value="line">Lineare</option>
+                                <option value="pie">Torta</option>
+                                <option value="doughnut">Anello</option>
+                                <option value="polarArea">Polar Area</option>
+                                <option value="radar">Radar</option>
+                                <option value="scatter">Scatter</option>
+                            </select>
+
                     </div>
 
 

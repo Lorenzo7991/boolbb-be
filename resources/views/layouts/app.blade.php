@@ -54,7 +54,7 @@
                 @include('includes.layouts.sidebar')
             @endauth
 
-            <main>
+            <main class="container-fluid">
                 @include('includes.alert')
                 @yield('content')
             </main>
