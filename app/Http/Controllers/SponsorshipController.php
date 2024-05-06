@@ -56,7 +56,7 @@ class SponsorshipController extends Controller
         ]);
         //$result = $gateway->transaction()->sale([
         $result = $gateway->transaction()->sale([
-            'amount' => '10',
+            'amount' => $sponsorship->price,
             'paymentMethodNonce' => $nonceFromTheClient,
             //'deviceData' => $deviceDataFromTheClient,
             'options' => [
@@ -77,7 +77,6 @@ class SponsorshipController extends Controller
 
             // Il pagamento è stato elaborato con successo
             $transactionId = $result->transaction->id;
-            // Esegui qui eventuali azioni aggiuntive, come aggiornare il database, inviare notifiche, etc.
             return to_route('apartments.show', $apartment->id)->with('message', 'Sponsorizzazione attivata')->with('type', 'success');
         } else {
 

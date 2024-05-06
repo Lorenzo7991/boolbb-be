@@ -20,8 +20,8 @@
         </tr>
     </thead>
     <!-- Ciclo per iterare sugli appartamenti e prendere i dettagli del singolo appartamento -->
-    @foreach ($sponsoredApartments as $apartment)
-        <tbody>
+    <tbody>
+        @forelse ($sponsoredApartments as $apartment)
             <tr class="text-center align-middle">
                 <!-- Immagine appartamento -->
                 <td class="justify-content-center ">
@@ -72,9 +72,14 @@
                     </div>
                 </td>
             </tr>
-        </tbody>
-    @endforeach
+        @empty
+            <tr>
+                <td colspan="6" class="text-center">Al momento non hai nessuna sponsorizazione attiva</td>
+            </tr>
+        @endforelse
+    </tbody>
 </table>
+
 @endsection
 
 @section('script')

@@ -80,8 +80,7 @@
                                         <ul class="d-flex list-unstyled gap-4">
                                             @foreach ($apartment->services as $service)
                                                 <li>
-                                                    <img style="width: 25px" src="{{ $service->icon }}"
-                                                        alt="{{ $service->label }}">
+                                                    <i class="{{ $service->icon }}"></i>
                                                 </li>
                                             @endforeach
                                         </ul>

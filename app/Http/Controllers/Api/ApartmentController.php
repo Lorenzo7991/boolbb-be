@@ -61,23 +61,14 @@ class ApartmentController extends Controller
     {
         $address = $request->query('address'); // Indirizzo in query string scelto dall'utente
         $distance = $request->query('distance'); // Distanza in query string scelto dall'utente
+        $latitude = $request->query('latitude'); // Coordinata in arrivo dal front
+        $longitude = $request->query('longitude'); // Coordinata arrivata dal front
+        // $price = $request->query('price');
+        $selectedServices = json_decode($request->query('services'));
 
-        // Cerca gli appartamenti in un raggio di 20 km
-        // $distance = 20;
 
-        // Geocodifica dell'indirizzo inserito dall'utente
-        $response = Http::withOptions([
-            'verify' => false
-        ])->get('https://api.tomtom.com/search/2/geocode/' . urlencode($address) . '.json?key=JCA7jDznFGPlGy91V9K6LVAp8heuxKMU');
-
-        // Verifica se la richiesta ha avuto successo e se sono stati trovati risultati
-        if ($response->successful() && isset($response->json()['results']) && !empty($response->json()['results'])) {
-            $coordinates = $response->json()['results'][0]['position'];
-
-            $latitude = $coordinates['lat'];
-            $longitude = $coordinates['lon'];
-
-            $apartments = Apartment::select(
+        if ($address) {
+            $query = Apartment::select(
                 'id',
                 'user_id',
                 'title',
@@ -94,20 +85,88 @@ class ApartmentController extends Controller
                 'longitude',
                 DB::raw("(6371 * acos(cos(radians($latitude)) * cos(radians(latitude)) * cos(radians(longitude) - radians($longitude)) + sin(radians($latitude)) * sin(radians(latitude)))) AS distance")
             )
-                ->whereNull('deleted_at')
-                ->whereIsVisible(true)
                 ->having('distance', '<', $distance)
-                ->orderBy('distance')
-                ->with('user')
-                ->with('services')
-                ->with('images')
-                ->get();
-
-            return response()->json($apartments);
+                ->orderBy('distance');
         } else {
-            // Gestisci il caso in cui non ci sono risultati dalla geocodifica
-            return response()->json(['error' => 'Nessun risultato trovato per l\'indirizzo specificato.']);
+            $query = Apartment::select(
+                'id',
+                'user_id',
+                'title',
+                'slug',
+                'address',
+                'price_per_night',
+                'description',
+                'rooms',
+                'beds',
+                'bathrooms',
+                'square_meters',
+                'image',
+                'latitude',
+                'longitude',
+            );
         }
+
+
+        if ($selectedServices && count($selectedServices)) {
+            $query->whereHas('services', function ($query) use ($selectedServices) {
+                $query->whereIn('services.id', $selectedServices);
+            }, '=', count($selectedServices));
+        }
+
+        $query->whereNull('deleted_at')
+            ->whereIsVisible(true)
+            ->with('user')
+            ->with('services')
+            ->with('images');
+
+
+        $apartments = $query->get();
+
+        return response()->json($apartments);
+
+        // Geocodifica dell'indirizzo inserito dall'utente
+        // $response = Http::withOptions([
+        //     'verify' => false
+        // ])->get('https://api.tomtom.com/search/2/geocode/' . urlencode($address) . '.json?key=JCA7jDznFGPlGy91V9K6LVAp8heuxKMU');
+
+        // Verifica se la richiesta ha avuto successo e se sono stati trovati risultati
+        // if ($response->successful() && isset($response->json()['results']) && !empty($response->json()['results'])) {
+        //     $coordinates = $response->json()['results'][0]['position'];
+
+        //     $latitude = $coordinates['lat'];
+        //     $longitude = $coordinates['lon'];
+
+        //     $apartments = Apartment::select(
+        //         'id',
+        //         'user_id',
+        //         'title',
+        //         'slug',
+        //         'address',
+        //         'price_per_night',
+        //         'description',
+        //         'rooms',
+        //         'beds',
+        //         'bathrooms',
+        //         'square_meters',
+        //         'image',
+        //         'latitude',
+        //         'longitude',
+        //         DB::raw("(6371 * acos(cos(radians($latitude)) * cos(radians(latitude)) * cos(radians(longitude) - radians($longitude)) + sin(radians($latitude)) * sin(radians(latitude)))) AS distance")
+        //     )
+        //         ->whereNull('deleted_at')
+        //         ->whereIsVisible(true)
+        //         ->having('distance', '<', $distance)
+        //         ->orderBy('distance')
+        //         ->with('user')
+        //         ->with('services')
+        //         ->with('images')
+        //         ->get();
+
+        //     return response()->json($apartments);
+        // } else {
+        //     // Gestisci il caso in cui non ci sono risultati dalla geocodifica
+        //     return response()->json(['error' => 'Nessun risultato trovato per l\'indirizzo specificato.']);
+        // }
     }
     public function services()
     {

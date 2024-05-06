@@ -40,6 +40,11 @@
 
     <!-- Usando Vite -->
     @vite(['resources/js/app.js'])
+    <style>
+        body {
+            visibility: hidden;
+        }
+    </style>
 </head>
 
 <body>
