@@ -228,7 +228,7 @@ body {
         width: 100%;
 
         li {
-            margin-bottom: 4rem;
+            padding: 30px 0;
         }
 
         a {
@@ -391,4 +391,9 @@ main {
         height: 30px;
         font-size: 0.7rem;
     }
+}
+
+// Coutdown Sponsorizzazione
+#counter {
+    small {}
 }
