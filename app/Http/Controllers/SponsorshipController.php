@@ -56,7 +56,7 @@ class SponsorshipController extends Controller
         ]);
         //$result = $gateway->transaction()->sale([
         $result = $gateway->transaction()->sale([
-            'amount' => '10',
+            'amount' => $sponsorship->price,
             'paymentMethodNonce' => $nonceFromTheClient,
             //'deviceData' => $deviceDataFromTheClient,
             'options' => [
