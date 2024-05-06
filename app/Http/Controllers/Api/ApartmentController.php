@@ -19,8 +19,14 @@ class ApartmentController extends Controller
      */
     public function index()
     {
-        $apartments = Apartment::whereIsVisible(true)->latest()->with('user')->with('images')->with('services')->get();
-        return response()->json($apartments);
+        $current_date = Carbon::now('Europe/Rome');
+        $apartments = Apartment::whereIsVisible(true)->latest()->with('user')->with('images')->with('services')->with('sponsorships')->get();
+        $sponsored_apartments = Apartment::whereHas('sponsorships', function ($query) use ($current_date) {
+            $query->where('expire_date', '>', $current_date);
+        })->latest()->with('user')->with('images')->with('services')->with('sponsorships')->get();
+        $all_apartments['all'] = $apartments;
+        $all_apartments['sponsored'] = $sponsored_apartments;
+        return response()->json($all_apartments);
     }
 
     /**
