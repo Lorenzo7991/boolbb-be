@@ -16,7 +16,7 @@
                             <img class="img-fluid" src="{{ asset('assets/logo.png') }}" alt="logo">
                         </figure>
 
-                        <span class="fs-4 me-5">
+                        <span class="fs-4 me-3">
                             BoolBnB
                         </span>
                     </a>
