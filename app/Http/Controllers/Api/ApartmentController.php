@@ -70,8 +70,10 @@ class ApartmentController extends Controller
         $distance = $request->query('distance'); // Distanza in query string scelto dall'utente
         $latitude = $request->query('latitude'); // Coordinata in arrivo dal front
         $longitude = $request->query('longitude'); // Coordinata arrivata dal front
-        $price = $request->query('price');
-        $selectedServices = json_decode($request->query('services'));
+        $price = $request->query('price'); // Prezzo in query string scelto dall'utente
+        $rooms = $request->query('rooms'); // Numero stanze in query string scelto dall'utente
+        $beds = $request->query('beds'); // Numero letti in query string scelto dall'utente
+        $selectedServices = json_decode($request->query('services')); // Servizi selezionati dall'utente: arrivano come stringa e uso json_decode per ritrasformali in array
 
         // Se arriva un indirizzo in request fa il filtro per distanza
         if ($address) {
@@ -116,6 +118,24 @@ class ApartmentController extends Controller
         //Se arriva un prezzo in request fa un filtro per prezzo
         if ($price) {
             $query->where('price_per_night', '<=', $price);
+        }
+
+        //Se arriva un numero di stanze in request fa un filtro per numero di stanze
+        if ($rooms) {
+            if ($rooms >= 8) {
+                $query->where('rooms', '>=', $rooms);
+            } else if ($rooms > 0 && $rooms < 8) {
+                $query->where('rooms', '=', $rooms);
+            }
+        }
+
+        //Se arriva un numero di letti in request fa un filtro per numero di letti
+        if ($beds) {
+            if ($beds >= 8) {
+                $query->where('beds', '>=', $beds);
+            } else if ($beds > 0 && $beds < 8) {
+                $query->where('beds', '=', $beds);
+            }
         }
 
 
