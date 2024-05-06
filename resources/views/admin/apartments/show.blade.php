@@ -90,7 +90,9 @@
                                 <p><strong>Prezzo/n:</strong> {{ $apartment->price_per_night }}€</p>
 
                                 {{-- Mappa --}}
+                                  <div id="map-container" class="map-container">
                                 <div id="map" class="rounded-4" style="width: 100%; height: 250px;"></div>
+                                </div>
 
 
                                 {{-- STATO PUBBLICAZIONE --}}
