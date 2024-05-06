@@ -35,7 +35,8 @@ body {
 
 
 .show-main-img {
-    border-radius: 10px;
+    border-radius: 4px;
+    max-width: 70%;
 }
 
 .gallery-item {
@@ -53,6 +54,13 @@ body {
         }
     }
 
+}
+
+.infos {
+
+    p {
+        margin-bottom: 0;
+    }
 }
 
 .show-figure {
@@ -124,6 +132,7 @@ body {
         color: transparent;
     }
 }
+
 
 .nav-link.active {
     position: relative;
