@@ -137,9 +137,8 @@
                                     </li>
                                 @endforeach
                             </ul>
-                        </div>
-                        {{-- INDIRIZZO - LAT - LON --}}
-
+                        </div> 
+                        
                         <hr class="my-5">
 
                         {{-- Mappa --}}
@@ -149,7 +148,6 @@
                 </div>
 
                 <hr class="my-5">
-
 
                 {{-- Grafico visualizzazioni --}}
 
