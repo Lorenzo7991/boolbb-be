@@ -7,6 +7,7 @@ use App\Models\Apartment;
 use App\Models\Service;
 use App\Models\View;
 use Carbon\Carbon;
+use GuzzleHttp\Psr7\Query;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
@@ -69,10 +70,10 @@ class ApartmentController extends Controller
         $distance = $request->query('distance'); // Distanza in query string scelto dall'utente
         $latitude = $request->query('latitude'); // Coordinata in arrivo dal front
         $longitude = $request->query('longitude'); // Coordinata arrivata dal front
-        // $price = $request->query('price');
+        $price = $request->query('price');
         $selectedServices = json_decode($request->query('services'));
 
-
+        // Se arriva un indirizzo in request fa il filtro per distanza
         if ($address) {
             $query = Apartment::select(
                 'id',
@@ -93,7 +94,7 @@ class ApartmentController extends Controller
             )
                 ->having('distance', '<', $distance)
                 ->orderBy('distance');
-        } else {
+        } else {        // Altrimenti prende tutti gli appartamenti
             $query = Apartment::select(
                 'id',
                 'user_id',
@@ -112,7 +113,13 @@ class ApartmentController extends Controller
             );
         }
 
+        //Se arriva un prezzo in request fa un filtro per prezzo
+        if ($price) {
+            $query->where('price_per_night', '<=', $price);
+        }
 
+
+        // Se arrivano dei servizi in request fa un filtro per servizi
         if ($selectedServices && count($selectedServices)) {
             $query->whereHas('services', function ($query) use ($selectedServices) {
                 $query->whereIn('services.id', $selectedServices);
