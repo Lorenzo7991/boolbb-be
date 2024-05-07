@@ -38,7 +38,7 @@
                         <!--Bottone dettaglio-->
                     <a href="{{ route('messages.show', $message) }}" class="btn btn-primary"><i class="fa-solid fa-eye"></i></a>
                     <!-- Form per la cancellazione -->
-                    <form class="d-none" id="delete-form-{{ $message->id }}" action="{{ route('messages.destroy', $message) }}" method="POST" class="delete-form" data-bs-toggle="modal" data-bs-target="#delete-modal" data-title="{{ $message->title }}">
+                    <form class=" delete-form d-table-cell" id="delete-form-{{ $message->id }}" action="{{ route('messages.destroy', $message) }}" method="POST" class="delete-form" data-bs-toggle="modal" data-bs-target="#delete-modal" data-title="{{ $message->title }}">
                         @csrf
                         @method('DELETE')
                         <button class="btn btn-danger" type="submit"><i class="fa-solid fa-trash"></i></button>
@@ -48,7 +48,7 @@
             </tr>
             @empty
             <tr>
-                <td colspan="7" class="text-center">Al momento non hai nessun messaggio</td>
+                <td colspan="8" class="text-center">Al momento non hai nessun messaggio</td>
             </tr>
             @endforelse
         </tbody>
@@ -61,7 +61,7 @@
 
 
     <!-- Modale Eliminazione -->
-    @include('includes.delete_modal')
+@include('includes.delete_modal')
 @endsection
 @section('script')
     @vite('resources/js/delete_confirmation.js')

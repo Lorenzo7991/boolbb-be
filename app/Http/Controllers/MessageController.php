@@ -74,6 +74,6 @@ class MessageController extends Controller
         $message->delete();
 
         // Redirect alla lista dei messaggi con un messaggio di successo
-        return redirect()->route('messages.index')->with('success', 'Messaggio eliminato con successo.');
+        return to_route('messages.index')->with('success', 'Messaggio eliminato con successo.');
     }
 }
