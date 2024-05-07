@@ -10,12 +10,12 @@
 @endsection
 
 @section('content')
-    <div class="container">
+    <div class="container py-5">
         <div class="row justify-content-center">
             <div class="col-md-10">
                 <div class="card">
                     {{-- Titolo Messaggio --}}
-                    <div class="card-header home-title fs-3"><strong>{{ $message->subject }}</strong></div>
+                    <div class="card-header home-title fs-3"> <strong>Oggetto: {{ $message->subject }}</strong></div>
                     <div class="card-body">
                         {{-- Dettagli Messaggio --}}
                         <div class="row">
@@ -23,9 +23,9 @@
                                 {{-- Mittente --}}
                                 <p><strong>Mittente:</strong> {{ $message->name }} {{ $message->last_name }}</p>
                                 {{-- Email Mittente --}}
-                                <p><strong>Email Mittente:</strong> {{ $message->email }}</p>
+                                <p><strong>e-mail:</strong> {{ $message->email }}</p>
                                 {{-- Data e Ora --}}
-                                <p><strong>Data e Ora:</strong> {{ $message->created_at }}</p>
+                                <p><strong>Data e Ora:</strong> {{ $message->created_at->format('d/m/Y H:i:s') }}</p>
                                 {{-- Testo Messaggio --}}
                                 <p><strong>Testo Messaggio:</strong> {{ $message->text }}</p>
                             </div>
@@ -34,7 +34,7 @@
 
                     <div class="card-footer d-flex justify-content-end">
                         {{-- Pulsante per tornare indietro --}}
-                        <a href="{{ route('messages.index') }}" class="btn btn-primary"><i
+                        <a href="{{ route('messages.index') }}" class="btn btn-primary sponsor-cs-color"><i
                                 class="fa-solid fa-arrow-left me-2"></i>{{ __('Torna Indietro') }}</a>
                     </div>
                 </div>
