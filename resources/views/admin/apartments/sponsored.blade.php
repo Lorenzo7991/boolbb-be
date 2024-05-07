@@ -3,8 +3,8 @@
 @section('title', 'Appartamenti')
 
 @section('content')
-<div class="d-flex justify-content-between align-items-center text-center p-3">
-    <h2 id="index-title" class="text-center home-title fs-1 fw-bolder">Sponsorizzazioni attive:</h2>
+<div class="text-center justify-content-between align-items-center  p-3">
+    <h2 id="index-title" class=" home-title fs-1 fw-bolder">Sponsorizzazioni attive:</h2>
 </div>
 <table class="table shadow-lg rounded">
     <thead>
@@ -42,7 +42,9 @@
                 <!-- Data di scadenza della sponsorizzazione -->
                 <td class="text-center">
                     <span>
-                    {{ \Carbon\Carbon::parse($apartment->expiration_date)->format('d-m-Y') }}
+                    {{ \Carbon\Carbon::parse($apartment->expiration_date)->format('d/m/Y') }} </br>
+                    {{ \Carbon\Carbon::parse($apartment->expiration_date)->format('H:i:s') }}
+
                 </span>
                 </td>
 
@@ -57,7 +59,7 @@
                                 id="visibility-{{ $apartment->is_visible }}"
                                 @if ($apartment->is_visible) checked @endif>
                             <label  class="form-check-label" for="visibility-{{ $apartment->is_visible }}"><i
-                                    class="fa-solid {{ $apartment->is_visible ? 'fa-eye text-primary' : 'fa-eye-slash text-secondary' }} "></i></label>
+                                    class="fa-solid {{ $apartment->is_visible ? 'fa-eye blue-cs-color' : 'fa-eye-slash text-secondary' }} "></i></label>
 
                         </form>
                     </div>
@@ -67,7 +69,7 @@
                 <td>
                     <div class="d-flex justify-content-center  gap-2">
                         <!-- Bottone dettaglio -->
-                        <a href="{{ route('apartments.show', $apartment->id) }}" class="btn btn-primary"><i
+                        <a href="{{ route('apartments.show', $apartment->id) }}" class="btn sponsor-cs-color btn-primary"><i
                                 class="fa-solid fa-magnifying-glass"></i></a>
                     </div>
                 </td>

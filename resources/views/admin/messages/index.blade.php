@@ -25,7 +25,7 @@
             <tr class="text-center align-middle">
                 <td class="text-center">
                     <!-- Immagine dell'appartamento associato al messaggio -->
-                    <img style="width: 50px" src="{{ asset('storage/' . $message->apartment->image) }}" alt="Appartamento">
+                    <img style="width: 50px" class="img-fluid rounded" src="{{ asset('storage/' . $message->apartment->image) }}" alt="Appartamento">
                 </td>
                 <td class="d-none d-md-table-cell">{{ $message->created_at->format('d/m/Y H:i:s') }}</td>
                 <td >{{ $message->apartment->title }}</td>
@@ -36,7 +36,7 @@
                 <td>
                     <div class="d-flex justify-content-center  gap-2">
                         <!--Bottone dettaglio-->
-                    <a href="{{ route('messages.show', $message) }}" class="btn btn-primary"><i class="fa-solid fa-eye"></i></a>
+                    <a href="{{ route('messages.show', $message) }}" class="btn btn-primary sponsor-cs-color"><i class="fa-solid fa-eye"></i></a>
                     <!-- Form per la cancellazione -->
                     <form class="d-none" id="delete-form-{{ $message->id }}" action="{{ route('messages.destroy', $message) }}" method="POST" class="delete-form" data-bs-toggle="modal" data-bs-target="#delete-modal" data-title="{{ $message->title }}">
                         @csrf
@@ -48,7 +48,7 @@
             </tr>
             @empty
             <tr>
-                <td colspan="7" class="text-center">Al momento non hai nessun messaggio</td>
+                <td colspan="8" class="text-center">Al momento non hai nessun messaggio</td>
             </tr>
             @endforelse
         </tbody>

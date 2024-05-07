@@ -36,10 +36,16 @@
 
 
         <!--card pagamento-->
-        <div id="dropin-container"></div>
-        <input id="paybutton" type="submit" />
-        <input type="hidden" id="nonce" name="payment_method_nonce" />
-        <input type="hidden" id="device_data" name="device_data">
+        <div class="card my-5">
+            <div class="card-body">
+                <div id="dropin-container" class=""></div>
+                <input type="hidden" id="nonce" name="payment_method_nonce" />
+                <input type="hidden" id="device_data" name="device_data">
+            </div>
+            <div class="card-footer">
+                <input id="paybutton" type="submit" class="btn sponsor-cs-color btn-primary" value="Paga"/>
+            </div>
+        </div>
     </form>
     <div id="loader" class="d-none">
         <div class="loader-overlay">
@@ -112,6 +118,32 @@
 @endsection
 
 <style scoped lang="scss">
+.braintree-sheet__header {
+    align-items: center;
+    border-bottom: 0px; 
+    display: flex;
+    flex-wrap: wrap;
+    padding: 10px 5px 0 5px;
+    position: relative;
+}
+
+
+.braintree-placeholder{
+    margin-bottom: 5px;
+}
+
+
+.braintree-sheet {
+    background-color: #fff;
+    border: 0px; 
+    border-radius: 4px;
+    display: none;
+    margin: 0 auto;
+    max-height: 600px;
+    max-height: fit-content;
+    transition: transform .3s, opacity .3s, max-height .3s ease;
+    width: 100%;
+}
 
 #loader {
     position: fixed;

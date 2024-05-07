@@ -25,7 +25,7 @@
                         class="fa-solid fa-expand me-2 icon-border"></i>mq<sup>2</sup>
                 </th>
                 <th scope="col" class="text-white d-none d-xl-table-cell"><i
-                        class="fa-solid fa-coins  icon-border"></i>/notte</th>
+                        class="fa-solid fa-coins  icon-border"></i>/prezzo per notte</th>
                 <th scope="col" class="text-white d-none d-sm-table-cell">Publicati</th>
                 <th class="text-center text-white brd-right" scope="col"><i class="fa-solid fa-gamepad icon-border"></i>
                 </th>
@@ -52,10 +52,10 @@
                     <td class="d-none align-middle d-md-table-cell">{{ $apartment->address }}</td>
 
                     <!--Metri quadri appartemento-->
-                    <td class="d-none align-middle d-xl-table-cell">{{ $apartment->square_meters }}</td>
+                    <td class="d-none align-middle d-xl-table-cell">{{ $apartment->square_meters }} mq<sup>2</sup></td>
 
-                    <!--Prezzp per notte -->
-                    <td class="d-none align-middle d-xl-table-cell">{{ $apartment->price_per_night }}</td>
+                    <!--Prezzo per notte -->
+                    <td class="d-none align-middle d-xl-table-cell">{{ $apartment->price_per_night }},00 €</td>
 
                     <!--Visibilità appartamento-->
                     <td class="d-none d-sm-table-cell align-middle">
@@ -68,7 +68,7 @@
                                     id="visibility-{{ $apartment->is_visible }}"
                                     @if ($apartment->is_visible) checked @endif>
                                 <label class="form-check-label" for="visibility-{{ $apartment->is_visible }}"><i
-                                        class="fa-solid {{ $apartment->is_visible ? 'fa-eye text-primary' : 'fa-eye-slash text-secondary' }} "></i></label>
+                                        class="fa-solid {{ $apartment->is_visible ? 'fa-eye blue-cs-color' : 'fa-eye-slash text-secondary' }} "></i></label>
 
                             </form>
                         </div>
@@ -76,9 +76,14 @@
 
                     {{-- Bottoni --}}
                     <td class="align-middle">
+                       
+                        </div>
                         <div class="d-flex justify-content-center gap-2">
+                            <a class="btn sponsor-cs-color btn-primary "
+                                href="{{ route('sponsorship.create', $apartment->id) }}">
+                                <i class="text-warning fa-solid fa-bolt-lightning"></i></a>
                             <!--Bottone dettaglio-->
-                            <a href="{{ route('apartments.show', $apartment->id) }}" class="btn btn-primary"><i
+                            <a href="{{ route('apartments.show', $apartment->id) }}" class="btn sponsor-cs-color btn-primary"><i
                                     class="fa-solid fa-magnifying-glass"></i></a>
                             <!--Bottone modifica-->
                             <a class="btn btn-warning d-none d-xl-inline"
@@ -101,7 +106,7 @@
     </table>
     <div class="d-flex justify-content-center my-3 ">
 
-        <a class="btn btn-primary text-align-center" href="{{ route('apartments.create') }}"><i
+        <a class="btn btn-primary sponsor-cs-color text-align-center" href="{{ route('apartments.create') }}"><i
                 class="fa-solid fa-plus me-2"></i>Aggiungi appartamento</a>
     </div>
 
