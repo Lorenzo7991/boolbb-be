@@ -158,16 +158,6 @@
                 <h4><strong>Grafico visualizzazioni</strong></h4>
                 <div id="graph-container" class="container pt-4">
                     <canvas data-views="{{ $apartment->views }}" id="myChart"></canvas>
-                    <select class="form-select" id="graph-type">
-                        <option selected value="bar">Barre</option>
-                        <option value="line">Lineare</option>
-                        <option value="pie">Torta</option>
-                        <option value="doughnut">Anello</option>
-                        <option value="polarArea">Polar Area</option>
-                        <option value="radar">Radar</option>
-                        <option value="scatter">Scatter</option>
-                    </select>
-
                 </div>
 
 
