@@ -16,8 +16,8 @@
             <tr class="text-center">
                 <th scope="col" class="text-center text-white brd-left"><i
                         class=" ps-1 fa-solid fa-camera-retro icon-border"></i></th>
-                <th scope="col" class="text-white  text-center"><i
-                        class="fa-solid fa-tag me-2 icon-border"></i><span class="d-none d-sm-inline">Appartamento</span></th>
+                <th scope="col" class="text-white  text-center"><i class="fa-solid fa-tag me-2 icon-border"></i><span
+                        class="d-none d-sm-inline">Appartamento</span></th>
                 <th scope="col" class="text-white d-none d-md-table-cell"><i
                         class="fa-solid fa-location-dot  me-2  icon-border"></i>Indirizzo
                 </th>
@@ -52,14 +52,14 @@
                     <td class="d-none align-middle d-md-table-cell">{{ $apartment->address }}</td>
 
                     <!--Metri quadri appartemento-->
-                    <td class="d-none align-middle d-xl-table-cell">{{ $apartment->square_meters }} mq<sup>2</sup></td>
+                    <td class="d-none align-middle d-xl-table-cell">{{ $apartment->square_meters }}</td>
 
                     <!--Prezzo per notte -->
                     <td class="d-none align-middle d-xl-table-cell">{{ $apartment->price_per_night }},00 €</td>
 
                     <!--Visibilità appartamento-->
                     <td class="d-none d-sm-table-cell align-middle">
-                        <div class="form-check form-switch">
+                        <div class="form-check form-switch ps-0">
                             <form onclick="this.submit()" method="POST"
                                 action="{{ route('apartment.toggle-visibility', $apartment->id) }}">
                                 @method('PATCH')
@@ -76,15 +76,15 @@
 
                     {{-- Bottoni --}}
                     <td class="align-middle">
-                       
+
                         </div>
                         <div class="d-flex justify-content-center gap-2">
                             <a class="btn sponsor-cs-color btn-primary "
                                 href="{{ route('sponsorship.create', $apartment->id) }}">
                                 <i class="text-warning fa-solid fa-bolt-lightning"></i></a>
                             <!--Bottone dettaglio-->
-                            <a href="{{ route('apartments.show', $apartment->id) }}" class="btn sponsor-cs-color btn-primary"><i
-                                    class="fa-solid fa-magnifying-glass"></i></a>
+                            <a href="{{ route('apartments.show', $apartment->id) }}"
+                                class="btn sponsor-cs-color btn-primary"><i class="fa-solid fa-magnifying-glass"></i></a>
                             <!--Bottone modifica-->
                             {{-- <a class="btn btn-warning d-none d-xl-inline"
                                 href="{{ route('apartments.edit', $apartment->id) }}"><i

@@ -26,7 +26,7 @@
                         {!! $apartment->is_visible
                             ? '<i class="fa-solid fa-circle-check text-success "></i>'
                             : '<i class="fa-solid fa-circle-xmark text-danger "></i>' !!}
-                    </p> 
+                    </p>
                     <p class="col-12 col-md-3"><strong>Prezzo/n:</strong> {{ $apartment->price_per_night }}€</p>
                 </div>
                 <div class="row">
@@ -93,27 +93,40 @@
                                     class="form-control  @error('image') is-invalid @elseif(old('image', '')) is-valid @enderror"
                                     id="add-secondary-image">
                             </form>
-                            <button id="add-img-btn" type="button" class="btn btn-sm btn-primary sponsor-cs-color mb-3 p-2"><i
-                                    class="fas fa-plus"></i> Immagine</button>
+                            <button id="add-img-btn" type="button"
+                                class="btn btn-sm btn-primary sponsor-cs-color mb-3 p-2"><i class="fas fa-plus"></i>
+                                Immagine</button>
                         </div>
-                        {{-- GALLERIA IMMAGINI --}}
-                        <ul class="d-flex list-unstyled col-12 row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xxl-4 mt-4"> 
-                            @foreach ($apartment->images as $image)
-                                <li class="gallery-item col">
-                                    <figure class="show-figure">
-                                        <img src="{{ asset('storage/' . $image->path) }}" class="rounded img-fluid"
-                                            alt="image-{{ $image->id }}">
-                                    </figure>
-                                    <form class="delete-img" action="{{ route('image.destroy', $image->id) }}"
-                                        method="POST">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button class=" btn-sm btn delete-img-btn" type="submit"><i
-                                                class="text-white fa-solid fa-xmark"></i></button>
-                                    </form>
-                                </li>
-                            @endforeach
-                        </ul>
+                        <div
+                            class="border border-black border-start-0 border-end-0  d-flex flex-column align-items-center py-3 mb-3">
+
+                            {{-- GALLERIA IMMAGINI --}}
+                            <div class="align-self-start">
+                                <button id="gallery-next" class="btn btn-sm btn-outline-dark "><i
+                                        class="fa-solid fa-chevron-left"></i></button>
+                                <button id="gallery-prev" class="btn btn-sm btn-outline-dark "><i
+                                        class="fa-solid fa-chevron-right"></i></button>
+                            </div>
+                            <ul id="show-gallery"
+                                class=" d-flex flex-nowrap  list-unstyled col-12 row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xxl-4 mt-4">
+                                @foreach ($apartment->images as $image)
+                                    <li class="gallery-item col">
+                                        <figure class="show-figure">
+                                            <img id="img-{{ $image->id }}" src="{{ asset('storage/' . $image->path) }}"
+                                                class="rounded img-fluid" alt="image-{{ $image->id }}">
+                                            <form class="delete-img" action="{{ route('image.destroy', $image->id) }}"
+                                                method="POST">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button class=" btn-sm btn delete-img-btn" type="submit"><i
+                                                        class="text-white fa-solid fa-xmark"></i></button>
+                                            </form>
+                                        </figure>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </div>
+
                     </div>
                     <div class="col">
                         {{-- descrizione dell'appartamento --}}
@@ -141,8 +154,8 @@
                                     </li>
                                 @endforeach
                             </ul>
-                        </div> 
-                        
+                        </div>
+
                         <hr class="my-5">
 
                         {{-- Mappa --}}
@@ -203,5 +216,28 @@
 
         // Aggiungi un marker per le tue coordinate
         var marker = new tt.Marker().setLngLat([{!! $apartment->longitude !!}, {!! $apartment->latitude !!}]).addTo(map);
+
+
+        document.addEventListener("DOMContentLoaded", function() {
+            const scrollLeftBtn = document.getElementById("gallery-next");
+            const scrollRightBtn = document.getElementById("gallery-prev");
+            const gallery = document.getElementById("show-gallery");
+
+            // Funzione per scorrere la lista verso sinistra
+            scrollLeftBtn.addEventListener("click", function() {
+                gallery.scrollBy({
+                    left: -300, // Regola la velocità di scorrimento
+                    behavior: "smooth" // Effetto di scorrimento fluido
+                });
+            });
+
+            // Funzione per scorrere la lista verso destra
+            scrollRightBtn.addEventListener("click", function() {
+                gallery.scrollBy({
+                    left: 300, // Regola la velocità di scorrimento
+                    behavior: "smooth" // Effetto di scorrimento fluido
+                });
+            });
+        });
     </script>
 @endsection
