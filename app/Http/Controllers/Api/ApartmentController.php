@@ -21,13 +21,14 @@ class ApartmentController extends Controller
     public function index()
     {
         $current_date = Carbon::now('Europe/Rome');
-        $apartments = Apartment::whereIsVisible(true)->latest()->with('user')->with('images')->with('services')->with('sponsorships')->get();
         $sponsored_apartments = Apartment::whereHas('sponsorships', function ($query) use ($current_date) {
             $query->where('expire_date', '>', $current_date);
         })->latest()->with('user')->with('images')->with('services')->with('sponsorships')->get();
-        $all_apartments['all'] = $apartments;
-        $all_apartments['sponsored'] = $sponsored_apartments;
-        return response()->json($all_apartments);
+        $sponsored_apartment_ids = $sponsored_apartments->pluck('id');
+        $unsponsored_apartments = Apartment::whereNotIn('id', $sponsored_apartment_ids)->get();
+        $apartments['sponsored'] = $sponsored_apartments;
+        $apartments['unsponsored'] = $unsponsored_apartments;
+        return response()->json($apartments);
     }
 
     /**
@@ -77,7 +78,7 @@ class ApartmentController extends Controller
 
         // Se arriva un indirizzo in request fa il filtro per distanza
         if ($address) {
-            $query = Apartment::select(
+            $baseQuery = Apartment::select(
                 'id',
                 'user_id',
                 'title',
@@ -97,7 +98,7 @@ class ApartmentController extends Controller
                 ->having('distance', '<', $distance)
                 ->orderBy('distance');
         } else {        // Altrimenti prende tutti gli appartamenti
-            $query = Apartment::select(
+            $baseQuery = Apartment::select(
                 'id',
                 'user_id',
                 'title',
@@ -117,43 +118,62 @@ class ApartmentController extends Controller
 
         //Se arriva un prezzo in request fa un filtro per prezzo
         if ($price) {
-            $query->where('price_per_night', '<=', $price);
+            $baseQuery->where('price_per_night', '<=', $price);
         }
 
         //Se arriva un numero di stanze in request fa un filtro per numero di stanze
         if ($rooms) {
             if ($rooms >= 8) {
-                $query->where('rooms', '>=', $rooms);
+                $baseQuery->where('rooms', '>=', $rooms);
             } else if ($rooms > 0 && $rooms < 8) {
-                $query->where('rooms', '=', $rooms);
+                $baseQuery->where('rooms', '=', $rooms);
             }
         }
 
         //Se arriva un numero di letti in request fa un filtro per numero di letti
         if ($beds) {
             if ($beds >= 8) {
-                $query->where('beds', '>=', $beds);
+                $baseQuery->where('beds', '>=', $beds);
             } else if ($beds > 0 && $beds < 8) {
-                $query->where('beds', '=', $beds);
+                $baseQuery->where('beds', '=', $beds);
             }
         }
 
 
         // Se arrivano dei servizi in request fa un filtro per servizi
         if ($selectedServices && count($selectedServices)) {
-            $query->whereHas('services', function ($query) use ($selectedServices) {
+            $baseQuery->whereHas('services', function ($query) use ($selectedServices) {
                 $query->whereIn('services.id', $selectedServices);
             }, '=', count($selectedServices));
         }
 
-        $query->whereNull('deleted_at')
+        $baseQuery->whereNull('deleted_at')
             ->whereIsVisible(true)
             ->with('user')
             ->with('services')
             ->with('images');
 
+        // Data attuale
+        $current_date = Carbon::now('Europe/Rome');
 
-        $apartments = $query->get();
+        $sponsored_apartments_query = clone $baseQuery;     //      clono la base query perchè gli appartamenti sponsorizzati e non usano la stessa query
+        $unsponsored_apartments_query = clone  $baseQuery;      //    
+
+        // Appartamenti sponsorizzati
+        $sponsored_apartments = $sponsored_apartments_query->whereHas('sponsorships', function ($query) use ($current_date) {
+            $query->where('expire_date', '>', $current_date);
+        })->get();
+
+        // Array contentente gli id degli appartamenti sponsorizzati
+        $sponsored_apartment_ids = $sponsored_apartments->pluck('id');
+
+        // Array appartamenti non sponsorizzati
+        $unsponsored_apartments = $unsponsored_apartments_query->whereNotIn('id', $sponsored_apartment_ids)->get();
+
+        // Inserisco entrambi gli array in un array generico apartments con due chiavi diverse
+        $apartments['sponsored'] = $sponsored_apartments;
+        $apartments['unsponsored'] = $unsponsored_apartments;
+
 
         return response()->json($apartments);
     }
