@@ -7,6 +7,45 @@ body {
     visibility: visible;
 }
 
+/* UTILITY */
+.sponsor-cs-color {
+    background-color: #25475a;
+}
+
+.sponsor-cs-color:hover {
+    background-color: #376783;
+}
+
+.blue-cs-color {
+    color: #25475a;
+}
+
+.form-check-input:checked {
+    background-color: #25475a;
+    border-color: #25475a;
+}
+
+.form-switch .form-check-input {
+    margin-left: 0px;
+}
+
+/* custom scrollbar */
+
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgb(218, 234, 238);
+
+    ::-webkit-scrollbar-thumb {
+        background: rgb(218, 234, 238);
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background: rgb(218, 234, 238);
+    }
+}
 
 /* Stile Admin Home */
 .home-title {
@@ -196,13 +235,13 @@ body {
         --bs-table-bg: #0E485B;
     }
 
-    // thead th:first-child {
-    //     border-top-left-radius: 15px;
-    // }
+    thead th:first-child {
+        border-top-left-radius: 15px;
+    }
 
-    // thead th:last-child {
-    //     border-top-right-radius: 15px;
-    // }
+    thead th:last-child {
+        border-top-right-radius: 15px;
+    }
 
     .icon-border {
         -webkit-text-stroke-color: #000000;
@@ -377,6 +416,7 @@ main {
         color: white;
     }
 }
+
 
 
 // Grafico visualizzazioni
