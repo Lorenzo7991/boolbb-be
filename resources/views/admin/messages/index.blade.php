@@ -12,9 +12,9 @@
             <tr class="text-center">
                 <th scope="col" class="text-center text-white brd-left"><i class=" ps-1 fa-solid fa-camera-retro icon-border"></i></th>
                 <th scope="col" class="text-white d-none d-md-table-cell"><i class="fa-solid fa-clock me-2 icon-border"></i><span>Data e ora</span></th>
-                <th scope="col" class="text-white"><div class="d-flex justify-content-center align-items-center"><i class="fa-solid fa-tag me-2  icon-border"></i><span class="d-none d-xl-table-cell">Appartamento</span></div></th>
+                <th scope="col" class="text-white"><div class="d-flex justify-content-center align-items-center"><i class="fa-solid fa-tag me-2  icon-border"></i><span class="d-none d-md-table-cell">Appartamento</span></div></th>
                 <th scope="col" class="text-white d-none d-xl-table-cell"><i class="fa-solid fa-location-dot  me-2  icon-border"></i><span>Indirizzo</span></th>
-                <th scope="col" class="text-white "><div class="d-flex justify-content-center align-items-center" ><i class="fa-solid fa-paper-plane  me-2  icon-border "></i><span class="d-none d-xl-table-cell">Mittente</span></div></th>
+                <th scope="col" class="text-white "><div class="d-flex justify-content-center align-items-center" ><i class="fa-solid fa-paper-plane  me-2  icon-border "></i><span class="d-none d-md-table-cell">Mittente</span></div></th>
                 <th scope="col" class="text-white d-none d-xl-table-cell"><i class="fa-solid fa-envelope-open  me-2  icon-border"></i><span>Oggetto</span></th>
                 <th scope="col" class="text-white d-none d-xxl-table-cell"><i class="fa-solid fa-eye  me-2  icon-border"></i><span>Anteprima</span></th>
                 <th class="text-center text-white brd-right" scope="col"><i class="fa-solid fa-gamepad icon-border"></i></th>

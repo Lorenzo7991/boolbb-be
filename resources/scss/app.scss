@@ -74,8 +74,8 @@ body {
 
 
 .show-main-img {
-    border-radius: 4px;
-    max-width: 70%;
+    border-radius: 10px;
+    //max-width: 70%;
 }
 
 .gallery-item {
@@ -103,7 +103,7 @@ body {
 }
 
 .show-figure {
-    height: 125px;
+
     width: 100%;
     border-radius: 10px;
 
@@ -280,6 +280,7 @@ main {
     flex-basis: 70%;
     flex-grow: 1;
     overflow: auto;
+    padding-top: 1.5rem;
 }
 
 .main-content {
@@ -406,14 +407,24 @@ main {
 // Sponsorship button sulla show
 
 .sponsorship-button {
+
     .card-header {
         background-color: #25475a;
         color: white;
+
+        &:hover {
+            text-shadow: 0 0 2px white;
+        }
+
     }
 
     &.btn.btn-sm {
         background-color: #25475a;
         color: white;
+
+        &:hover {
+            text-shadow: 0 0 2px white;
+        }
     }
 }
 
