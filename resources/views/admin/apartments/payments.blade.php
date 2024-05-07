@@ -4,7 +4,9 @@
     <form id="payment-form" action="{{ route('sponsorship.store', $apartment->id) }}" method="post">
         @csrf
         <div x-data="{ currentActive: 'gold' }">
-            <h1 class="text-center mb-5">Piani di sponsorizzazione</h1>
+             <h2 class="home-title fs-1 fw-bolder mt-3 py-2 text-center">
+        {{ __('Piani di Sponsorizzazione:') }}
+    </h2>
             <div class=" row row-cols-3" id="sponsorship-cards">
                 @foreach ($sponsorships as $sponsorship)
                     <!--card sponsorizzazione-->
@@ -36,11 +38,11 @@
 
 
         <!--card pagamento-->
-        <div class="card my-5">
+        <div class="card my-4 col-6 mx-auto">
             <div class="card-body">
                 <div id="dropin-container" class=""></div>
                 <input type="hidden" id="nonce" name="payment_method_nonce" />
-                <input type="hidden" id="device_data" name="device_data">
+                <input type="hidden" id="device_data" name="device_data" class="me-2">
             </div>
             <div class="card-footer">
                 <input id="paybutton" type="submit" class="btn sponsor-cs-color btn-primary" value="Paga"/>
@@ -143,6 +145,13 @@
     max-height: fit-content;
     transition: transform .3s, opacity .3s, max-height .3s ease;
     width: 100%;
+}
+
+.braintree-sheet__content--form .braintree-form__notice-of-collection {
+    font-size: 12px;
+    margin: auto;
+    margin-left: 20px;
+    text-align: right;
 }
 
 #loader {
