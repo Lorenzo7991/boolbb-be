@@ -97,35 +97,41 @@
                                 class="btn btn-sm btn-primary sponsor-cs-color mb-3 p-2"><i class="fas fa-plus"></i>
                                 Immagine</button>
                         </div>
-                        <div
-                            class="border border-black border-start-0 border-end-0  d-flex flex-column align-items-center py-3 mb-3">
+                        @if (count($apartment->images))
 
-                            {{-- GALLERIA IMMAGINI --}}
-                            <div class="align-self-start">
-                                <button id="gallery-next" class="btn btn-sm btn-outline-dark "><i
-                                        class="fa-solid fa-chevron-left"></i></button>
-                                <button id="gallery-prev" class="btn btn-sm btn-outline-dark "><i
-                                        class="fa-solid fa-chevron-right"></i></button>
+                            <div
+                                class="border border-black border-start-0 border-end-0  d-flex flex-column align-items-center py-3 mb-3">
+
+                                {{-- GALLERIA IMMAGINI --}}
+                                @if (count($apartment->images) > 1)
+                                    <div class="align-self-start">
+                                        <button id="gallery-next" class="btn btn-sm btn-outline-dark "><i
+                                                class="fa-solid fa-chevron-left"></i></button>
+                                        <button id="gallery-prev" class="btn btn-sm btn-outline-dark "><i
+                                                class="fa-solid fa-chevron-right"></i></button>
+                                    </div>
+                                @endif
+                                <ul id="show-gallery"
+                                    class=" d-flex flex-nowrap  list-unstyled col-12 row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xxl-4 mt-4">
+                                    @foreach ($apartment->images as $image)
+                                        <li class="gallery-item col">
+                                            <figure class="show-figure">
+                                                <img id="img-{{ $image->id }}"
+                                                    src="{{ asset('storage/' . $image->path) }}" class="rounded img-fluid"
+                                                    alt="image-{{ $image->id }}">
+                                                <form class="delete-img" action="{{ route('image.destroy', $image->id) }}"
+                                                    method="POST">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button class=" btn-sm btn delete-img-btn" type="submit"><i
+                                                            class="text-white fa-solid fa-xmark"></i></button>
+                                                </form>
+                                            </figure>
+                                        </li>
+                                    @endforeach
+                                </ul>
                             </div>
-                            <ul id="show-gallery"
-                                class=" d-flex flex-nowrap  list-unstyled col-12 row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xxl-4 mt-4">
-                                @foreach ($apartment->images as $image)
-                                    <li class="gallery-item col">
-                                        <figure class="show-figure">
-                                            <img id="img-{{ $image->id }}" src="{{ asset('storage/' . $image->path) }}"
-                                                class="rounded img-fluid" alt="image-{{ $image->id }}">
-                                            <form class="delete-img" action="{{ route('image.destroy', $image->id) }}"
-                                                method="POST">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button class=" btn-sm btn delete-img-btn" type="submit"><i
-                                                        class="text-white fa-solid fa-xmark"></i></button>
-                                            </form>
-                                        </figure>
-                                    </li>
-                                @endforeach
-                            </ul>
-                        </div>
+                        @endif
 
                     </div>
                     <div class="col">
