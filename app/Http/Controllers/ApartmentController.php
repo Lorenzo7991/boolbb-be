@@ -180,6 +180,7 @@ class ApartmentController extends Controller
                     ->orderByDesc('expire_date')
                     ->limit(1),
             ])
+            ->whereUserId(Auth::id())
             ->get();
         // Apartment::whereHas('sponsorships', function ($query) use ($current_date) {
         //     // Filtra le sponsorship con scadenza maggiore della data attuale

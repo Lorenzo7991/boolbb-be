@@ -19,24 +19,24 @@
 
                 {{-- TITOLO APPARTAMENTO --}}
                 <div class="card-header fs-1 mb-2"><strong>{{ $apartment->title }}</strong></div>
-                <div class="d-flex gap-3 infos">
-                    <p><strong>Indirizzo:</strong> {{ $apartment->address }}</p> -
+                <div class="row row-gap-3 infos">
+                    <p class="col-12 col-sm-7 col-md-6 "><strong>Indirizzo:</strong> {{ $apartment->address }}</p>
                     {{-- STATO PUBBLICAZIONE --}}
-                    <p><strong>Pubblicato:</strong>
+                    <p class="col-12 col-sm-5 col-md-3"><strong>Pubblicato:</strong>
                         {!! $apartment->is_visible
                             ? '<i class="fa-solid fa-circle-check text-success "></i>'
                             : '<i class="fa-solid fa-circle-xmark text-danger "></i>' !!}
                     </p> 
-                    <p><strong>Prezzo/n:</strong> {{ $apartment->price_per_night }}€</p>
+                    <p class="col-12 col-md-3"><strong>Prezzo/n:</strong> {{ $apartment->price_per_night }}€</p>
                 </div>
                 <div class="row">
                     {{-- Sponsorizzazione --}}
                     @if ($latest_expiration_string !== null)
-                        <div class="col-6 offset-3">
+                        <div class="col-12 col-md-10 col-xl-8 col-xxl-6 my-3">
                             <a class="card text-decoration-none sponsorship-button"
                                 href="{{ route('sponsorship.create', $apartment->id) }}">
-                                <div class="card-header text-center ">
-                                    <i class="text-warning fa-solid fa-bolt-lightning"></i> Estendi
+                                <div class="card-header text-center sponsor-btn ">
+                                    <i class="text-warning fa-solid fa-bolt-lightning"></i> Estendi sponsorizzazione
                                 </div>
                                 <div class="card-body" id="counter"
                                     data-expiration-date="{{ $latest_expiration_string }}">
@@ -44,22 +44,26 @@
                                         {{-- Giorni --}}
                                         <div class="d-flex flex-column align-items-center border rounded w-25 ">
                                             <span class="text-nowrap" id="days"></span>
-                                            <small>Giorni</small>
+                                            <small class="d-none d-sm-inline">Giorni</small>
+                                            <small class="d-sm-none">G</small>
                                         </div>
                                         {{-- Ore --}}
                                         <div class="d-flex flex-column align-items-center border rounded w-25  ">
                                             <span class="text-nowrap" id="hours"></span>
-                                            <small>Ore</small>
+                                            <small class="d-none d-sm-inline">Ore</small>
+                                            <small class="d-sm-none">O</small>
                                         </div>
                                         {{-- Minuti --}}
                                         <div class="d-flex flex-column align-items-center border rounded w-25 ">
                                             <span class="text-nowrap" id="minutes"></span>
-                                            <small>Minuti</small>
+                                            <small class="d-none d-sm-inline">Minuti</small>
+                                            <small class="d-sm-none">M</small>
                                         </div>
                                         {{-- Secondi --}}
                                         <div class="d-flex flex-column align-items-center border rounded w-25 ">
                                             <span class="text-nowrap" id="seconds"></span>
-                                            <small>Secondi</small>
+                                            <small class="d-none d-sm-inline">Secondi</small>
+                                            <small class="d-sm-none">S</small>
                                         </div>
                                     </div>
                                 </div>
@@ -93,7 +97,7 @@
                                     class="fas fa-plus"></i> Immagine</button>
                         </div>
                         {{-- GALLERIA IMMAGINI --}}
-                        <ul class="d-flex list-unstyled col-8 row row-cols-2 row-cols-lg-3 row-cols-xxl-4 mt-4">
+                        <ul class="d-flex list-unstyled col-12 row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xxl-4 mt-4"> 
                             @foreach ($apartment->images as $image)
                                 <li class="gallery-item col">
                                     <figure class="show-figure">
@@ -157,7 +161,7 @@
                 </div>
 
 
-                <div id="btn-group-action" class="card-footer d-flex align-items-center justify-content-end gap-3">
+                <div id="btn-group-action " class=" my-4 card-footer d-flex align-items-center justify-content-end gap-3">
                     {{-- Gruppo pulsanti navigazione --}}
                     {{-- Gruppo pulsanti azione --}}
                     {{-- Pulsante modifica --}}

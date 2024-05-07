@@ -16,8 +16,8 @@
             <tr class="text-center">
                 <th scope="col" class="text-center text-white brd-left"><i
                         class=" ps-1 fa-solid fa-camera-retro icon-border"></i></th>
-                <th scope="col" class="text-white text-center"><i
-                        class="fa-solid fa-tag me-2  icon-border"></i>Appartamento</th>
+                <th scope="col" class="text-white  text-center"><i
+                        class="fa-solid fa-tag me-2 icon-border"></i><span class="d-none d-sm-inline">Appartamento</span></th>
                 <th scope="col" class="text-white d-none d-md-table-cell"><i
                         class="fa-solid fa-location-dot  me-2  icon-border"></i>Indirizzo
                 </th>
@@ -25,7 +25,7 @@
                         class="fa-solid fa-expand me-2 icon-border"></i>mq<sup>2</sup>
                 </th>
                 <th scope="col" class="text-white d-none d-xl-table-cell"><i
-                        class="fa-solid fa-coins  icon-border"></i>/prezzo per notte</th>
+                        class="fa-solid fa-coins  icon-border"></i>/notte</th>
                 <th scope="col" class="text-white d-none d-sm-table-cell">Publicati</th>
                 <th class="text-center text-white brd-right" scope="col"><i class="fa-solid fa-gamepad icon-border"></i>
                 </th>
@@ -86,9 +86,9 @@
                             <a href="{{ route('apartments.show', $apartment->id) }}" class="btn sponsor-cs-color btn-primary"><i
                                     class="fa-solid fa-magnifying-glass"></i></a>
                             <!--Bottone modifica-->
-                            <a class="btn btn-warning d-none d-xl-inline"
+                            {{-- <a class="btn btn-warning d-none d-xl-inline"
                                 href="{{ route('apartments.edit', $apartment->id) }}"><i
-                                    class="fa-solid fa-pen-to-square text-white"></i></a>
+                                    class="fa-solid fa-pen-to-square text-white"></i></a> --}}
                             <!--Bottone cancella-->
                             <form id="delete-form-{{ $apartment->id }}"
                                 action="{{ route('apartments.destroy', $apartment->id) }}" method="POST"

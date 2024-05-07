@@ -25,6 +25,10 @@ class SponsorshipController extends Controller
      */
     public function create(Apartment $apartment)
     {
+        if ($apartment->user_id !== Auth::id()) {
+
+            return to_route('admin.home')->with('message', 'Non sei autorizzato ad effettuare questa operazione')->with('type', 'danger');
+        }
         $gateway = new Gateway([
             'environment' => 'sandbox',
             'merchantId' => 'tqcvwgvx389yj3m8',
