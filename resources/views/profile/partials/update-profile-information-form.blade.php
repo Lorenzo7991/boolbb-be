@@ -1,6 +1,6 @@
 <section>
     <header>
-        <h2 class="text-secondary">
+        <h2 class="home-title">
             {{ __('Informazioni del profilo') }}
         </h2>
 
