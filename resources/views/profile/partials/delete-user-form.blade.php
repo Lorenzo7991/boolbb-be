@@ -1,6 +1,6 @@
 <section class="space-y-6">
     <header>
-        <h2 class="text-lg font-medium text-gray-900">
+        <h2 class="text-lg home-title font-medium text-gray-900">
             {{ __('Cancella Account') }}
         </h2>
 
@@ -11,7 +11,7 @@
 
     <!-- Modal trigger button -->
     <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete-account">
-        {{ __('Delete Account') }}
+        {{ __('Cancella Account') }}
     </button>
 
     <!-- Modal Body -->
@@ -21,7 +21,7 @@
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="delete-account">Delete Account</h5>
+                    <h5 class="modal-title" id="delete-account">Cancella Account</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
