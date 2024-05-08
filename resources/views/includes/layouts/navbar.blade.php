@@ -10,7 +10,7 @@
             <!-- Left Side Of Navbar -->
             <ul class="navbar-nav me-auto">
                 <li class="nav-item">
-                    <a class="nav-link d-flex align-items-center" id="logo-link" href="{{ url('/') }}">
+                    <a class="nav-link d-flex align-items-center" id="logo-link" href="http://localhost:5174/">
                         <figure class="logo-wrapper">
 
                             <img class="img-fluid" src="{{ asset('assets/logo.png') }}" alt="logo">
